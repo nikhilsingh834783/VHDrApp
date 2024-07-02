@@ -1,0 +1,61 @@
+name: venus
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.6
+  get: 4.6.6
+  flutter_switch: ^0.3.2
+  pin_code_fields: ^8.0.1
+  persistent_bottom_nav_bar: ^5.0.2
+  flutter_svg: ^2.0.10+1
+  open_settings_plus: ^0.3.3
+  local_auth: ^2.2.0
+  get_storage: ^2.1.1
+  flutter_easyloading: ^3.0.5
+  flutter: 
+    sdk: flutter
+  shared_preferences: ^2.2.3
+  dio: ^5.4.3+1
+  device_info_plus: ^10.1.0
+  device_marketing_names: ^0.8.3
+  rflutter_alert: ^2.0.7
+  flutter_cached_pdfview: ^0.4.2
+  dropdown_button2: ^2.3.9
+  connectivity_plus: ^5.0.2
+
+dev_dependencies: 
+  flutter_lints: ^3.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/svg/
+    - assets/images/png/
+    - assets/fonts/
+  fonts:
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/plus_jakarta_sans/PlusJakartaSans-ExtraBold.ttf
+          weight: 800
+
+
