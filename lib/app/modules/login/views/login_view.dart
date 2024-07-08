@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/app_common_widgets/common_elevated_button.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
-import 'package:venus/app/app_common_widgets/common_textform_field.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/constant/asset_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/forgotpassword/views/forgotpassword_view.dart';
 
+import '../../../app_common_widgets/common_import.dart';
 import '../../../core/services/biometric_service.dart';
 import '../controllers/login_controller.dart';
 
@@ -174,6 +169,36 @@ class LoginView extends GetView<LoginController> {
                           ],
                         )
                       : const SizedBox(),
+                  // CustomPopupMenu(
+                  //   showArrow: false,
+                  //   position: PreferredPosition.bottom,
+                  //   menuBuilder: () => const ShowCaalenderWidget(),
+                  //   pressType: PressType.singleClick,
+                  //   verticalMargin: 5,
+                  //   horizontalMargin: 20,
+                  //   controller: controller.organizationPopupMenuController,
+                  //   onTap: () {
+                  //     controller.organizationPopupMenuController.showMenu();
+                  //   },
+                  //   child: SizedBox(
+                  //       width: Sizes.crossLength * 0.20,
+                  //       child: AppButton(
+                  //         radius: 50,
+                  //         text: controller.withPaasword
+                  //             ? 'Log In'
+                  //             : "Generate OTP",
+                  //         onPressed: () {
+                  //           controller.organizationPopupMenuController
+                  //               .showMenu();
+                  //           // FocusScope.of(context).unfocus();
+                  //           // // Get.to(() => const BottomBarView());
+                  //           // if (controller.loginFormKey.currentState!
+                  //           //     .validate()) {
+                  //           //   controller.validateMobileNo(context);
+                  //           // }
+                  //         },
+                  //       )),
+                  // ),
                   SizedBox(
                       width: Sizes.crossLength * 0.20,
                       child: AppButton(

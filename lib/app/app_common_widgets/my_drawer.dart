@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:venus/app/app_common_widgets/common_elevated_button.dart';
@@ -13,6 +14,7 @@ import 'package:venus/app/modules/login/views/login_view.dart';
 import 'package:venus/main.dart';
 
 import '../core/services/biometric_service.dart';
+import '../modules/patientlist/controllers/patientlist_controller.dart';
 import '../modules/patientlist/views/patientlist_view.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -281,8 +283,18 @@ class _MyDrawerState extends State<MyDrawer> {
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
+                          hideBottomBar.value = false;
                           Navigator.pop(context);
-                          Get.to(() => const PatientlistView());
+                          var patientController =
+                              Get.put(PatientlistController());
+                          patientController.getFilterData(isLoader: true);
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const PatientlistView(),
+                            withNavBar: true,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
                         },
                         child: Row(
                           children: [

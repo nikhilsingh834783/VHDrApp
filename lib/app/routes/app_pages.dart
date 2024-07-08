@@ -89,7 +89,7 @@ class AppPages {
       binding: OtschedulerBinding(),
     ),
     GetPage(
-      name: _Paths.NoInterNet,
+      name: _Paths.CHARGELIST,
       page: () => const NoInternetView(),
       binding: NoInternetBinding(),
     ),

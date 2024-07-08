@@ -57,6 +57,7 @@ class PatientlistView extends GetView<PatientlistController> {
                     children: [
                       Expanded(
                         child: AppTextField(
+                          focusNode: controller.focusNode,
                           controller: controller.searchController,
                           onTap: () {
                             controller.showShortButton = false;
@@ -70,6 +71,7 @@ class PatientlistView extends GetView<PatientlistController> {
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 30),
                           onTapOutside: (event) {
+                            print("======");
                             FocusScope.of(context).unfocus();
                             // Future.delayed(const Duration(milliseconds: 300));
                             controller.showShortButton = true;
@@ -204,8 +206,16 @@ class PatientlistView extends GetView<PatientlistController> {
                                       : Sizes.crossLength * 0.120),
                               itemCount: controller.filterPatientList!.length,
                               itemBuilder: (context, i) {
-                                return PatientList(
-                                  patientData: controller.filterPatientList![i],
+                                return GestureDetector(
+                                  onTap: () {
+                                    print("=====w");
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  child: PatientList(
+                                    patientData:
+                                        controller.filterPatientList![i],
+                                    textcontext: context,
+                                  ),
                                 );
                               },
                             )
@@ -231,6 +241,7 @@ class PatientlistView extends GetView<PatientlistController> {
                               itemBuilder: (context, i) {
                                 return PatientList(
                                   patientData: controller.patientList[i],
+                                  textcontext: context,
                                 );
                               },
                             ),

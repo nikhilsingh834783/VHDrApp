@@ -34,6 +34,7 @@ class PatientlistController extends GetxController {
   var bottomBarController = Get.put(BottomBarController());
   final TextEditingController searchController = TextEditingController();
   bool showShortButton = true;
+  FocusNode focusNode = FocusNode();
 
   @override
   void onInit() {

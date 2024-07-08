@@ -19,6 +19,7 @@ import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/views/bottom_bar_view.dart';
 import 'package:venus/app/modules/login/model/login_model.dart';
 
+import '../../../app_common_widgets/custom_pop_menu.dart';
 import '../../verifyotp/views/verifyotp_view.dart';
 import '../model/send_otp_model.dart';
 
@@ -29,6 +30,9 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
   bool biometricEnable = false;
+  final organizationPopupMenuController = CustomPopupMenuController();
+  DateTime? selectedDate;
+  String? showSelectedDateTime;
 
   @override
   void onInit() async {
