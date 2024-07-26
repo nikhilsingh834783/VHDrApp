@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:venus/app/app_common_widgets/common_text.dart';
 import 'package:venus/app/app_common_widgets/sizer_constant.dart';
 import 'package:venus/app/core/constant/asset_constant.dart';
 import 'package:venus/app/core/them/const_color.dart';
+import 'package:venus/app/modules/labReports/controllers/lab_reports_controller.dart';
+import 'package:venus/app/modules/labReports/views/lab_reports_view.dart';
+import 'package:venus/app/modules/otscheduler/controllers/otscheduler_controller.dart';
+import 'package:venus/app/modules/otscheduler/views/otscheduler_view.dart';
 import 'package:venus/app/modules/patientlist/model/patient_model.dart';
+import 'package:venus/app/modules/progressSummary/controllers/progress_summary_controller.dart';
+import 'package:venus/app/modules/progressSummary/views/progress_summary_view.dart';
+import 'package:venus/app/modules/radiologyReport/controllers/radiology_report_controller.dart';
+import 'package:venus/app/modules/radiologyReport/views/radiology_report_view.dart';
 import 'package:venus/main.dart';
 
 import '../../controllers/patientlist_controller.dart';
@@ -58,26 +67,33 @@ class PatientList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
+                        flex: 5,
                         child: AppText(
                           text: patientData.bedNo ?? "",
-                          fontSize: Sizes.px14,
+                          fontSize: Sizes.px13,
                           fontColor: ConstColor.whiteColor,
                           fontWeight: FontWeight.w500,
-                          maxLine: 1,
+                          maxLine: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       SizedBox(
                         width: getDynamicHeight(size: 0.020),
                       ),
-                      AppText(
-                        text:
-                            "${patientData.ward} -Floor ${patientData.floor.toString()}",
-                        fontSize: Sizes.px14,
-                        fontColor: ConstColor.whiteColor,
-                        fontWeight: FontWeight.w500,
-                        maxLine: 1,
-                        overflow: TextOverflow.ellipsis,
+                      Expanded(
+                        flex: 7,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: AppText(
+                            text:
+                                "${patientData.ward} -Floor ${patientData.floor.toString()}",
+                            fontSize: Sizes.px13,
+                            fontColor: ConstColor.whiteColor,
+                            fontWeight: FontWeight.w500,
+                            maxLine: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -114,7 +130,6 @@ class PatientList extends StatelessWidget {
                         ),
                         PopupMenuButton<int>(
                           onOpened: () {
-                            print("======open....");
                             controller.focusNode.unfocus();
                             FocusScope.of(textcontext).unfocus();
                             FocusScope.of(context).unfocus();
@@ -188,8 +203,79 @@ class PatientList extends StatelessWidget {
                             FocusScope.of(context).unfocus();
                             hideBottomBar.value = false;
                             controller.update();
-                            if (!Get.isSnackbarOpen) {
-                              Get.rawSnackbar(message: "Coming Soon");
+                            if (va == 1) {
+                              var progreesController =
+                                  Get.put(ProgressSummaryController());
+                              progreesController.getProgressSummary(
+                                  ipdNo: patientData.ipdNo ?? '');
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: ProgressSummaryView(
+                                  bedNumber: patientData.bedNo ?? '',
+                                  patientName: patientData.patientName ?? "",
+                                ),
+                                withNavBar: true,
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
+                            } else if (va == 2) {
+                              var labreportsController =
+                                  Get.put(LabReportsController());
+                              labreportsController.showSwipe = true;
+                              hideBottomBar.value = true;
+                              labreportsController.labReportsList = [];
+                              labreportsController.allReportsList = [];
+                              labreportsController.allDatesList = [];
+                              labreportsController.update();
+                              labreportsController.showSwipe = true;
+                              hideBottomBar.value = true;
+                              labreportsController.getLabReporst(
+                                  ipdNo: patientData.ipdNo ?? '',
+                                  uhidNo: patientData.uhid ?? '');
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: LabReportsView(
+                                  bedNumber: patientData.bedNo ?? '',
+                                  patientName: patientData.patientName ?? "",
+                                ),
+                                withNavBar: true,
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
+                            } else if (va == 3) {
+                              var progreesController =
+                                  Get.put(RadiologyReportController());
+                              progreesController.allRadiologyList = [];
+                              progreesController.getRadioLogyReport(
+                                  ipdNo: patientData.ipdNo ?? '',
+                                  uhidNo: patientData.uhid ?? '');
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: RadiologyReportView(
+                                  bedNumber: patientData.bedNo ?? '',
+                                  patientName: patientData.patientName ?? "",
+                                ),
+                                withNavBar: true,
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
+                            } else {
+                              // Get.rawSnackbar(message: "Coming Soon");
+                              var otschedulerController =
+                                  Get.put(OtschedulerController());
+                              otschedulerController.getOrganizationList();
+                              otschedulerController.getOperationName();
+                              otschedulerController.ipdTextController.text =
+                                  patientData.ipdNo ?? '';
+                              otschedulerController.uhidNumber.text =
+                                  patientData.uhid ?? '';
+                              otschedulerController.patientName.text =
+                                  patientData.patientName
+                                          .toString()
+                                          .capitalize ??
+                                      '';
+                              otschedulerController.update();
+                              Get.to(const OtschedulerView());
                             }
                           },
                         ),
@@ -222,11 +308,11 @@ class PatientList extends StatelessWidget {
                               Expanded(
                                 child: AppText(
                                   text: patientData.admType ?? '',
-                                  fontSize: Sizes.px14,
+                                  fontSize: Sizes.px13,
                                   fontColor: ConstColor.black6B6B6B,
                                   fontWeight: FontWeight.w500,
                                   overflow: TextOverflow.ellipsis,
-                                  maxLine: 1,
+                                  maxLine: 2,
                                 ),
                               ),
                             ],
@@ -257,11 +343,11 @@ class PatientList extends StatelessWidget {
                                     Expanded(
                                       child: AppText(
                                         text: patientData.referredDr ?? '-',
-                                        fontSize: Sizes.px14,
+                                        fontSize: Sizes.px13,
                                         fontColor: ConstColor.black6B6B6B,
                                         fontWeight: FontWeight.w500,
                                         overflow: TextOverflow.ellipsis,
-                                        maxLine: 1,
+                                        maxLine: 2,
                                       ),
                                     )
                                   ],

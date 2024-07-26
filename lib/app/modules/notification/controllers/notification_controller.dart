@@ -5,7 +5,6 @@ import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.da
 class NotificationController extends GetxController {
   var bottomBarController = Get.put(BottomBarController());
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  //TODO: Implement NotificationController
 
   final count = 0.obs;
 

@@ -15,4 +15,24 @@ class ConstApiUrl {
   static const filterPatientData = "$drUrl/GetFilteredPatientData";
   static const sortPatientData = "$drUrl/SortDrPatientList";
   static const dashboardFilters = "$drUrl/GetDashboardFilters";
+  static const getProgressSummary = "$drUrl/GetProgressSummary";
+  static const getLabReports = "$drUrl/GetPatientLabReports";
+  static const getRadioLogyReports = "$drUrl/GetDrRadiologyReports";
+  static const getApdAppointments = "$drUrl/GetAppointments";
+  static const getApdAppointmentsDates = "$drUrl/GetApptDateCount";
+  static const getProcedureDates = "$drUrl/GetOTScheduleDateCount";
+
+  static const schduleSurgeryListApi = "$drUrl/GetOTScheduleList";
+  static const roomsApi = "$drUrl/Rooms";
+  static const doctorVisitApi = "$drUrl/DrVisit";
+  static const surgeryApi = "$drUrl/GetSurgeryRate";
+  static const getOperationClassApi = "$drUrl/GetDrOperationClass";
+  static const getOperationNameApi = "$drUrl/GetDrOperationNames";
+
+  static const getOrganizationList = "$drUrl/GetOrgData";
+  static const saveOtSchdule = "$drUrl/SaveOTSchedule";
+  static const additionalSurgeonApi = "$drUrl/GetAdnlSurgDrData";
+  static const getSurgicalEstimateapi = "$drUrl/GetSurgicalEstimate";
+  static const getSurgicalEstimateapiProcedure =
+      "$drUrl/GetSurgicalEstimate_Indoor";
 }

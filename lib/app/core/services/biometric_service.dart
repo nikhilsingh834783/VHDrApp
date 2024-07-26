@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:open_settings_plus/core/open_settings_plus.dart';
-import 'package:venus/app/core/services/appPreference.dart';
+import 'package:venus/app/core/services/app_preference.dart';
 import 'package:venus/app/core/services/local_pref.dart';
 
 class BiometricAuth {
@@ -30,7 +30,6 @@ class BiometricAuth {
       LocalPref.saveDataPref(
           AppPreferencesHelper.isBiometricEnable, isBiomerticOn.toString());
     }
-    print("getBiometric $isBiomerticOn");
   }
 
   static Future<void> authenticate(

@@ -61,6 +61,9 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
                       controller: controller.newPasswordController,
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
                       textInputFormatter: [
                         FilteringTextInputFormatter.deny(RegExp(r'\s')),
                       ],
@@ -101,6 +104,9 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.done,
                         controller: controller.confirmPasswordController,
+                        onTapOutside: (event) {
+                          FocusScope.of(context).unfocus();
+                        },
                         textInputFormatter: [
                           FilteringTextInputFormatter.deny(RegExp(r'\s')),
                         ],

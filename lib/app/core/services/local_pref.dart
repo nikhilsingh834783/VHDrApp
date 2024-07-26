@@ -5,7 +5,6 @@ import 'package:venus/app/core/services/utils.dart';
 class LocalPref {
   static void saveDataPref(String key, String value) {
     Utils.getStorage.write(key, value);
-    print("$key : $value data saved in pref");
   }
 
   static dynamic getPrefData(String key) {

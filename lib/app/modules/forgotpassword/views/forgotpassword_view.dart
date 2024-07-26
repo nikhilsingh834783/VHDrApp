@@ -58,6 +58,9 @@ class ForgotpasswordView extends GetView<ForgotpasswordController> {
                     hintText: 'Enter Mobile Number',
                     controller: controller.mobileController,
                     keyboardType: TextInputType.number,
+                    onTapOutside: (event) {
+                      FocusScope.of(context).unfocus();
+                    },
                     textInputAction: TextInputAction.done,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -79,6 +82,7 @@ class ForgotpasswordView extends GetView<ForgotpasswordController> {
                       text: "Continue",
                       onPressed: () {
                         FocusScope.of(context).unfocus();
+                        // FocusManager.instance.primaryFocus?.unfocus();
                         if (controller.generateOtpKey.currentState!
                             .validate()) {
                           controller.validateMobileNo();

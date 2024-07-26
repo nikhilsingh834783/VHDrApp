@@ -65,13 +65,12 @@ class PatientlistView extends GetView<PatientlistController> {
                           },
                           onChanged: (text) {
                             controller.getFilterData(
-                                searchPrefix: text, isLoader: false);
+                                searchPrefix: text.trim(), isLoader: false);
                           },
                           textInputAction: TextInputAction.done,
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 30),
                           onTapOutside: (event) {
-                            print("======");
                             FocusScope.of(context).unfocus();
                             // Future.delayed(const Duration(milliseconds: 300));
                             controller.showShortButton = true;
@@ -125,7 +124,44 @@ class PatientlistView extends GetView<PatientlistController> {
                                 width: 1, color: ConstColor.borderColor),
                           ),
                           child: Center(
-                            child: SvgPicture.asset(ConstAsset.filterSvg),
+                            child: Stack(
+                              alignment: Alignment.topRight,
+                              clipBehavior: Clip.none,
+                              children: [
+                                SvgPicture.asset(
+                                  ConstAsset.filterSvg,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                controller.selectedOrganizationList
+                                            .isNotEmpty ||
+                                        controller
+                                                .selectedFloorList.isNotEmpty &&
+                                            controller
+                                                .selectedWardList.isNotEmpty
+                                    ? Positioned(
+                                        left: 10,
+                                        bottom: 10,
+                                        child: Container(
+                                          height: 15,
+                                          width: 15,
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: ConstColor.buttonColor),
+                                          child: Center(
+                                            child: AppText(
+                                              text:
+                                                  "${controller.selectedOrganizationList.length + controller.selectedFloorList.length + controller.selectedWardList.length}",
+                                              fontSize: Sizes.px9,
+                                              fontColor: ConstColor.whiteColor,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : const SizedBox()
+                              ],
+                            ),
                           ),
                         ),
                       )
@@ -193,31 +229,43 @@ class PatientlistView extends GetView<PatientlistController> {
                                 fontWeight: FontWeight.w500,
                               ),
                             )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              physics: controller.filterPatientList != null &&
-                                      controller.filterPatientList!.length < 3
-                                  ? const NeverScrollableScrollPhysics()
-                                  : const BouncingScrollPhysics(),
-                              controller: controller.patientScrollController,
-                              padding: EdgeInsets.only(
-                                  bottom: hideBottomBar.value
-                                      ? Sizes.crossLength * 0.020
-                                      : Sizes.crossLength * 0.120),
-                              itemCount: controller.filterPatientList!.length,
-                              itemBuilder: (context, i) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    print("=====w");
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  child: PatientList(
-                                    patientData:
-                                        controller.filterPatientList![i],
-                                    textcontext: context,
-                                  ),
-                                );
+                          : RefreshIndicator(
+                              backgroundColor: ConstColor.whiteColor,
+                              color: ConstColor.buttonColor,
+                              onRefresh: () {
+                                return controller.getFilterData(
+                                    isLoader: false,
+                                    searchPrefix: controller
+                                        .searchController.text
+                                        .trim());
                               },
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
+                                physics: controller.filterPatientList != null &&
+                                        controller.filterPatientList!.length < 3
+                                    ? const NeverScrollableScrollPhysics()
+                                    : const BouncingScrollPhysics(),
+                                controller: controller.patientScrollController,
+                                padding: EdgeInsets.only(
+                                    bottom: hideBottomBar.value
+                                        ? Sizes.crossLength * 0.020
+                                        : Sizes.crossLength * 0.120),
+                                itemCount: controller.filterPatientList!.length,
+                                itemBuilder: (context, i) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    child: PatientList(
+                                      patientData:
+                                          controller.filterPatientList![i],
+                                      textcontext: context,
+                                    ),
+                                  );
+                                },
+                              ),
                             )
                       : controller.patientList.isEmpty
                           ? Center(
@@ -248,10 +296,13 @@ class PatientlistView extends GetView<PatientlistController> {
                 ),
               ],
             ),
-            controller.showShortButton && !hideBottomBar.value
+            controller.showShortButton &&
+                    !hideBottomBar.value &&
+                    controller.filterPatientList != null &&
+                    controller.filterPatientList!.length > 1
                 ? Padding(
                     padding:
-                        EdgeInsets.only(bottom: hideBottomBar.value ? 20 : 60),
+                        EdgeInsets.only(bottom: hideBottomBar.value ? 20 : 70),
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: SizedBox(

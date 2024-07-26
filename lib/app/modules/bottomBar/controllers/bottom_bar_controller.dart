@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:venus/app/app_common_widgets/app_font_name.dart';
 import 'package:venus/app/app_common_widgets/sizer_constant.dart';
 import 'package:venus/app/core/constant/asset_constant.dart';
@@ -35,14 +35,37 @@ class BottomBarController extends GetxController {
     return [
       PersistentBottomNavBarItem(
           title: "Contacts",
-          icon: SvgPicture.asset(
-            ConstAsset.callSvg,
-            color: ConstColor.buttonColor,
+          icon: Column(
+            children: [
+              Container(
+                  height: 10,
+                  width: 20,
+                  decoration: const BoxDecoration(
+                      color: ConstColor.buttonColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(100),
+                        bottomRight: Radius.circular(100),
+                      ))),
+              const SizedBox(
+                height: 10,
+              ),
+              SvgPicture.asset(
+                ConstAsset.callSvg,
+                height: Sizes.crossLength * 0.025,
+                colorFilter: const ColorFilter.mode(
+                  ConstColor.buttonColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ],
           ),
           inactiveIcon: SvgPicture.asset(
             ConstAsset.callSvg,
-            height: Sizes.crossLength * 0.050,
-            color: ConstColor.blackTextColor,
+            height: Sizes.crossLength * 0.025,
+            colorFilter: const ColorFilter.mode(
+              ConstColor.blackTextColor,
+              BlendMode.srcIn,
+            ),
           ),
           activeColorPrimary: ConstColor.buttonColor,
           textStyle: TextStyle(
@@ -55,12 +78,33 @@ class BottomBarController extends GetxController {
             fontSize: Sizes.px12,
             fontWeight: FontWeight.w600,
             fontFamily: CommonFontStyle.plusJakartaSans),
-        icon: SvgPicture.asset(
-          ConstAsset.homeSvg,
+        icon: Column(
+          children: [
+            Container(
+                height: 10,
+                width: 20,
+                decoration: const BoxDecoration(
+                    color: ConstColor.buttonColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                    ))),
+            const SizedBox(
+              height: 10,
+            ),
+            SvgPicture.asset(
+              ConstAsset.homeSvg,
+              height: Sizes.crossLength * 0.025,
+            ),
+          ],
         ),
         inactiveIcon: SvgPicture.asset(
           ConstAsset.homeSvg,
-          color: ConstColor.blackTextColor,
+          height: Sizes.crossLength * 0.025,
+          colorFilter: const ColorFilter.mode(
+            ConstColor.blackTextColor,
+            BlendMode.srcIn,
+          ),
         ),
         activeColorPrimary: ConstColor.buttonColor,
       ),
@@ -70,12 +114,33 @@ class BottomBarController extends GetxController {
             fontSize: Sizes.px12,
             fontWeight: FontWeight.w600,
             fontFamily: CommonFontStyle.plusJakartaSans),
-        icon: SvgPicture.asset(
-          ConstAsset.notificationSvg,
+        icon: Column(
+          children: [
+            Container(
+                height: 10,
+                width: 20,
+                decoration: const BoxDecoration(
+                    color: ConstColor.buttonColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                    ))),
+            const SizedBox(
+              height: 10,
+            ),
+            SvgPicture.asset(
+              ConstAsset.notificationSvg,
+              height: Sizes.crossLength * 0.025,
+            ),
+          ],
         ),
         inactiveIcon: SvgPicture.asset(
           ConstAsset.notificationSvg,
-          color: ConstColor.blackTextColor,
+          height: Sizes.crossLength * 0.025,
+          colorFilter: const ColorFilter.mode(
+            ConstColor.blackTextColor,
+            BlendMode.srcIn,
+          ),
         ),
         activeColorPrimary: ConstColor.buttonColor,
       ),
@@ -83,7 +148,6 @@ class BottomBarController extends GetxController {
   }
 
   void onItemTapped(int index) {
-    print("=====index---$index");
     update();
   }
 }

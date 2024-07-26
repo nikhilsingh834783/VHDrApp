@@ -151,7 +151,8 @@ class LoginController extends GetxController {
           'mobileNo': mobileController.text.trim(),
           'from_login': true,
           'biometric': BiometricAuth.isBiomerticOn ?? false
-        });
+        })!
+            .then((value) => FocusManager.instance.primaryFocus?.unfocus());
         Get.rawSnackbar(message: loginResponse.data?.otpNo);
       } else {
         Get.rawSnackbar(message: loginResponse.message);

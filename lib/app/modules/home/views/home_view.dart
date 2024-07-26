@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:venus/app/app_common_widgets/common_text.dart';
 import 'package:venus/app/app_common_widgets/my_drawer.dart';
 import 'package:venus/app/app_common_widgets/sizer_constant.dart';
 import 'package:venus/app/core/constant/asset_constant.dart';
 import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.dart';
+import 'package:venus/app/modules/opdAppointments/controllers/opd_appointments_controller.dart';
 import 'package:venus/app/modules/patientlist/controllers/patientlist_controller.dart';
 import 'package:venus/app/modules/patientlist/views/patientlist_view.dart';
+import 'package:venus/app/modules/schduleSurgeries/controllers/schdule_surgeries_controller.dart';
 
 import '../../../../main.dart';
+import '../../opdAppointments/views/opd_appointments_view.dart';
+import '../../schduleSurgeries/views/schdule_surgeries_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -67,39 +71,78 @@ class HomeView extends GetView<HomeController> {
                           if (i == 0) {
                             var patientController =
                                 Get.put(PatientlistController());
+                            patientController.searchController.clear();
+                            patientController.filterPatientList = [];
+                            patientController.selectedOrganizationList = [];
+                            patientController.selectedFloorList = [];
+                            patientController.selectedWardList = [];
+                            patientController.sortBySelected = null;
+                            patientController.update();
                             patientController.getFilterData(isLoader: true);
+                            patientController.getDashboardFilters(
+                                isLoader: false);
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
                               screen: const PatientlistView(),
                               withNavBar: true,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.cupertino,
-                            );
+                            ).then((value) {
+                              hideBottomBar.value = false;
+                              controller.getDashboardData();
+                            });
+                            // Get.to(() => const PatientlistView());
+                          } else if (i == 1) {
+                            var appointmentcontroller =
+                                Get.put(OpdAppointmentsController());
+                            calenderType = 0;
+                            appointmentcontroller.searchController.clear();
+                            appointmentcontroller.selectedDate = DateTime.now();
+                            appointmentcontroller.appointmentData = [];
+                            appointMentsDate = [];
+                            appointmentcontroller.searchController.clear();
+                            hideBottomBar.value = false;
+                            appointmentcontroller.scrollController();
+                            appointmentcontroller.getOpdAppointmentsDates(
+                                isLoader: true);
+                            appointmentcontroller.getOpdAppointments(
+                                isLoader: true);
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: const OpdAppointmentsView(),
+                              withNavBar: true,
+                              pageTransitionAnimation:
+                                  PageTransitionAnimation.cupertino,
+                            ).then((value) {
+                              hideBottomBar.value = false;
+                              controller.getDashboardData();
+                            });
                             // Get.to(() => const PatientlistView());
                           } else {
-                            if (!Get.isSnackbarOpen) {
-                              Get.rawSnackbar(message: "Coming Soon");
-                            }
+                            var schduleController =
+                                Get.put(SchduleSurgeriesController());
+                            calenderType = 1;
+                            hideBottomBar.value = false;
+                            schduleController.searchController.clear();
+                            schduleController.selectedScheduleDate =
+                                DateTime.now();
+                            procedureDates = [];
+                            schduleController.procedureListData = [];
+                            schduleController.scrollController();
+                            schduleController.getOpdSchdulesDates(
+                                isLoader: true);
+                            schduleController.getSchduleListApi(isLoader: true);
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: const SchduleSurgeriesView(),
+                              withNavBar: true,
+                              pageTransitionAnimation:
+                                  PageTransitionAnimation.cupertino,
+                            ).then((value) {
+                              hideBottomBar.value = false;
+                              controller.getDashboardData();
+                            });
                           }
-
-                          //  else if (i == 1) {
-                          //   PersistentNavBarNavigator.pushNewScreen(
-                          //     context,
-                          //     screen: const OpdAppointmentsView(),
-                          //     withNavBar: true,
-                          //     pageTransitionAnimation:
-                          //         PageTransitionAnimation.cupertino,
-                          //   );
-                          //   // Get.to(() => const PatientlistView());
-                          // } else {
-                          //   PersistentNavBarNavigator.pushNewScreen(
-                          //     context,
-                          //     screen: const SchduleSurgeriesView(),
-                          //     withNavBar: true,
-                          //     pageTransitionAnimation:
-                          //         PageTransitionAnimation.cupertino,
-                          //   );
-                          // }
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -119,7 +162,7 @@ class HomeView extends GetView<HomeController> {
                             padding: const EdgeInsets.all(20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                   child: Column(

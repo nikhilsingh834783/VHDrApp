@@ -51,12 +51,14 @@ class ForgotpasswordController extends GetxController {
     if (finalData.statusCode == 200) {
       SendOtpModel loginResponse = SendOtpModel.fromJson(finalData.data);
       if (loginResponse.data?.otpNo != null) {
+        FocusManager.instance.primaryFocus?.unfocus();
         Get.to(() => const VerifyotpView(), arguments: {
           "otp": loginResponse.data?.otpNo,
           'mobileNo': mobileController.text.trim(),
           'from_login': false,
           'biometric': BiometricAuth.isBiomerticOn ?? false
-        });
+        })!
+            .then((value) => FocusManager.instance.primaryFocus?.unfocus());
         Get.rawSnackbar(message: loginResponse.data?.otpNo);
       } else {
         Get.rawSnackbar(message: loginResponse.message);

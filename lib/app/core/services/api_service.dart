@@ -13,16 +13,18 @@ class APIServices {
     }
     var dio = diopackage.Dio();
     try {
-      final response = await dio.post(
-        apiUrl!,
-        data: body,
-        options: diopackage.Options(
-          validateStatus: (_) => true,
-          headers: {
-            "Authorization": "Bearer $token",
-          },
-        ),
-      );
+      final response = await dio
+          .post(
+            apiUrl!,
+            data: body,
+            options: diopackage.Options(
+              validateStatus: (_) => true,
+              headers: {
+                "Authorization": "Bearer $token",
+              },
+            ),
+          )
+          .timeout(const Duration(seconds: 45));
       if (isShowLoader) {
         EasyLoading.dismiss();
       }
@@ -30,8 +32,21 @@ class APIServices {
     } catch (exception) {
       EasyLoading.dismiss();
       if (exception.toString().contains('SocketException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Please check your internet connection.");
+        }
+
+        return 'NetworkError';
+      } else if (exception.toString().contains('TimeoutException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Server Error.");
+        }
+
         return 'NetworkError';
       } else {
+        Get.rawSnackbar(message: exception.toString());
         return null;
       }
     }
@@ -49,16 +64,18 @@ class APIServices {
     }
     var dio = diopackage.Dio();
     try {
-      final response = await dio.get(
-        apiUrl!,
-        queryParameters: queryData,
-        options: diopackage.Options(
-          validateStatus: (_) => true,
-          headers: {
-            "Authorization": "Bearer $token",
-          },
-        ),
-      );
+      final response = await dio
+          .get(
+            apiUrl!,
+            queryParameters: queryData,
+            options: diopackage.Options(
+              validateStatus: (_) => true,
+              headers: {
+                "Authorization": "Bearer $token",
+              },
+            ),
+          )
+          .timeout(const Duration(seconds: 45));
       if (isShowLoader) {
         EasyLoading.dismiss();
       }
@@ -67,8 +84,21 @@ class APIServices {
     } catch (exception) {
       EasyLoading.dismiss();
       if (exception.toString().contains('SocketException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Please check your internet connection.");
+        }
+
+        return 'NetworkError';
+      } else if (exception.toString().contains('TimeoutException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Server Error.");
+        }
+
         return 'NetworkError';
       } else {
+        Get.rawSnackbar(message: exception.toString());
         return null;
       }
     }
@@ -85,16 +115,18 @@ class APIServices {
     }
     var dio = diopackage.Dio();
     try {
-      final response = await dio.delete(
-        data: queryData,
-        apiUrl!,
-        options: diopackage.Options(
-          validateStatus: (_) => true,
-          headers: {
-            "Authorization": "Bearer $token",
-          },
-        ),
-      );
+      final response = await dio
+          .delete(
+            data: queryData,
+            apiUrl!,
+            options: diopackage.Options(
+              validateStatus: (_) => true,
+              headers: {
+                "Authorization": "Bearer $token",
+              },
+            ),
+          )
+          .timeout(const Duration(seconds: 45));
       if (isShowLoader) {
         EasyLoading.dismiss();
       }
@@ -103,8 +135,21 @@ class APIServices {
     } catch (exception) {
       EasyLoading.dismiss();
       if (exception.toString().contains('SocketException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Please check your internet connection.");
+        }
+
+        return 'NetworkError';
+      } else if (exception.toString().contains('TimeoutException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Server Error.");
+        }
+
         return 'NetworkError';
       } else {
+        Get.rawSnackbar(message: exception.toString());
         return null;
       }
     }
@@ -121,16 +166,18 @@ class APIServices {
     }
     var dio = diopackage.Dio();
     try {
-      final response = await dio.put(
-        apiUrl!,
-        queryParameters: queryData,
-        options: diopackage.Options(
-          validateStatus: (_) => true,
-          headers: {
-            "Authorization": "Bearer $token",
-          },
-        ),
-      );
+      final response = await dio
+          .put(
+            apiUrl!,
+            queryParameters: queryData,
+            options: diopackage.Options(
+              validateStatus: (_) => true,
+              headers: {
+                "Authorization": "Bearer $token",
+              },
+            ),
+          )
+          .timeout(const Duration(seconds: 45));
       if (isShowLoader) {
         EasyLoading.dismiss();
       }
@@ -139,48 +186,20 @@ class APIServices {
     } catch (exception) {
       EasyLoading.dismiss();
       if (exception.toString().contains('SocketException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Please check your internet connection.");
+        }
+
+        return 'NetworkError';
+      } else if (exception.toString().contains('TimeoutException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Server Error.");
+        }
         return 'NetworkError';
       } else {
-        return null;
-      }
-    }
-  }
-
-  static dynamic getMethodWithoutHeaderDio(
-      {String? apiUrl,
-      bool isShowLoader = true,
-      Map<String, dynamic>? queryData,
-      bool? headerChange}) async {
-    if (isShowLoader) {
-      EasyLoading.show(maskType: EasyLoadingMaskType.clear);
-    }
-
-    var dio = diopackage.Dio();
-    try {
-      final response = await dio.get(
-        apiUrl!,
-        queryParameters: queryData,
-        options: diopackage.Options(
-          validateStatus: (_) => true,
-          headers: {
-            "X-RapidAPI-Host": "world-airports-directory.p.rapidapi.com",
-            "X-RapidAPI-Key":
-                "52ba1fe3d4msh68838eab5fd8e61p1e93f9jsnda8d255093f3",
-          },
-        ),
-      );
-      if (isShowLoader) {
-        EasyLoading.dismiss();
-      }
-
-      return response;
-    } catch (exception) {
-      EasyLoading.dismiss();
-
-      if (exception.toString().contains('SocketException')) {
-        return 'NetworkError';
-      } else {
-        return null;
+        Get.rawSnackbar(message: exception.toString());
       }
     }
   }
@@ -189,19 +208,20 @@ class APIServices {
     EasyLoading.show(maskType: EasyLoadingMaskType.clear);
     var dio = diopackage.Dio();
     try {
-      final diopackage.Response response = await dio.post(
-        url,
-        data: body,
-        options: diopackage.Options(
-            validateStatus: (_) => true,
-            headers: {'Content-Type': 'application/json'}),
-      );
+      final diopackage.Response response = await dio
+          .post(
+            url,
+            data: body,
+            options: diopackage.Options(
+                validateStatus: (_) => true,
+                headers: {'Content-Type': 'application/json'}),
+          )
+          .timeout(const Duration(seconds: 45));
 
       EasyLoading.dismiss();
       return response;
     } catch (exception) {
       EasyLoading.dismiss();
-
       if (exception.toString().contains('SocketException')) {
         if (Get.isSnackbarOpen) {
         } else {
@@ -209,9 +229,14 @@ class APIServices {
         }
 
         return 'NetworkError';
+      } else if (exception.toString().contains('TimeoutException')) {
+        if (Get.isSnackbarOpen) {
+        } else {
+          Get.rawSnackbar(message: "Server Error.");
+        }
+        return 'NetworkError';
       } else {
         Get.rawSnackbar(message: exception.toString());
-        return null;
       }
     }
   }

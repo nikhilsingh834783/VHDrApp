@@ -54,52 +54,20 @@ class NoInternetController extends GetxController {
       case ConnectivityResult.wifi:
         connectionType.value = ConnectivityResult.wifi.index;
         checkAndCloseDialog();
-
-        // connectionType.value = ConnectivityResult.mobile.index;
-        print("ConnectivityResult.wifi : ${connectionType.value}");
-        // if (result == null) {
-        //   navigatorKey1.currentState?.pushReplacement(
-        //       MaterialPageRoute(builder: (context) => SplashScreen()));
-        // } else {
-        //   navigatorKey1.currentState?.pushReplacementNamed(
-        //     "/layout",
-        //   );
-        // }
         break;
       // Mobile
       case ConnectivityResult.mobile:
         connectionType.value = ConnectivityResult.mobile.index;
         checkAndCloseDialog();
-        print("ConnectivityResult.mobile : ${connectionType.value}");
-        // if (result == null) {
-        //   navigatorKey1.currentState?.pushReplacement(
-        //     MaterialPageRoute(builder: (context) => SplashScreen()),
-        //   );
-        // } else {
-        //   navigatorKey1.currentState?.pushReplacementNamed(
-        //     "/layout",
-        //   );
-        // }
         break;
       // Ethernet
       case ConnectivityResult.ethernet:
         connectionType.value = ConnectivityResult.ethernet.index;
         checkAndCloseDialog();
-        print("ConnectivityResult.ethernet : ${connectionType.value}");
-        // if (result == null) {
-        //   navigatorKey1.currentState?.pushReplacement(
-        //     MaterialPageRoute(builder: (context) => SplashScreen()),
-        //   );
-        // } else {
-        //   navigatorKey1.currentState?.pushReplacementNamed(
-        //     "/layout",
-        //   );
-        // }
         break;
       // None
       case ConnectivityResult.none:
         connectionType.value = ConnectivityResult.none.index;
-        print("ConnectivityResult.none : ${connectionType.value}");
         if (isOpenInternetConnectionDialog == false) {
           isOpenInternetConnectionDialog = true;
           update();
@@ -109,16 +77,13 @@ class NoInternetController extends GetxController {
         break;
       case ConnectivityResult.bluetooth:
         connectionType.value = ConnectivityResult.bluetooth.index;
-        print("ConnectivityResult.bluetooth : ${connectionType.value}");
         break;
       case ConnectivityResult.vpn:
         connectionType.value = ConnectivityResult.vpn.index;
-        print("ConnectivityResult.vpn : ${connectionType.value}");
         break;
 
       case ConnectivityResult.other:
         connectionType.value = ConnectivityResult.other.index;
-        print("ConnectivityResult.other : ${connectionType.value}");
         break;
       default:
         Get.rawSnackbar(message: "Failed to get connection type");

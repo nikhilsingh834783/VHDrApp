@@ -53,6 +53,9 @@ class LoginView extends GetView<LoginController> {
                     textInputFormatter: [
                       LengthLimitingTextInputFormatter(10),
                     ],
+                    onTapOutside: (event) {
+                      FocusScope.of(context).unfocus();
+                    },
                     textInputAction: TextInputAction.done,
                     controller: controller.mobileController,
                     validator: (value) {
@@ -76,6 +79,9 @@ class LoginView extends GetView<LoginController> {
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.done,
                           controller: controller.passwordController,
+                          onTapOutside: (event) {
+                            FocusScope.of(context).unfocus();
+                          },
                           obscureText: controller.hidePassword,
                           textInputFormatter: [
                             FilteringTextInputFormatter.deny(RegExp(r'\s')),

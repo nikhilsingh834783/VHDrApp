@@ -252,6 +252,8 @@ class VerifyotpView extends GetView<VerifyotpController> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      // FocusManager.instance.primaryFocus?.unfocus();
+                      // Navigator.pop(context);
                       Get.back();
                     },
                     child: AppText(

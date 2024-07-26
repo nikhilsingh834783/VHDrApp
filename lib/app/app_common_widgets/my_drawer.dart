@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:venus/app/app_common_widgets/common_elevated_button.dart';
@@ -14,8 +14,16 @@ import 'package:venus/app/modules/login/views/login_view.dart';
 import 'package:venus/main.dart';
 
 import '../core/services/biometric_service.dart';
+import '../modules/costestimate/views/costestimate_view.dart';
+import '../modules/home/controllers/home_controller.dart';
+import '../modules/opdAppointments/controllers/opd_appointments_controller.dart';
+import '../modules/opdAppointments/views/opd_appointments_view.dart';
 import '../modules/patientlist/controllers/patientlist_controller.dart';
 import '../modules/patientlist/views/patientlist_view.dart';
+import '../modules/schduleSurgeries/controllers/schdule_surgeries_controller.dart';
+import '../modules/schduleSurgeries/views/schdule_surgeries_view.dart';
+import '../modules/schedulechargelist/controllers/schedulechargelist_controller.dart';
+import '../modules/schedulechargelist/views/schedulechargelist_view.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -287,14 +295,24 @@ class _MyDrawerState extends State<MyDrawer> {
                           Navigator.pop(context);
                           var patientController =
                               Get.put(PatientlistController());
+                          var homeController = Get.put(HomeController());
+                          patientController.searchController.clear();
+                          patientController.filterPatientList = [];
+                          patientController.selectedOrganizationList = [];
+                          patientController.selectedFloorList = [];
+                          patientController.selectedWardList = [];
+                          patientController.sortBySelected = null;
+                          patientController.update();
                           patientController.getFilterData(isLoader: true);
+                          patientController.getDashboardFilters(
+                              isLoader: false);
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
                             screen: const PatientlistView(),
                             withNavBar: true,
                             pageTransitionAnimation:
                                 PageTransitionAnimation.cupertino,
-                          );
+                          ).then((value) => homeController.getDashboardData());
                         },
                         child: Row(
                           children: [
@@ -315,10 +333,24 @@ class _MyDrawerState extends State<MyDrawer> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Navigator.pop(context);
-                          if (!Get.isSnackbarOpen) {
-                            Get.rawSnackbar(message: "Coming Soon");
-                          }
-                          // Get.to(() => const SchduleSurgeriesView());
+                          var schduleController =
+                              Get.put(SchduleSurgeriesController());
+                          var homeController = Get.put(HomeController());
+                          calenderType = 1;
+                          schduleController.selectedScheduleDate =
+                              DateTime.now();
+                          procedureDates = [];
+                          schduleController.procedureListData = [];
+                          schduleController.scrollController();
+                          schduleController.getOpdSchdulesDates(isLoader: true);
+                          schduleController.getSchduleListApi(isLoader: true);
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const SchduleSurgeriesView(),
+                            withNavBar: true,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          ).then((value) => homeController.getDashboardData());
                         },
                         child: Row(
                           children: [
@@ -343,10 +375,28 @@ class _MyDrawerState extends State<MyDrawer> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Navigator.pop(context);
-                          // Get.to(() => const OpdAppointmentsView());
-                          if (!Get.isSnackbarOpen) {
-                            Get.rawSnackbar(message: "Coming Soon");
-                          }
+                          var appointmentcontroller =
+                              Get.put(OpdAppointmentsController());
+                          var homeController = Get.put(HomeController());
+                          calenderType = 0;
+                          appointmentcontroller.selectedDate = DateTime.now();
+                          appointmentcontroller.appointmentData = [];
+                          appointMentsDate = [];
+                          appointmentcontroller.searchController.clear();
+                          appointmentcontroller.scrollController();
+                          appointmentcontroller.getOpdAppointmentsDates(
+                              isLoader: true);
+                          appointmentcontroller.getOpdAppointments(
+                              isLoader: true);
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const OpdAppointmentsView(),
+                            withNavBar: true,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          ).then((value) {
+                            homeController.getDashboardData();
+                          });
                         },
                         child: Row(
                           children: [
@@ -368,11 +418,32 @@ class _MyDrawerState extends State<MyDrawer> {
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
+                          hideBottomBar.value = false;
+
                           Navigator.pop(context);
-                          // Get.to(() => const ChargelistView());
-                          if (!Get.isSnackbarOpen) {
-                            Get.rawSnackbar(message: "Coming Soon");
-                          }
+                          var schduleCharges =
+                              Get.put(SchedulechargelistController());
+                          schduleCharges.selectedTab = 0;
+                          schduleCharges.searchController.clear();
+                          schduleCharges.selectedOperationList = [];
+                          schduleCharges.selectedOperationId = [];
+                          schduleCharges.roomsData = [];
+                          hideBottomBar.value = false;
+                          schduleCharges.doctorsListData = [];
+                          schduleCharges.operationClassListData = [];
+                          schduleCharges.surgeryListData = [];
+                          schduleCharges.operationClassController.clear();
+                          schduleCharges.scrollListner();
+                          schduleCharges.getRooms(isLoader: true);
+                          schduleCharges.getOperationClass();
+                          schduleCharges.getOperationName();
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const SchedulechargelistView(),
+                            withNavBar: true,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
                         },
                         child: Row(
                           children: [
@@ -395,10 +466,11 @@ class _MyDrawerState extends State<MyDrawer> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Navigator.pop(context);
+                          Get.to(const CostestimateView());
                           // Get.to(() => const CostestimateView());
-                          if (!Get.isSnackbarOpen) {
-                            Get.rawSnackbar(message: "Coming Soon");
-                          }
+                          // if (!Get.isSnackbarOpen) {
+                          //   Get.rawSnackbar(message: "Coming Soon");
+                          // }
                         },
                         child: Row(
                           children: [
@@ -423,7 +495,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Navigator.pop(context);
-                          // Get.to(() => const CostestimateView());
+
                           if (!Get.isSnackbarOpen) {
                             Get.rawSnackbar(message: "Coming Soon");
                           }

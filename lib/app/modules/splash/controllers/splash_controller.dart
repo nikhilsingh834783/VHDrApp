@@ -17,12 +17,10 @@ class SplashController extends GetxController {
     await Future.delayed(const Duration(seconds: 1));
     var control = Get.put(NoInternetController());
     if (control.connectionType.value == 0) {
-      print(control.connectionType.value);
     } else {
       if (control.connectionType.value == 1 ||
           control.connectionType.value == 2 ||
           control.connectionType.value == 3) {
-        print(control.connectionType.value);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await Future.delayed(const Duration(seconds: 2));
         if (prefs.getString('token') != null &&

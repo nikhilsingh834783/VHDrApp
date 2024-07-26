@@ -26,6 +26,7 @@ abstract class Routes {
   static const SCHEDULECHARGELIST = _Paths.SCHEDULECHARGELIST;
   static const CHARGELIST = _Paths.CHARGELIST;
   static const NoInternet = _Paths.NoInterNet;
+  static const SCHDULEOFCHARGESLIST = _Paths.SCHDULEOFCHARGESLIST;
 }
 
 abstract class _Paths {
@@ -51,4 +52,5 @@ abstract class _Paths {
   static const SCHEDULECHARGELIST = '/schedulechargelist';
   static const CHARGELIST = '/chargelist';
   static const NoInterNet = '/noInertnet';
+  static const SCHDULEOFCHARGESLIST = '/schduleofchargeslist';
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart' as dio_package;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -78,7 +76,7 @@ class PatientlistController extends GetxController {
     }
   }
 
-  getDashboardFilters() async {
+  getDashboardFilters({bool isLoader = true}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
@@ -88,7 +86,7 @@ class PatientlistController extends GetxController {
     String apiUrl = ConstApiUrl.dashboardFilters;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
-            body: data, apiUrl: apiUrl, token: token);
+            body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
     if (finalData.statusCode == 200) {
       DashBoardFiltersModels filterResponse =
           DashBoardFiltersModels.fromJson(finalData.data);
@@ -114,7 +112,6 @@ class PatientlistController extends GetxController {
       "floors": selectedFloorList,
       "wards": selectedWardList
     };
-    print(jsonEncode(data));
     String apiUrl = ConstApiUrl.filterPatientData;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
@@ -123,8 +120,6 @@ class PatientlistController extends GetxController {
         PatientResponseModel.fromJson(finalData.data);
     if (patientResponse.statusCode == 200) {
       if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
-        PatientResponseModel patientResponse =
-            PatientResponseModel.fromJson(finalData.data);
         filterPatientList = patientResponse.data;
       } else {
         filterPatientList = [];
@@ -158,7 +153,7 @@ class PatientlistController extends GetxController {
                   ? "Stay Days - L -> H"
                   : "Stay Days - H -> L"
     };
-    print(jsonEncode(data));
+
     String apiUrl = ConstApiUrl.sortPatientData;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
