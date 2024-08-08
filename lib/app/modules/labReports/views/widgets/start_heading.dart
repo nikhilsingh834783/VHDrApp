@@ -5,7 +5,10 @@ import '../../../../app_common_widgets/common_import.dart';
 import '../../controllers/lab_reports_controller.dart';
 
 class StartingHeading extends StatelessWidget {
-  const StartingHeading({super.key});
+  final List allReportsData;
+  final double height;
+  const StartingHeading(
+      {super.key, required this.allReportsData, required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +35,19 @@ class StartingHeading extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            height: Sizes.crossLength * .540,
+            height: height,
             child: ListView.builder(
                 padding: EdgeInsets.zero,
-                // physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.labReportsList.length,
-                controller: controller.scrollController2,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: allReportsData.length,
                 itemBuilder: (item, i) {
                   return Column(
                     children: [
                       SizedBox(
-                        height: getDynamicHeight(size: 0.050),
+                        height: getDynamicHeight(size: 0.055),
                         child: Center(
                           child: AppText(
-                            text: controller.labReportsList[i].testName ?? '',
+                            text: allReportsData[i]['TestName'] ?? '',
                             fontSize: Sizes.px13,
                             fontColor: ConstColor.buttonColor,
                             fontWeight: FontWeight.w500,
@@ -57,6 +59,7 @@ class StartingHeading extends StatelessWidget {
                       ),
                       Divider(
                         thickness: 1,
+                        height: getDynamicHeight(size: 0.002),
                         color: ConstColor.blackColor.withOpacity(0.3),
                       ),
                     ],

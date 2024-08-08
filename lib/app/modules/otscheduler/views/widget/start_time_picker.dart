@@ -21,7 +21,7 @@ class SelectStartTime extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                   right: Sizes.crossLength * 0.015,
-                  top: Sizes.crossLength * 0.010),
+                  top: Sizes.crossLength * 0.015),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -29,7 +29,9 @@ class SelectStartTime extends StatelessWidget {
                       onTap: () {
                         controller.startTimeController.text =
                             '${controller.selectedHour.toString().padLeft(2, '0')}:${controller.selectedMinute.toString().padLeft(2, '0')} ${controller.isAm ? 'AM' : 'PM'}';
-                        controller.startTimePicker.hideMenu();
+                        // controller.startTimePicker.hideMenu();
+                        Navigator.pop(context);
+
                         controller.update();
                       },
                       child: AppText(

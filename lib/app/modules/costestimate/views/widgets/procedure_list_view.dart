@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../../app_common_widgets/common_import.dart';
 import '../../controllers/costestimate_controller.dart';
 
-class ProcedureListView extends StatelessWidget {
-  const ProcedureListView({super.key});
+class ProcedureListViewOperation extends StatelessWidget {
+  const ProcedureListViewOperation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,86 +20,263 @@ class ProcedureListView extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: getDynamicHeight(size: 0.015),
                 vertical: getDynamicHeight(size: 0.020)),
-            child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: controller.operationNameListData.length,
-                itemBuilder: (item, index) {
-                  return GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      // controller.procedureController.text = controller
-                      //         .operationNameListData[index].operationName ??
-                      //     '';
-                      // controller.selectedOperation =
-                      //     controller.operationNameListData[index].id.toString();
-                      // controller.procedurePopMenuController.hideMenu();
-                      if (controller.selectedOperationId.contains(
-                          controller.operationNameListData[index].id)) {
-                        controller.selectedOperationId
-                            .remove(controller.operationNameListData[index].id);
-                        controller.selectedOperationList
-                            .remove(controller.operationNameListData[index]);
-                      } else {
-                        controller.selectedOperationId
-                            .add(controller.operationNameListData[index].id!);
-                        controller.selectedOperationList
-                            .add(controller.operationNameListData[index]);
-                      }
-                      controller.update();
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    AppText(
+                      text: 'Select Surgery',
+                      fontSize: Sizes.px16,
+                      fontWeight: FontWeight.w600,
+                      fontColor: ConstColor.black4B4D4F,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: AppText(
+                        text: controller.selectedOperationId.isEmpty
+                            ? 'Close'
+                            : 'Done',
+                        fontSize: Sizes.px16,
+                        fontWeight: FontWeight.w600,
+                        fontColor: ConstColor.buttonColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                AppTextField(
+                  hintText: 'Enter surgery name',
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                  },
+                  onChanged: (text) {
+                    controller.searchOpearationName(text.trim());
+                  },
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: controller.searchOperationNameListData != null
+                      ? controller.searchOperationNameListData!.isEmpty
+                          ? Center(
                               child: AppText(
-                                  text: controller.operationNameListData[index]
-                                          .operationName ??
-                                      ''),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            controller.selectedOperationId.contains(
-                                    controller.operationNameListData[index].id)
-                                ? GestureDetector(
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
+                                text: "No data found",
+                                fontSize: Sizes.px16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          : ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: controller
+                                  .searchOperationNameListData!.length,
+                              itemBuilder: (item, index) {
+                                return GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    if (controller.selectedOperationId.contains(
+                                        controller
+                                            .searchOperationNameListData![index]
+                                            .id)) {
                                       controller.selectedOperationId.remove(
                                           controller
-                                              .operationNameListData[index].id);
+                                              .searchOperationNameListData![
+                                                  index]
+                                              .id);
                                       controller.selectedOperationList.remove(
                                           controller
-                                              .operationNameListData[index]);
-                                      controller.update();
-                                    },
-                                    child: const Icon(
-                                      Icons.cancel_outlined,
-                                      color: ConstColor.buttonColor,
-                                    ))
-                                : const SizedBox()
-                          ],
-                        ),
-                        index == controller.operationNameListData.length - 1
-                            ? const SizedBox()
-                            : const SizedBox(
-                                height: 15,
+                                                  .searchOperationNameListData![
+                                              index]);
+                                    } else {
+                                      controller.selectedOperationId.add(
+                                          controller
+                                              .searchOperationNameListData![
+                                                  index]
+                                              .id!);
+                                      controller.selectedOperationList.add(
+                                          controller
+                                                  .searchOperationNameListData![
+                                              index]);
+                                    }
+                                    controller.update();
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: AppText(
+                                                text: controller
+                                                        .searchOperationNameListData![
+                                                            index]
+                                                        .operationName ??
+                                                    ''),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          controller.selectedOperationId
+                                                  .contains(controller
+                                                      .searchOperationNameListData![
+                                                          index]
+                                                      .id)
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    controller
+                                                        .selectedOperationId
+                                                        .remove(controller
+                                                            .searchOperationNameListData![
+                                                                index]
+                                                            .id);
+                                                    controller
+                                                        .selectedOperationList
+                                                        .remove(controller
+                                                                .searchOperationNameListData![
+                                                            index]);
+                                                    controller.update();
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.cancel_outlined,
+                                                    color:
+                                                        ConstColor.buttonColor,
+                                                  ))
+                                              : const SizedBox()
+                                        ],
+                                      ),
+                                      index ==
+                                              controller
+                                                      .searchOperationNameListData!
+                                                      .length -
+                                                  1
+                                          ? const SizedBox()
+                                          : const SizedBox(
+                                              height: 15,
+                                            ),
+                                      index ==
+                                              controller
+                                                      .searchOperationNameListData!
+                                                      .length -
+                                                  1
+                                          ? const SizedBox()
+                                          : const Divider(
+                                              thickness: 1,
+                                              height: 1,
+                                              color: ConstColor.greyACACAC,
+                                            )
+                                    ],
+                                  ),
+                                );
+                              })
+                      : ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: controller.operationNameListData.length,
+                          itemBuilder: (item, index) {
+                            return GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                if (controller.selectedOperationId.contains(
+                                    controller
+                                        .operationNameListData[index].id)) {
+                                  controller.selectedOperationId.remove(
+                                      controller
+                                          .operationNameListData[index].id);
+                                  controller.selectedOperationList.remove(
+                                      controller.operationNameListData[index]);
+                                } else {
+                                  controller.selectedOperationId.add(controller
+                                      .operationNameListData[index].id!);
+                                  controller.selectedOperationList.add(
+                                      controller.operationNameListData[index]);
+                                }
+                                controller.update();
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: AppText(
+                                            text: controller
+                                                    .operationNameListData[
+                                                        index]
+                                                    .operationName ??
+                                                ''),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      controller.selectedOperationId.contains(
+                                              controller
+                                                  .operationNameListData[index]
+                                                  .id)
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                controller.selectedOperationId
+                                                    .remove(controller
+                                                        .operationNameListData[
+                                                            index]
+                                                        .id);
+                                                controller.selectedOperationList
+                                                    .remove(controller
+                                                            .operationNameListData[
+                                                        index]);
+                                                controller.update();
+                                              },
+                                              child: const Icon(
+                                                Icons.cancel_outlined,
+                                                color: ConstColor.buttonColor,
+                                              ))
+                                          : const SizedBox()
+                                    ],
+                                  ),
+                                  index ==
+                                          controller.operationNameListData
+                                                  .length -
+                                              1
+                                      ? const SizedBox()
+                                      : const SizedBox(
+                                          height: 15,
+                                        ),
+                                  index ==
+                                          controller.operationNameListData
+                                                  .length -
+                                              1
+                                      ? const SizedBox()
+                                      : const Divider(
+                                          thickness: 1,
+                                          height: 1,
+                                          color: ConstColor.greyACACAC,
+                                        )
+                                ],
                               ),
-                        index == controller.operationNameListData.length - 1
-                            ? const SizedBox()
-                            : const Divider(
-                                thickness: 1,
-                                height: 1,
-                                color: ConstColor.greyACACAC,
-                              )
-                      ],
-                    ),
-                  );
-                })),
+                            );
+                          }),
+                ),
+              ],
+            )),
       );
     });
   }

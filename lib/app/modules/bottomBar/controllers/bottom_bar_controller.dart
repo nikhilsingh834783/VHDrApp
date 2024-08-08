@@ -38,8 +38,8 @@ class BottomBarController extends GetxController {
           icon: Column(
             children: [
               Container(
-                  height: 10,
-                  width: 20,
+                  height: 7,
+                  width: 14,
                   decoration: const BoxDecoration(
                       color: ConstColor.buttonColor,
                       borderRadius: BorderRadius.only(
@@ -81,8 +81,8 @@ class BottomBarController extends GetxController {
         icon: Column(
           children: [
             Container(
-                height: 10,
-                width: 20,
+                height: 7,
+                width: 14,
                 decoration: const BoxDecoration(
                     color: ConstColor.buttonColor,
                     borderRadius: BorderRadius.only(
@@ -117,8 +117,8 @@ class BottomBarController extends GetxController {
         icon: Column(
           children: [
             Container(
-                height: 10,
-                width: 20,
+                height: 7,
+                width: 14,
                 decoration: const BoxDecoration(
                     color: ConstColor.buttonColor,
                     borderRadius: BorderRadius.only(

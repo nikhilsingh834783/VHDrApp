@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:venus/main.dart';
 
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/radiology_report_controller.dart';
@@ -104,6 +105,10 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                               )
                             : ListView.builder(
                                 itemCount: controller.allRadiologyList.length,
+                                controller: controller.radioScrollController,
+                                padding: EdgeInsets.only(
+                                    bottom: hideBottomBar.value ? 10 : 70),
+                                physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, i) {
                                   return Padding(
                                     padding: EdgeInsets.only(
@@ -160,6 +165,7 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                                                   height: getDynamicHeight(
                                                       size: 0.010),
                                                 ),
+
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment

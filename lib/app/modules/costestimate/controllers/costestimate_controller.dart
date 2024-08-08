@@ -2,6 +2,9 @@ import 'package:dio/dio.dart' as dio_package;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:venus/app/modules/costestimate/views/widgets/choose_time.dart';
+import 'package:venus/app/modules/costestimate/views/widgets/consultant.dart';
+import 'package:venus/app/modules/costestimate/views/widgets/organization_list.dart';
 
 import '../../../../main.dart';
 import '../../../app_common_widgets/common_import.dart';
@@ -14,6 +17,10 @@ import '../models/additional_surgeon.modal.dart';
 import '../models/chargelist_model.dart';
 import '../models/procedure_model.dart';
 import '../views/widgets/additional_surgeon_list.dart';
+import '../views/widgets/chhose_date.dart';
+import '../views/widgets/operation_class_view.dart';
+import '../views/widgets/procedure_list_view.dart';
+import '../views/widgets/stay_day_list.dart';
 
 class CostestimateController extends GetxController {
   final count = 0.obs;
@@ -58,19 +65,22 @@ class CostestimateController extends GetxController {
   List<OperationListData> operationClassListData = [];
   List<ChargrListData> chargeListData = [];
   List<ProcedureListData> procedureListAllData = [];
+
   CustomPopupMenuController organizationNameController =
       CustomPopupMenuController();
   String? selectedOrganization;
   int selectedHour = 10;
-  int selectedMinute = 0;
+  int selectedMinute = 30;
   bool isAm = true;
 
   void increment() => count.value++;
 
   List<OrganizationListData> organizationListData = [];
+  List<OrganizationListData>? searchOrganizationListData;
   List<AdditionalDoctorList> additionalDoctorList = [];
   List<AdditionalDoctorList>? searchAdditionalDoctorList;
   List<OperationNameList> operationNameListData = [];
+  List<OperationNameList>? searchOperationNameListData;
   List<int> selectedOperationId = [];
   List<OperationNameList> selectedOperationList = [];
   final estimateFormKey = GlobalKey<FormState>();
@@ -150,7 +160,7 @@ class CostestimateController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
-    Map data = {"loginId": loginId, "operationNames": ""};
+    Map data = {"loginId": loginId, "operationNames": "", 'docId': ''};
 
     String apiUrl = ConstApiUrl.getOperationNameApi;
     dio_package.Response finalData =
@@ -221,6 +231,22 @@ class CostestimateController extends GetxController {
       for (var userDetail in additionalDoctorList) {
         if (userDetail.docName!.toLowerCase().contains(text.toLowerCase())) {
           searchAdditionalDoctorList!.add(userDetail);
+        }
+      }
+    }
+    update();
+  }
+
+  searchOrganization(String text) {
+    if (text.trim().isEmpty) {
+      searchOrganizationListData = null;
+    } else {
+      searchOrganizationListData = [];
+      for (var userDetail in organizationListData) {
+        if (userDetail.organization!
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchOrganizationListData!.add(userDetail);
         }
       }
     }
@@ -396,6 +422,188 @@ class CostestimateController extends GetxController {
         );
       }),
     );
+    update();
+  }
+
+  Future<void> selectOrganizationBottomSheet() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.65,
+            width: Get.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+            ),
+            child: const OrganizationList()),
+      ),
+    );
+  }
+
+  Future<void> selectDateBottomSheet() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+          height: MediaQuery.of(context).size.height * 0.55,
+          width: Get.width,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25.0),
+            ),
+          ),
+          child: const ChooseDateView()),
+    );
+  }
+
+  Future<void> selectTimeBottomSheet() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+          height: MediaQuery.of(context).size.height * 0.55,
+          width: Get.width,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25.0),
+            ),
+          ),
+          child: const ChooseTimeView()),
+    );
+  }
+
+  Future<void> selectOperationName() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.65,
+            width: Get.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+            ),
+            child: const ProcedureListViewOperation()),
+      ),
+    );
+  }
+
+  Future<void> selectRoomBottom() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.45,
+            width: Get.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+            ),
+            child: const SelectOperationClassView()),
+      ),
+    );
+  }
+
+  Future<void> selectDaysBottom() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.35,
+            width: Get.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+            ),
+            child: const StayDayList()),
+      ),
+    );
+  }
+
+  Future<void> selectSurgeonBottom({required BuildContext context}) async {
+    await showModalBottomSheet(
+      elevation: 0,
+      showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
+      context: context,
+      useRootNavigator: true,
+      builder: (context) => StatefulBuilder(builder: (context, setState) {
+        return Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: const ConsultantSurgeonListView(),
+        );
+      }),
+    );
+    update();
+  }
+
+  searchOpearationName(String text) {
+    if (text.trim().isEmpty) {
+      searchOperationNameListData = null;
+    } else {
+      searchOperationNameListData = [];
+      for (var userDetail in operationNameListData) {
+        if (userDetail.operationName!
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchOperationNameListData!.add(userDetail);
+        }
+      }
+    }
     update();
   }
 }

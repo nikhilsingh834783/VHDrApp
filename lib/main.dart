@@ -19,20 +19,22 @@ bool previousDateEnable = false;
 
 void main() {
   runApp(
-    Builder(builder: (context) {
-      Get.put(NoInternetController());
-      return GetMaterialApp(
-        theme: ThemeData(scaffoldBackgroundColor: ConstColor.whiteColor),
-        initialBinding: NoInternetBinding(),
-        builder: EasyLoading.init(),
-        debugShowCheckedModeBanner: false,
-        title: "Application",
-        initialRoute: AppPages.initial,
-        getPages: AppPages.routes,
-        navigatorObservers: [
-          NavigatorObserver(),
-        ],
-      );
-    }),
+    Builder(
+      builder: (context) {
+        Get.put(NoInternetController());
+        return GetMaterialApp(
+          theme: ThemeData(scaffoldBackgroundColor: ConstColor.whiteColor),
+          initialBinding: NoInternetBinding(),
+          builder: EasyLoading.init(),
+          debugShowCheckedModeBanner: false,
+          title: "Application",
+          initialRoute: AppPages.initial,
+          getPages: AppPages.routes,
+          navigatorObservers: [
+            NavigatorObserver(),
+          ],
+        );
+      },
+    ),
   );
 }

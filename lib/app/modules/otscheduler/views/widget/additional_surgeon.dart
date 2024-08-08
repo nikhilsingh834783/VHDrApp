@@ -2,82 +2,88 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:venus/app/app_common_widgets/common_import.dart';
 
-import '../../controllers/costestimate_controller.dart';
+import '../../controllers/otscheduler_controller.dart';
 
-class OrganizationList extends StatelessWidget {
-  const OrganizationList({super.key});
+class AdditionalSurgeonListViewOt extends StatelessWidget {
+  const AdditionalSurgeonListViewOt({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CostestimateController>(builder: (controller) {
-      return Container(
-        decoration: BoxDecoration(
-            color: ConstColor.whiteColor,
-            border: Border.all(width: 0.5, color: ConstColor.boldBlackColor),
-            borderRadius: BorderRadius.circular(10)),
-        height: getDynamicHeight(size: 0.395),
-        child: Padding(
+    return GetBuilder<OtschedulerController>(
+      builder: (controller) {
+        return Container(
+          decoration: BoxDecoration(
+              color: ConstColor.whiteColor,
+              borderRadius: BorderRadius.circular(10)),
+          height: getDynamicHeight(size: 0.500),
+          child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getDynamicHeight(size: 0.015),
-                vertical: getDynamicHeight(size: 0.020)),
+                vertical: getDynamicHeight(size: 0.0)),
             child: Column(
               children: [
                 Center(
                   child: AppText(
-                    text: 'Select Organization',
+                    text: 'Select Additional Surgeon Doctor',
                     fontSize: Sizes.px16,
                     fontWeight: FontWeight.w600,
                     fontColor: ConstColor.black4B4D4F,
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 AppTextField(
-                  hintText: 'Enter organization name',
+                  hintText: 'Enter doctor name',
                   onTapOutside: (event) {
                     FocusScope.of(context).unfocus();
                   },
                   onChanged: (text) {
-                    controller.searchOrganization(text.trim());
+                    controller.searchAdditionalSurgeon(text.trim());
                   },
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Expanded(
-                  child: controller.searchOrganizationListData != null
-                      ? controller.searchOrganizationListData!.isEmpty
+                  child: controller.searchAdditionalDoctorList != null
+                      ? controller.searchAdditionalDoctorList!.isEmpty
                           ? Center(
                               child: AppText(
-                                text: 'No data found',
-                                fontSize: Sizes.px15,
+                                text: "No data found",
+                                fontSize: Sizes.px16,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
                           : ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount:
-                                  controller.searchOrganizationListData!.length,
+                                  controller.searchAdditionalDoctorList!.length,
                               itemBuilder: (item, index) {
                                 return GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
-                                    controller
-                                        .organizationContoller.text = controller
-                                            .searchOrganizationListData![index]
-                                            .organization ??
+                                    controller.surgeonNameTextController
+                                        .text = controller
+                                            .searchAdditionalDoctorList![index]
+                                            .docName ??
                                         '';
-                                    controller.selectedOrganization = controller
-                                        .searchOrganizationListData![index]
-                                        .orgId
+                                    controller.docId = controller
+                                        .searchAdditionalDoctorList![index]
+                                        .docId
                                         .toString();
-                                    // controller.organizationNameController
+                                    controller.selectedOperationId.clear();
+                                    controller.selectedOperationList.clear();
+                                    controller.operationNameListData.clear();
+                                    controller.getOperationName();
+                                    // controller.selectedOrganization = controller
+                                    //     .searchAdditionalDoctorList![index].orgId
+                                    //     .toString();
+                                    // controller.additionalSurgeonController
                                     //     .hideMenu();
-                                    controller.searchOrganizationListData =
-                                        null;
+                                    // Get.back();
                                     Navigator.pop(context);
                                     controller.update();
                                   },
@@ -93,16 +99,16 @@ class OrganizationList extends StatelessWidget {
                                           Expanded(
                                             child: AppText(
                                                 text: controller
-                                                        .searchOrganizationListData![
+                                                        .searchAdditionalDoctorList![
                                                             index]
-                                                        .organization ??
+                                                        .docName ??
                                                     ''),
                                           ),
                                         ],
                                       ),
                                       index ==
                                               controller
-                                                      .searchOrganizationListData!
+                                                      .searchAdditionalDoctorList!
                                                       .length -
                                                   1
                                           ? const SizedBox()
@@ -111,7 +117,7 @@ class OrganizationList extends StatelessWidget {
                                             ),
                                       index ==
                                               controller
-                                                      .searchOrganizationListData!
+                                                      .searchAdditionalDoctorList!
                                                       .length -
                                                   1
                                           ? const SizedBox()
@@ -126,19 +132,26 @@ class OrganizationList extends StatelessWidget {
                               })
                       : ListView.builder(
                           padding: EdgeInsets.zero,
-                          itemCount: controller.organizationListData.length,
+                          itemCount: controller.additionalDoctorList.length,
                           itemBuilder: (item, index) {
                             return GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                controller.organizationContoller.text =
-                                    controller.organizationListData[index]
-                                            .organization ??
+                                controller.surgeonNameTextController.text =
+                                    controller.additionalDoctorList[index]
+                                            .docName ??
                                         '';
-                                controller.selectedOrganization = controller
-                                    .organizationListData[index].orgId
+                                controller.docId = controller
+                                    .additionalDoctorList[index].docId
                                     .toString();
-                                // controller.organizationNameController
+                                controller.selectedOperationId.clear();
+                                controller.selectedOperationList.clear();
+                                controller.operationNameListData.clear();
+                                controller.getOperationName();
+                                // controller.selectedOrganization = controller
+                                //     .additionalDoctorList[index].orgId
+                                //     .toString();
+                                // controller.additionalSurgeonController
                                 //     .hideMenu();
                                 Navigator.pop(context);
                                 controller.update();
@@ -154,15 +167,15 @@ class OrganizationList extends StatelessWidget {
                                       Expanded(
                                         child: AppText(
                                             text: controller
-                                                    .organizationListData[index]
-                                                    .organization ??
+                                                    .additionalDoctorList[index]
+                                                    .docName ??
                                                 ''),
                                       ),
                                     ],
                                   ),
                                   index ==
                                           controller
-                                                  .organizationListData.length -
+                                                  .additionalDoctorList.length -
                                               1
                                       ? const SizedBox()
                                       : const SizedBox(
@@ -170,7 +183,7 @@ class OrganizationList extends StatelessWidget {
                                         ),
                                   index ==
                                           controller
-                                                  .organizationListData.length -
+                                                  .additionalDoctorList.length -
                                               1
                                       ? const SizedBox()
                                       : const Divider(
@@ -181,11 +194,14 @@ class OrganizationList extends StatelessWidget {
                                 ],
                               ),
                             );
-                          }),
+                          },
+                        ),
                 ),
               ],
-            )),
-      );
-    });
+            ),
+          ),
+        );
+      },
+    );
   }
 }

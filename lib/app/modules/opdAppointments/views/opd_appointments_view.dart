@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:venus/app/modules/labReports/views/lab_reports_view%20copy.dart';
 import 'package:venus/app/modules/opdAppointments/views/widgets/opd_calender.dart';
 import 'package:venus/app/modules/progressSummary/controllers/progress_summary_controller.dart';
 import 'package:venus/app/modules/progressSummary/views/progress_summary_view.dart';
@@ -10,7 +11,6 @@ import 'package:venus/main.dart';
 
 import '../../../app_common_widgets/common_import.dart';
 import '../../labReports/controllers/lab_reports_controller.dart';
-import '../../labReports/views/lab_reports_view.dart';
 import '../../radiologyReport/controllers/radiology_report_controller.dart';
 import '../../radiologyReport/views/radiology_report_view.dart';
 import '../controllers/opd_appointments_controller.dart';
@@ -352,6 +352,17 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                         hideBottomBar.value =
                                                             false;
                                                       },
+                                                      onOpened: () {
+                                                        controller.focusNode
+                                                            .unfocus();
+
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+
+                                                        hideBottomBar.value =
+                                                            true;
+                                                        controller.update();
+                                                      },
                                                       onSelected: (va) {
                                                         controller.focusNode
                                                             .unfocus();
@@ -365,8 +376,11 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                               Get.put(
                                                                   ProgressSummaryController());
                                                           progreesController
+                                                              .scrollListner();
+                                                          progreesController
                                                               .getProgressSummary(
-                                                                  ipdNo: '');
+                                                                  ipdNo: '',
+                                                                  uhid: '');
                                                           PersistentNavBarNavigator
                                                               .pushNewScreen(
                                                             context,
@@ -407,11 +421,15 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                                           index]
                                                                       .uhid ??
                                                                   '');
+                                                          labreportsController
+                                                              .commonList = [];
+                                                          labreportsController
+                                                              .scrollLister();
                                                           PersistentNavBarNavigator
                                                               .pushNewScreen(
                                                             context,
                                                             screen:
-                                                                LabReportsView(
+                                                                LabReportsViewCopy(
                                                               bedNumber: '',
                                                               patientName: controller
                                                                       .appointmentData[
@@ -430,6 +448,8 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                                   RadiologyReportController());
                                                           progreesController
                                                               .allRadiologyList = [];
+                                                          progreesController
+                                                              .scrollListner();
                                                           progreesController.getRadioLogyReport(
                                                               ipdNo: '',
                                                               uhidNo: controller

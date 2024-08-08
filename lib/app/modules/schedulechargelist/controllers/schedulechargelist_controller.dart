@@ -7,6 +7,7 @@ import 'package:venus/app/modules/schedulechargelist/model/operation_class_model
 
 import '../../../../main.dart';
 import '../../../app_common_widgets/common_import.dart';
+import '../../../app_common_widgets/multi_dropdown_widget 1.dart';
 import '../../../core/services/api_service.dart';
 import '../../bottomBar/controllers/bottom_bar_controller.dart';
 import '../../login/views/login_view.dart';
@@ -14,6 +15,7 @@ import '../../otscheduler/model/operation_name_model.dart';
 import '../model/doctor_visit_model.dart';
 import '../model/rooms_model.dart';
 import '../model/surgery_model.dart';
+import '../views/widgets/operation_name.dart';
 
 class SchedulechargelistController extends GetxController {
   int selectedTab = 0;
@@ -30,6 +32,11 @@ class SchedulechargelistController extends GetxController {
   var bottomBarController = Get.put(BottomBarController());
   final searchController = TextEditingController();
   List<OperationNameList> operationNameListData = [];
+  List<OperationNameList>? searchOperationNameListData;
+  RxList<ValueItem<dynamic>> operationNameListData1 =
+      <ValueItem<dynamic>>[].obs;
+  RxList<ValueItem<dynamic>> selectedOperationNameListData1 =
+      <ValueItem<dynamic>>[].obs;
   final operationNameController = TextEditingController();
   final operationClassController = TextEditingController();
   String? selectedClassId;
@@ -92,6 +99,14 @@ class SchedulechargelistController extends GetxController {
       }
     });
   }
+
+  void onOptionSelected(
+    List<ValueItem<dynamic>> value,
+  ) {
+    selectedOperationNameListData1.value = value;
+    // print("$selectedregionsList");
+  }
+  // update();
 
   getRooms({String? searchPrefix, bool isLoader = true}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -229,11 +244,52 @@ class SchedulechargelistController extends GetxController {
     update();
   }
 
+  Future<void> selectOperationName() async {
+    showModalBottomSheet(
+      context: Get.context!,
+      isScrollControlled: true,
+      isDismissible: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.65,
+            width: Get.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+            ),
+            child: const OperationNameListView()),
+      ),
+    );
+  }
+
+  searchAdditionalSurgeon(String text) {
+    if (text.trim().isEmpty) {
+      searchOperationNameListData = null;
+    } else {
+      searchOperationNameListData = [];
+      for (var userDetail in operationNameListData) {
+        if (userDetail.operationName!
+            .toLowerCase()
+            .contains(text.toLowerCase())) {
+          searchOperationNameListData!.add(userDetail);
+        }
+      }
+    }
+    update();
+  }
+
   getOperationName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
-    Map data = {"loginId": loginId, "operationNames": ""};
+    Map data = {"loginId": loginId, "operationNames": "", 'docId': ''};
 
     String apiUrl = ConstApiUrl.getOperationNameApi;
     dio_package.Response finalData =
@@ -244,6 +300,17 @@ class SchedulechargelistController extends GetxController {
     if (patientResponse.statusCode == 200) {
       if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
         operationNameListData = patientResponse.data!;
+
+        if (operationNameListData.isNotEmpty) {
+          var skillsList = operationNameListData;
+          operationNameListData1.value = skillsList.map((e) {
+            return ValueItem(label: e.operationName!, value: e.id!);
+          }).toList();
+          // selectedSkillList.value = skilldropDownList
+          //     .where((e) => prefillSkills.contains(e.value))
+          //     .toList();
+          // update();
+        }
       } else {}
       update();
     } else if (patientResponse.statusCode == 401) {

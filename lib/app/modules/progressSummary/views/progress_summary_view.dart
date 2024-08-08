@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../main.dart';
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/progress_summary_controller.dart';
 
@@ -94,6 +95,11 @@ class ProgressSummaryView extends GetView<ProgressSummaryController> {
                     : Expanded(
                         child: controller.progressListing != null
                             ? ListView.builder(
+                                controller: controller.progressScrollController,
+                                padding: EdgeInsets.only(
+                                    bottom: hideBottomBar.value
+                                        ? Sizes.crossLength * 0.020
+                                        : Sizes.crossLength * 0.120),
                                 itemCount: 4,
                                 itemBuilder: (context, i) {
                                   return Padding(

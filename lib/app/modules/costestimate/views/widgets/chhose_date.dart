@@ -19,7 +19,7 @@ class ChooseDateView extends StatelessWidget {
             borderRadius: BorderRadius.circular(10)),
         child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getDynamicHeight(size: 0.015),  
+                horizontal: getDynamicHeight(size: 0.015),
                 vertical: getDynamicHeight(size: 0.020)),
             child: CustomCalendar(
               selectedDates: controller.selectedDate,
@@ -31,7 +31,8 @@ class ChooseDateView extends StatelessWidget {
                 controller.selectedDate = va[0];
                 controller.dateController.text =
                     DateFormat('dd-MMM-yyyy').format(controller.selectedDate!);
-                controller.selectDateController.hideMenu();
+                // controller.selectDateController.hideMenu();
+                Navigator.pop(context);
                 controller.update();
               },
             )),

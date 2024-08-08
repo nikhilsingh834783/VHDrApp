@@ -5,7 +5,10 @@ import '../../../../app_common_widgets/common_import.dart';
 import '../../controllers/lab_reports_controller.dart';
 
 class ReferenceWidget extends StatelessWidget {
-  const ReferenceWidget({super.key});
+  final List allReportsData;
+  final double height;
+  const ReferenceWidget(
+      {super.key, required this.allReportsData, required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +35,27 @@ class ReferenceWidget extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            height: Sizes.crossLength * .540,
+            height: height,
             child: ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: controller.labReportsList.length,
-                controller: controller.scrollController1,
+                itemCount: allReportsData.length,
+                shrinkWrap: true,
+                // controller: controller.scrollController1,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (item, i) {
                   return Column(
                     children: [
                       SizedBox(
-                        height: getDynamicHeight(size: 0.050),
+                        height: getDynamicHeight(size: 0.055),
                         child: Center(
                           child: Column(
                             children: [
                               AppText(
-                                text:
-                                    controller.labReportsList[i].normalRange ??
-                                        '-',
+                                text: allReportsData[i]['NormalRange'] !=
+                                            null &&
+                                        allReportsData[i]['NormalRange'] != ''
+                                    ? allReportsData[i]['NormalRange']
+                                    : '-',
                                 fontSize: Sizes.px13,
                                 fontColor: ConstColor.black6B6B6B,
                                 fontWeight: FontWeight.w500,
@@ -57,7 +64,10 @@ class ReferenceWidget extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               AppText(
-                                text: controller.labReportsList[i].unit ?? '-',
+                                text: allReportsData[i]['Unit'] != null &&
+                                        allReportsData[i]['Unit'] != ''
+                                    ? allReportsData[i]['Unit']
+                                    : '-',
                                 fontSize: Sizes.px9,
                                 fontColor: ConstColor.black6B6B6B,
                                 fontWeight: FontWeight.w500,
@@ -69,6 +79,7 @@ class ReferenceWidget extends StatelessWidget {
                       ),
                       Divider(
                         thickness: 1,
+                        height: getDynamicHeight(size: 0.002),
                         color: ConstColor.blackColor.withOpacity(0.3),
                       ),
                     ],

@@ -38,7 +38,7 @@ class AdditionalSurgeonListView extends StatelessWidget {
                     FocusScope.of(context).unfocus();
                   },
                   onChanged: (text) {
-                    controller.searchAdditionalSurgeon(text);
+                    controller.searchAdditionalSurgeon(text.trim());
                   },
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 5),

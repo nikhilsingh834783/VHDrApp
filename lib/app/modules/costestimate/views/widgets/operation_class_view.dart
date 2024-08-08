@@ -30,7 +30,8 @@ class SelectOperationClassView extends StatelessWidget {
                       controller.roomTypeController.text =
                           controller.operationClassListData[index].className ??
                               '';
-                      controller.roomPopupMenuController.hideMenu();
+                      // controller.roomPopupMenuController.hideMenu();
+                      Navigator.pop(context);
                       controller.update();
                     },
                     child: Column(

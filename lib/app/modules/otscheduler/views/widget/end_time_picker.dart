@@ -21,7 +21,7 @@ class SelectEndTime extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                   right: Sizes.crossLength * 0.015,
-                  top: Sizes.crossLength * 0.010),
+                  top: Sizes.crossLength * 0.015),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -29,7 +29,8 @@ class SelectEndTime extends StatelessWidget {
                       onTap: () {
                         controller.endTimeController.text =
                             '${controller.selectedHour.toString().padLeft(2, '0')}:${controller.selectedMinute.toString().padLeft(2, '0')} ${controller.isAm ? 'AM' : 'PM'}';
-                        controller.endTimePicker.hideMenu();
+                        // controller.endTimePicker.hideMenu();
+                        Navigator.pop(context);
                         controller.update();
                       },
                       child: AppText(

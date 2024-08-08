@@ -7,7 +7,6 @@ import 'package:venus/app/app_common_widgets/sizer_constant.dart';
 import 'package:venus/app/core/constant/asset_constant.dart';
 import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/labReports/controllers/lab_reports_controller.dart';
-import 'package:venus/app/modules/labReports/views/lab_reports_view.dart';
 import 'package:venus/app/modules/otscheduler/controllers/otscheduler_controller.dart';
 import 'package:venus/app/modules/otscheduler/views/otscheduler_view.dart';
 import 'package:venus/app/modules/patientlist/model/patient_model.dart';
@@ -17,6 +16,7 @@ import 'package:venus/app/modules/radiologyReport/controllers/radiology_report_c
 import 'package:venus/app/modules/radiologyReport/views/radiology_report_view.dart';
 import 'package:venus/main.dart';
 
+import '../../../labReports/views/lab_reports_view copy.dart';
 import '../../controllers/patientlist_controller.dart';
 
 class PatientList extends StatelessWidget {
@@ -206,8 +206,10 @@ class PatientList extends StatelessWidget {
                             if (va == 1) {
                               var progreesController =
                                   Get.put(ProgressSummaryController());
+                              progreesController.scrollListner();
                               progreesController.getProgressSummary(
-                                  ipdNo: patientData.ipdNo ?? '');
+                                  ipdNo: patientData.ipdNo ?? '',
+                                  uhid: patientData.uhid ?? '');
                               PersistentNavBarNavigator.pushNewScreen(
                                 context,
                                 screen: ProgressSummaryView(
@@ -232,9 +234,11 @@ class PatientList extends StatelessWidget {
                               labreportsController.getLabReporst(
                                   ipdNo: patientData.ipdNo ?? '',
                                   uhidNo: patientData.uhid ?? '');
+                              labreportsController.commonList = [];
+                              labreportsController.scrollLister();
                               PersistentNavBarNavigator.pushNewScreen(
                                 context,
-                                screen: LabReportsView(
+                                screen: LabReportsViewCopy(
                                   bedNumber: patientData.bedNo ?? '',
                                   patientName: patientData.patientName ?? "",
                                 ),
@@ -249,6 +253,7 @@ class PatientList extends StatelessWidget {
                               progreesController.getRadioLogyReport(
                                   ipdNo: patientData.ipdNo ?? '',
                                   uhidNo: patientData.uhid ?? '');
+                              progreesController.scrollListner();
                               PersistentNavBarNavigator.pushNewScreen(
                                 context,
                                 screen: RadiologyReportView(
@@ -260,11 +265,14 @@ class PatientList extends StatelessWidget {
                                     PageTransitionAnimation.cupertino,
                               );
                             } else {
-                              // Get.rawSnackbar(message: "Coming Soon");
                               var otschedulerController =
                                   Get.put(OtschedulerController());
                               otschedulerController.getOrganizationList();
+                              calenderType = 2;
+                              previousDateEnable = false;
                               otschedulerController.getOperationName();
+                              otschedulerController.getAdditionalSurgeon();
+                              otschedulerController.selectedDate = null;
                               otschedulerController.ipdTextController.text =
                                   patientData.ipdNo ?? '';
                               otschedulerController.uhidNumber.text =

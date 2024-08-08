@@ -481,8 +481,18 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                                   controller.update();
                                   var otschedulerController =
                                       Get.put(OtschedulerController());
+                                  otschedulerController.selectedOperationId =
+                                      [];
+                                  otschedulerController.selectedOperationList =
+                                      [];
+                                  otschedulerController.selectedDate = null;
+                                  otschedulerController
+                                      .searchAdditionalDoctorList = null;
+                                  otschedulerController
+                                      .searchOperationNameListData = null;
                                   otschedulerController.getOrganizationList();
                                   otschedulerController.getOperationName();
+                                  otschedulerController.getAdditionalSurgeon();
                                   Get.to(() => const OtschedulerView())!
                                       .then((value) {
                                     calenderType = 1;

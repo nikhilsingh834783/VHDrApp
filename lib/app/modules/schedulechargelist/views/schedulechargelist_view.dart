@@ -7,7 +7,6 @@ import 'package:venus/app/modules/schedulechargelist/views/widgets/surgery_list.
 
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/schedulechargelist_controller.dart';
-import 'widgets/operation_name.dart';
 import 'widgets/rooms_list_view.dart';
 
 class SchedulechargelistView extends GetView<SchedulechargelistController> {
@@ -221,204 +220,338 @@ class SchedulechargelistView extends GetView<SchedulechargelistController> {
                 controller.selectedTab == 2
                     ? Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CustomPopupMenu(
-                                    showArrow: false,
-                                    position: PreferredPosition.bottom,
-                                    menuBuilder: () =>
-                                        const OperationNameListView(),
-                                    pressType: PressType.singleClick,
-                                    verticalMargin: 5,
-                                    horizontalMargin: 20,
-                                    controller:
-                                        controller.operationNamePopupController,
-                                    menuOnChange: (t) {
-                                      if (!t) {
-                                        if (controller
-                                            .operationClassController.text
-                                            .trim()
-                                            .isNotEmpty) {
-                                          controller.getSurgeries(
-                                              isLoader: true);
-                                        }
-                                      }
-                                      print(t);
-                                    },
-                                    onTap: () {
-                                      controller.operationNamePopupController
-                                          .showMenu();
-                                    },
-                                    child: Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          width: 1,
-                                          color: ConstColor.borderColor,
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                  child: controller
-                                                          .selectedOperationList
-                                                          .isEmpty
-                                                      ? AppText(
-                                                          text:
-                                                              'Select Surgery',
-                                                          fontColor: ConstColor
-                                                              .hintTextColor,
-                                                        )
-                                                      : ListView.builder(
-                                                          itemCount: controller
-                                                              .selectedOperationList
-                                                              .length,
-                                                          scrollDirection:
-                                                              Axis.horizontal,
-                                                          shrinkWrap: true,
-                                                          itemBuilder:
-                                                              (item, index) {
-                                                            return Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      top: 7,
-                                                                      bottom: 7,
-                                                                      right:
-                                                                          10),
-                                                              child: Container(
-                                                                width: 80,
-                                                                height: 20,
-                                                                decoration: BoxDecoration(
-                                                                    boxShadow: const [
-                                                                      BoxShadow(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        blurRadius:
-                                                                            2.0,
-                                                                      ),
-                                                                    ],
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    color: Colors
-                                                                        .white),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          left:
-                                                                              7,
-                                                                          right:
-                                                                              5),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        child:
-                                                                            AppText(
-                                                                          text: controller.selectedOperationList[index].operationName ??
-                                                                              '',
-                                                                          maxLine:
-                                                                              1,
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                        ),
-                                                                      ),
-                                                                      GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            FocusScope.of(context).unfocus();
-                                                                            controller.selectedOperationId.remove(controller.selectedOperationList[index].id);
-                                                                            controller.selectedOperationList.remove(controller.selectedOperationList[index]);
-                                                                            controller.update();
-                                                                          },
-                                                                          child:
-                                                                              const Icon(
-                                                                            Icons.cancel_outlined,
-                                                                            size:
-                                                                                20,
-                                                                            color:
-                                                                                ConstColor.errorBorderColor,
-                                                                          ))
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          })),
-                                              SvgPicture.asset(
-                                                ConstAsset.down,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                              ),
-                              SizedBox(
-                                width: Sizes.crossLength * 0.015,
-                              ),
-                              Expanded(
-                                child: CustomPopupMenu(
-                                  showArrow: false,
-                                  position: PreferredPosition.bottom,
-                                  menuBuilder: () => const OperationClassView(),
-                                  pressType: PressType.singleClick,
-                                  verticalMargin: 5,
-                                  horizontalMargin: 20,
-                                  controller:
-                                      controller.operationClassPopupController,
-                                  onTap: () {
-                                    if (controller
-                                        .selectedOperationId.isNotEmpty) {
-                                      controller.operationClassPopupController
-                                          .showMenu();
-                                    } else {
-                                      if (!Get.isSnackbarOpen) {
-                                        Get.rawSnackbar(
-                                            message: 'Please select surgery.');
-                                      }
-                                    }
-                                  },
-                                  child: AppTextField(
-                                    isReadOnly: true,
-                                    onTap: () {
-                                      if (controller
-                                          .selectedOperationId.isNotEmpty) {
-                                        controller.operationClassPopupController
-                                            .showMenu();
-                                      } else {
-                                        if (!Get.isSnackbarOpen) {
-                                          Get.rawSnackbar(
-                                              message:
-                                                  'Please select surgery.');
-                                        }
-                                      }
-                                    },
-                                    hintText: "Select Class",
-                                    controller:
-                                        controller.operationClassController,
-                                    suffixIcon: Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: SvgPicture.asset(
-                                        ConstAsset.down,
-                                        height: 20,
-                                        width: 20,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
+                          CustomPopupMenu(
+                            showArrow: false,
+                            position: PreferredPosition.bottom,
+                            menuBuilder: () => const OperationClassView(),
+                            pressType: PressType.singleClick,
+                            verticalMargin: 5,
+                            horizontalMargin: 20,
+                            controller:
+                                controller.operationClassPopupController,
+                            onTap: () {
+                              // if (controller.selectedOperationId.isNotEmpty) {
+                              controller.operationClassPopupController
+                                  .showMenu();
+                              // } else {
+                              //   if (!Get.isSnackbarOpen) {
+                              //     Get.rawSnackbar(
+                              //         message: 'Please select surgery.');
+                              //   }
+                              // }
+                            },
+                            child: AppTextField(
+                              isReadOnly: true,
+                              onTap: () {
+                                if (controller.selectedOperationId.isNotEmpty) {
+                                  controller.operationClassPopupController
+                                      .showMenu();
+                                } else {
+                                  if (!Get.isSnackbarOpen) {
+                                    Get.rawSnackbar(
+                                        message: 'Please select surgery.');
+                                  }
+                                }
+                              },
+                              hintText: "Select Class",
+                              controller: controller.operationClassController,
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: SvgPicture.asset(
+                                  ConstAsset.down,
+                                  height: 20,
+                                  width: 20,
+                                  fit: BoxFit.cover,
                                 ),
-                              )
-                            ],
+                              ),
+                            ),
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+
+                          // Obx(
+                          //   () {
+                          //     if (controller
+                          //         .operationNameListData1.isNotEmpty) {
+                          //       return Padding(
+                          //         padding: EdgeInsets.only(
+                          //             bottom: MediaQuery.of(context)
+                          //                 .viewInsets
+                          //                 .bottom),
+                          //         child: MultiSelectDropDown(
+                          //           showClearIcon: true,
+                          //           searchEnabled: true,
+                          //           hint: 'Select Surgery',
+                          //           searchLabel: "Search Surgery",
+                          //           isErroShow: false.obs,
+                          //           errorBorderColor: Colors.redAccent,
+                          //           focusedBorderColor: ConstColor.borderColor,
+                          //           dropdownBorderRadius: 10,
+                          //           onOptionSelected: (options) {
+                          //             controller.onOptionSelected(
+                          //               options,
+                          //             );
+                          //           },
+                          //           selectedOptions: controller
+                          //               .selectedOperationNameListData1,
+                          //           options: controller.operationNameListData1,
+                          //           suffixIcon: Transform.rotate(
+                          //             angle: pi / 2,
+                          //             child: const Icon(
+                          //               Icons.arrow_forward_ios_rounded,
+                          //             ),
+                          //           ),
+                          //           selectedOptionTextColor:
+                          //               ConstColor.appBarTitleColor,
+                          //           selectionType: SelectionType.multi,
+                          //           chipConfig: const ChipConfig(
+                          //               runSpacing: -8,
+                          //               wrapType: WrapType.wrap,
+                          //               backgroundColor: Colors.white),
+                          //           dropdownHeight: 250,
+                          //           optionTextStyle: TextStyle(
+                          //               fontSize: Sizes.px14,
+                          //               fontFamily:
+                          //                   CommonFontStyle.plusJakartaSans,
+                          //               fontWeight: FontWeight.w300),
+                          //           selectedOptionIcon:
+                          //               const Icon(Icons.check_circle),
+                          //           borderColor: ConstColor.borderColor,
+                          //           borderRadius: 10,
+                          //           borderWidth: 1,
+                          //           focusedBorderWidth: 1,
+                          //           disabledOptions: <ValueItem<dynamic>>[].obs,
+                          //           // padding: EdgeInsets.only(left: 12.w, right: 20.w),
+                          //         ),
+                          //       );
+                          //     } else {
+                          //       return commonSelectorPlaceHolder(
+                          //           context, 'Select Surgery');
+                          //     }
+                          //   },
+                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              controller.selectOperationName();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                border: Border.all(
+                                  width: 1,
+                                  color: ConstColor.borderColor,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, top: 15, bottom: 15),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: controller
+                                              .selectedOperationList.isEmpty
+                                          ? Row(
+                                              children: [
+                                                Expanded(
+                                                  child: AppText(
+                                                    text: 'Select Surgery',
+                                                    fontColor: ConstColor
+                                                        .hintTextColor,
+                                                  ),
+                                                ),
+                                                SvgPicture.asset(
+                                                  ConstAsset.down,
+                                                  height: 20,
+                                                  width: 20,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ],
+                                            )
+                                          : Wrap(
+                                              runSpacing: 5,
+                                              spacing: 8,
+                                              children: [
+                                                for (int i = 0;
+                                                    i <
+                                                        controller
+                                                            .selectedOperationList
+                                                            .length;
+                                                    i++)
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color: ConstColor
+                                                                .hintTextColor),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: Colors.white),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 7,
+                                                              right: 5,
+                                                              top: 5,
+                                                              bottom: 5),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Flexible(
+                                                            child: AppText(
+                                                              text: controller
+                                                                      .selectedOperationList[
+                                                                          i]
+                                                                      .operationName ??
+                                                                  '',
+                                                              maxLine: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .unfocus();
+                                                              controller
+                                                                  .selectedOperationId
+                                                                  .remove(controller
+                                                                      .selectedOperationList[
+                                                                          i]
+                                                                      .id);
+                                                              controller
+                                                                  .selectedOperationList
+                                                                  .remove(controller
+                                                                      .selectedOperationList[i]);
+                                                              controller
+                                                                  .update();
+                                                              if (controller
+                                                                  .selectedOperationId
+                                                                  .isEmpty) {
+                                                                controller
+                                                                    .surgeryListData = [];
+                                                                controller
+                                                                    .update();
+                                                              }
+                                                            },
+                                                            child: const Icon(
+                                                              Icons
+                                                                  .cancel_outlined,
+                                                              size: 20,
+                                                              color: ConstColor
+                                                                  .errorBorderColor,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                              ],
+                                            ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          //                         // ListView.builder(
+                          //                         //     itemCount: controller
+                          //                         //         .selectedOperationList
+                          //                         //         .length,
+                          //                         //     scrollDirection:
+                          //                         //         Axis.horizontal,
+                          //                         //     shrinkWrap: true,
+                          //                         //     itemBuilder:
+                          //                         //         (item, index) {
+                          //                         //       return Padding(
+                          //                         //         padding:
+                          //                         //             const EdgeInsets
+                          //                         //                 .only(
+                          //                         //                 top: 7,
+                          //                         //                 bottom: 7,
+                          //                         //                 right:
+                          //                         //                     10),
+                          //                         //         child: Container(
+                          //                         //           width: 80,
+                          //                         //           height: 20,
+                          //                         //           decoration: BoxDecoration(
+                          //                         //               boxShadow: const [
+                          //                         //                 BoxShadow(
+                          //                         //                   color: Colors
+                          //                         //                       .grey,
+                          //                         //                   blurRadius:
+                          //                         //                       2.0,
+                          //                         //                 ),
+                          //                         //               ],
+                          //                         //               borderRadius:
+                          //                         //                   BorderRadius.circular(
+                          //                         //                       10),
+                          //                         //               color: Colors
+                          //                         //                   .white),
+                          //                         //           child: Padding(
+                          //                         //             padding:
+                          //                         //                 const EdgeInsets
+                          //                         //                     .only(
+                          //                         //                     left:
+                          //                         //                         7,
+                          //                         //                     right:
+                          //                         //                         5),
+                          //                         //             child: Row(
+                          //                         //               children: [
+                          //                         //                 Expanded(
+                          //                         //                   child:
+                          //                         //                       AppText(
+                          //                         //                     text: controller.selectedOperationList[index].operationName ??
+                          //                         //                         '',
+                          //                         //                     maxLine:
+                          //                         //                         1,
+                          //                         //                     overflow:
+                          //                         //                         TextOverflow.ellipsis,
+                          //                         //                   ),
+                          //                         //                 ),
+                          //                         //                 GestureDetector(
+                          //                         //                     onTap:
+                          //                         //                         () {
+                          //                         //                       FocusScope.of(context).unfocus();
+                          //                         //                       controller.selectedOperationId.remove(controller.selectedOperationList[index].id);
+                          //                         //                       controller.selectedOperationList.remove(controller.selectedOperationList[index]);
+                          //                         //                       controller.update();
+                          //                         //                     },
+                          //                         //                     child:
+                          //                         //                         const Icon(
+                          //                         //                       Icons.cancel_outlined,
+                          //                         //                       size:
+                          //                         //                           20,
+                          //                         //                       color:
+                          //                         //                           ConstColor.errorBorderColor,
+                          //                         //                     ))
+                          //                         //               ],
+                          //                         //             ),
+                          //                         //           ),
+                          //                         //         ),
+                          //                         //       );
+                          //                         //     }),
+
+                          //                         ),
+                          //                     SvgPicture.asset(
+                          //                       ConstAsset.down,
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           )),
+                          //     ),
+                          //   ],
+                          // ),
+
                           SizedBox(
                             height: Sizes.crossLength * 0.010,
                           ),

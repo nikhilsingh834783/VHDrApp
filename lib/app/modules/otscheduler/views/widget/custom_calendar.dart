@@ -31,7 +31,8 @@ class SelectCustomDate extends StatelessWidget {
                 controller.selectedDate = va[0];
                 controller.dateOfOperation.text =
                     DateFormat('dd-MMM-yyyy').format(controller.selectedDate!);
-                controller.selectDateController.hideMenu();
+                // controller.selectDateController.hideMenu();
+                Navigator.pop(context);
                 controller.update();
               },
             )),

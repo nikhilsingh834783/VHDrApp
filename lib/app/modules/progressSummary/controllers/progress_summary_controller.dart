@@ -1,9 +1,13 @@
 import 'package:dio/dio.dart' as dio_package;
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:venus/main.dart';
 
 import '../../../app_common_widgets/common_import.dart';
 import '../../../core/services/api_service.dart';
+import '../../bottomBar/controllers/bottom_bar_controller.dart';
 import '../../login/views/login_view.dart';
 import '../model/progress_summary_model.dart';
 
@@ -12,14 +16,38 @@ class ProgressSummaryController extends GetxController {
   List selectedIndex = [];
   ProgressListData? progressListing;
   bool apiCall = false;
+  final ScrollController progressScrollController = ScrollController();
+  var bottomBarController = Get.put(BottomBarController());
 
   void increment() => count.value++;
 
-  getProgressSummary({required String ipdNo, bool isLoader = true}) async {
+  scrollListner() {
+    progressScrollController.addListener(() {
+      if (progressScrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        hideBottomBar = false.obs;
+        update();
+        // print("=====Up");
+        bottomBarController.update();
+        // update(0.0, true);
+      } else if (progressScrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        hideBottomBar = true.obs;
+        update();
+        bottomBarController.update();
+        // print("=====Down");
+      }
+    });
+  }
+
+  getProgressSummary(
+      {required String ipdNo,
+      required String uhid,
+      bool isLoader = true}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
-    Map data = {"loginId": loginId, "ipdNo": ipdNo};
+    Map data = {"loginId": loginId, "ipdNo": ipdNo, "UHID": uhid};
     apiCall = true;
     String apiUrl = ConstApiUrl.getProgressSummary;
     dio_package.Response finalData =

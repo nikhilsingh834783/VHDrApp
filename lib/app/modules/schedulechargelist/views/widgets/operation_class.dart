@@ -34,7 +34,11 @@ class OperationClassView extends StatelessWidget {
                           .operationClassListData[index].id
                           .toString();
                       controller.operationClassPopupController.hideMenu();
-                      controller.getSurgeries(isLoader: true);
+                      if (controller.selectedOperationId.isNotEmpty &&
+                          controller.selectedClassId != null) {
+                        controller.getSurgeries(isLoader: true);
+                      }
+
                       controller.update();
                     },
                     child: Column(

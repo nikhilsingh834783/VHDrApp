@@ -29,7 +29,8 @@ class ChooseTimeView extends StatelessWidget {
                       onTap: () {
                         controller.timeController.text =
                             '${controller.selectedHour.toString().padLeft(2, '0')}:${controller.selectedMinute.toString().padLeft(2, '0')} ${controller.isAm ? 'AM' : 'PM'}';
-                        controller.startTimePicker.hideMenu();
+                        // controller.startTimePicker.hideMenu();
+                        Navigator.pop(context);
                         controller.update();
                       },
                       child: AppText(

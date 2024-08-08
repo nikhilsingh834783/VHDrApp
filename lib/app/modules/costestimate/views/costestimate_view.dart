@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/modules/costestimate/views/widgets/chhose_date.dart';
-import 'package:venus/app/modules/costestimate/views/widgets/choose_time.dart';
-import 'package:venus/app/modules/costestimate/views/widgets/stay_day_list.dart';
 
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/costestimate_controller.dart';
 import 'chargelist/chargelist_view.dart';
 import 'widgets/gender_list.dart';
 import 'widgets/high_risk_type.dart';
-import 'widgets/operation_class_view.dart';
-import 'widgets/organization_list.dart';
-import 'widgets/procedure_list_view.dart';
 
 class CostestimateView extends GetView<CostestimateController> {
   const CostestimateView({super.key});
@@ -196,39 +190,28 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-                        CustomPopupMenu(
-                          showArrow: false,
-                          position: PreferredPosition.bottom,
-                          menuBuilder: () => const OrganizationList(),
-                          pressType: PressType.singleClick,
-                          verticalMargin: 5,
-                          horizontalMargin: 20,
-                          controller: controller.organizationNameController,
+                        AppTextField(
                           onTap: () {
-                            controller.organizationNameController.showMenu();
+                            controller.searchOrganizationListData = null;
+                            controller.selectOrganizationBottomSheet();
                           },
-                          child: AppTextField(
-                            onTap: () {
-                              controller.organizationNameController.showMenu();
-                            },
-                            hintText: 'Select Organization',
-                            controller: controller.organizationContoller,
-                            isReadOnly: true,
-                            validator: (val) {
-                              if (val!.trim().isEmpty) {
-                                return "Please select organization.";
-                              } else {
-                                return null;
-                              }
-                            },
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: SvgPicture.asset(
-                                ConstAsset.down,
-                                height: 20,
-                                width: 20,
-                                fit: BoxFit.cover,
-                              ),
+                          hintText: 'Select Organization',
+                          controller: controller.organizationContoller,
+                          isReadOnly: true,
+                          validator: (val) {
+                            if (val!.trim().isEmpty) {
+                              return "Please select organization.";
+                            } else {
+                              return null;
+                            }
+                          },
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset(
+                              ConstAsset.down,
+                              height: 20,
+                              width: 20,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -249,7 +232,21 @@ class CostestimateView extends GetView<CostestimateController> {
                           onTapOutside: (event) {
                             FocusScope.of(context).unfocus();
                           },
+                          onTap: () {
+                            controller.searchAdditionalDoctorList = null;
+                            controller.selectSurgeonBottom(context: context);
+                          },
+                          isReadOnly: true,
                           controller: controller.consultantController,
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset(
+                              ConstAsset.down,
+                              height: 20,
+                              width: 20,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                           validator: (val) {
                             if (val!.trim().isEmpty) {
                               return "Please enter surgeon name.";
@@ -296,36 +293,24 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-                        CustomPopupMenu(
-                          showArrow: false,
-                          position: PreferredPosition.bottom,
-                          menuBuilder: () => const SelectOperationClassView(),
-                          pressType: PressType.singleClick,
-                          verticalMargin: 5,
-                          horizontalMargin: 20,
-                          controller: controller.roomPopupMenuController,
+                        AppTextField(
                           onTap: () {
-                            controller.roomPopupMenuController.showMenu();
+                            controller.selectRoomBottom();
                           },
-                          child: AppTextField(
-                            onTap: () {
-                              controller.roomPopupMenuController.showMenu();
-                            },
-                            isReadOnly: true,
-                            controller: controller.roomTypeController,
-                            validator: (val) {
-                              if (val!.trim().isEmpty) {
-                                return "Please select room.";
-                              } else {
-                                return null;
-                              }
-                            },
-                            hintText: 'Select Room Type',
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(14.0),
-                              child: SvgPicture.asset(
-                                ConstAsset.down,
-                              ),
+                          isReadOnly: true,
+                          controller: controller.roomTypeController,
+                          validator: (val) {
+                            if (val!.trim().isEmpty) {
+                              return "Please select room.";
+                            } else {
+                              return null;
+                            }
+                          },
+                          hintText: 'Select Room Type',
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: SvgPicture.asset(
+                              ConstAsset.down,
                             ),
                           ),
                         ),
@@ -341,36 +326,24 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-                        CustomPopupMenu(
-                          showArrow: false,
-                          position: PreferredPosition.bottom,
-                          menuBuilder: () => const StayDayList(),
-                          pressType: PressType.singleClick,
-                          // verticalMargin: 5,
-                          // horizontalMargin: 20,
-                          controller: controller.stayDayPopupMenuController,
+                        AppTextField(
                           onTap: () {
-                            controller.stayDayPopupMenuController.showMenu();
+                            controller.selectDaysBottom();
                           },
-                          child: AppTextField(
-                            onTap: () {
-                              controller.stayDayPopupMenuController.showMenu();
-                            },
-                            isReadOnly: true,
-                            hintText: 'Select Stay Days',
-                            controller: controller.stayDayController,
-                            validator: (val) {
-                              if (val!.trim().isEmpty) {
-                                return "Please select numbers of days.";
-                              } else {
-                                return null;
-                              }
-                            },
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(14.0),
-                              child: SvgPicture.asset(
-                                ConstAsset.down,
-                              ),
+                          isReadOnly: true,
+                          hintText: 'Select Stay Days',
+                          controller: controller.stayDayController,
+                          validator: (val) {
+                            if (val!.trim().isEmpty) {
+                              return "Please select numbers of days.";
+                            } else {
+                              return null;
+                            }
+                          },
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: SvgPicture.asset(
+                              ConstAsset.down,
                             ),
                           ),
                         ),
@@ -386,156 +359,280 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-                        CustomPopupMenu(
-                            showArrow: false,
-                            position: PreferredPosition.bottom,
-                            menuBuilder: () => const ProcedureListView(),
-                            pressType: PressType.singleClick,
-                            verticalMargin: 5,
-                            horizontalMargin: 20,
-                            controller: controller.procedurePopMenuController,
-                            onTap: () {
-                              controller.procedurePopMenuController.showMenu();
-                            },
-                            child: Container(
-                              height: 48,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                                border: Border.all(
-                                  width: 1,
-                                  color: ConstColor.borderColor,
-                                ),
+
+                        GestureDetector(
+                          onTap: () {
+                            controller.searchOperationNameListData = null;
+                            controller.selectOperationName();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              border: Border.all(
+                                width: 1,
+                                color: ConstColor.borderColor,
                               ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: controller
-                                                  .selectedOperationList.isEmpty
-                                              ? AppText(
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 15, bottom: 15),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Expanded(
+                                    child: controller
+                                            .selectedOperationList.isEmpty
+                                        ? Row(
+                                            children: [
+                                              Expanded(
+                                                child: AppText(
                                                   text:
                                                       'Select Surgery/Procedure',
                                                   fontColor:
                                                       ConstColor.hintTextColor,
-                                                )
-                                              : ListView.builder(
-                                                  itemCount: controller
-                                                      .selectedOperationList
-                                                      .length,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  shrinkWrap: true,
-                                                  itemBuilder: (item, index) {
-                                                    return Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 7,
-                                                              bottom: 7,
-                                                              right: 10),
-                                                      child: Container(
-                                                        width: 80,
-                                                        height: 20,
-                                                        decoration: BoxDecoration(
-                                                            boxShadow: const [
-                                                              BoxShadow(
-                                                                color:
-                                                                    Colors.grey,
-                                                                blurRadius: 2.0,
-                                                              ),
-                                                            ],
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            color:
-                                                                Colors.white),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 7,
-                                                                  right: 5),
-                                                          child: Row(
-                                                            children: [
-                                                              Expanded(
-                                                                child: AppText(
-                                                                  text: controller
-                                                                          .selectedOperationList[
-                                                                              index]
-                                                                          .operationName ??
-                                                                      '',
-                                                                  maxLine: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                              ),
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    FocusScope.of(
-                                                                            context)
-                                                                        .unfocus();
-                                                                    controller
-                                                                        .selectedOperationId
-                                                                        .remove(controller
-                                                                            .selectedOperationList[index]
-                                                                            .id);
-                                                                    controller
-                                                                        .selectedOperationList
-                                                                        .remove(
-                                                                            controller.selectedOperationList[index]);
-                                                                    controller
-                                                                        .update();
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .cancel_outlined,
-                                                                    size: 20,
-                                                                    color: ConstColor
-                                                                        .errorBorderColor,
-                                                                  ))
-                                                            ],
+                                                ),
+                                              ),
+                                              SvgPicture.asset(
+                                                ConstAsset.down,
+                                                height: 20,
+                                                width: 20,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ],
+                                          )
+                                        : Wrap(
+                                            runSpacing: 5,
+                                            spacing: 8,
+                                            children: [
+                                              for (int i = 0;
+                                                  i <
+                                                      controller
+                                                          .selectedOperationList
+                                                          .length;
+                                                  i++)
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          width: 1,
+                                                          color: ConstColor
+                                                              .hintTextColor),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: Colors.white),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 7,
+                                                            right: 5,
+                                                            top: 5,
+                                                            bottom: 5),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Flexible(
+                                                          child: AppText(
+                                                            text: controller
+                                                                    .selectedOperationList[
+                                                                        i]
+                                                                    .operationName ??
+                                                                '',
+                                                            maxLine: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  })),
-                                      SvgPicture.asset(
-                                        ConstAsset.down,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .unfocus();
+                                                            controller
+                                                                .selectedOperationId
+                                                                .remove(controller
+                                                                    .selectedOperationList[
+                                                                        i]
+                                                                    .id);
+                                                            controller
+                                                                .selectedOperationList
+                                                                .remove(controller
+                                                                    .selectedOperationList[i]);
+                                                            controller.update();
+                                                          },
+                                                          child: const Icon(
+                                                            Icons
+                                                                .cancel_outlined,
+                                                            size: 20,
+                                                            color: ConstColor
+                                                                .errorBorderColor,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                            ],
+                                          ),
+                                  )
+                                ],
                               ),
-                            )
-
-                            //  AppTextField(
-                            //   isReadOnly: true,
-                            //   onTap: () {
-                            //     controller.procedurePopMenuController.showMenu();
-                            //   },
-                            //   hintText: 'Select Surgery/Procedure',
-                            //   controller: controller.procedureController,
-                            //   validator: (val) {
-                            //     if (val!.trim().isEmpty) {
-                            //       return "Please select procedure.";
-                            //     } else {
-                            //       return null;
-                            //     }
-                            //   },
-                            //   suffixIcon: Padding(
-                            //     padding: const EdgeInsets.all(14.0),
-                            //     child: SvgPicture.asset(
-                            //       ConstAsset.down,
-                            //     ),
-                            //   ),
-                            // ),
                             ),
+                          ),
+                        ),
+
+                        // CustomPopupMenu(
+                        //     showArrow: false,
+                        //     position: PreferredPosition.bottom,
+                        //     menuBuilder: () => const ProcedureListView(),
+                        //     pressType: PressType.singleClick,
+                        //     verticalMargin: 5,
+                        //     horizontalMargin: 20,
+                        //     controller: controller.procedurePopMenuController,
+                        //     onTap: () {
+                        //       controller.procedurePopMenuController.showMenu();
+                        //     },
+                        //     child: Container(
+                        //       height: 48,
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(10),
+                        //         color: Colors.white,
+                        //         border: Border.all(
+                        //           width: 1,
+                        //           color: ConstColor.borderColor,
+                        //         ),
+                        //       ),
+                        //       child: Center(
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.only(
+                        //               left: 10, right: 10),
+                        //           child: Row(
+                        //             children: [
+                        //               Expanded(
+                        //                   child: controller
+                        //                           .selectedOperationList.isEmpty
+                        //                       ? AppText(
+                        //                           text:
+                        //                               'Select Surgery/Procedure',
+                        //                           fontColor:
+                        //                               ConstColor.hintTextColor,
+                        //                         )
+                        //                       : ListView.builder(
+                        //                           itemCount: controller
+                        //                               .selectedOperationList
+                        //                               .length,
+                        //                           scrollDirection:
+                        //                               Axis.horizontal,
+                        //                           shrinkWrap: true,
+                        //                           itemBuilder: (item, index) {
+                        //                             return Padding(
+                        //                               padding:
+                        //                                   const EdgeInsets.only(
+                        //                                       top: 7,
+                        //                                       bottom: 7,
+                        //                                       right: 10),
+                        //                               child: Container(
+                        //                                 width: 80,
+                        //                                 height: 20,
+                        //                                 decoration: BoxDecoration(
+                        //                                     boxShadow: const [
+                        //                                       BoxShadow(
+                        //                                         color:
+                        //                                             Colors.grey,
+                        //                                         blurRadius: 2.0,
+                        //                                       ),
+                        //                                     ],
+                        //                                     borderRadius:
+                        //                                         BorderRadius
+                        //                                             .circular(
+                        //                                                 10),
+                        //                                     color:
+                        //                                         Colors.white),
+                        //                                 child: Padding(
+                        //                                   padding:
+                        //                                       const EdgeInsets
+                        //                                           .only(
+                        //                                           left: 7,
+                        //                                           right: 5),
+                        //                                   child: Row(
+                        //                                     children: [
+                        //                                       Expanded(
+                        //                                         child: AppText(
+                        //                                           text: controller
+                        //                                                   .selectedOperationList[
+                        //                                                       index]
+                        //                                                   .operationName ??
+                        //                                               '',
+                        //                                           maxLine: 1,
+                        //                                           overflow:
+                        //                                               TextOverflow
+                        //                                                   .ellipsis,
+                        //                                         ),
+                        //                                       ),
+                        //                                       GestureDetector(
+                        //                                           onTap: () {
+                        //                                             FocusScope.of(
+                        //                                                     context)
+                        //                                                 .unfocus();
+                        //                                             controller
+                        //                                                 .selectedOperationId
+                        //                                                 .remove(controller
+                        //                                                     .selectedOperationList[index]
+                        //                                                     .id);
+                        //                                             controller
+                        //                                                 .selectedOperationList
+                        //                                                 .remove(
+                        //                                                     controller.selectedOperationList[index]);
+                        //                                             controller
+                        //                                                 .update();
+                        //                                           },
+                        //                                           child:
+                        //                                               const Icon(
+                        //                                             Icons
+                        //                                                 .cancel_outlined,
+                        //                                             size: 20,
+                        //                                             color: ConstColor
+                        //                                                 .errorBorderColor,
+                        //                                           ))
+                        //                                     ],
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             );
+                        //                           })),
+                        //               SvgPicture.asset(
+                        //                 ConstAsset.down,
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     )
+
+                        //  AppTextField(
+                        //   isReadOnly: true,
+                        //   onTap: () {
+                        //     controller.procedurePopMenuController.showMenu();
+                        //   },
+                        //   hintText: 'Select Surgery/Procedure',
+                        //   controller: controller.procedureController,
+                        //   validator: (val) {
+                        //     if (val!.trim().isEmpty) {
+                        //       return "Please select procedure.";
+                        //     } else {
+                        //       return null;
+                        //     }
+                        //   },
+                        //   suffixIcon: Padding(
+                        //     padding: const EdgeInsets.all(14.0),
+                        //     child: SvgPicture.asset(
+                        //       ConstAsset.down,
+                        //     ),
+                        //   ),
+                        // ),
+                        // ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
                         ),
@@ -548,39 +645,27 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-                        CustomPopupMenu(
-                          showArrow: false,
-                          position: PreferredPosition.bottom,
-                          menuBuilder: () => const ChooseDateView(),
-                          pressType: PressType.singleClick,
-                          verticalMargin: 5,
-                          horizontalMargin: 20,
-                          controller: controller.selectDateController,
-                          onTap: () {
-                            controller.selectDateController.showMenu();
+                        AppTextField(
+                          hintText: 'Select Operation Date',
+                          controller: controller.dateController,
+                          isReadOnly: true,
+                          validator: (val) {
+                            if (val!.trim().isEmpty) {
+                              return "Please enter operation date.";
+                            } else {
+                              return null;
+                            }
                           },
-                          child: AppTextField(
-                            hintText: 'Select Operation Date',
-                            controller: controller.dateController,
-                            isReadOnly: true,
-                            validator: (val) {
-                              if (val!.trim().isEmpty) {
-                                return "Please enter operation date.";
-                              } else {
-                                return null;
-                              }
-                            },
-                            onTap: () {
-                              controller.selectDateController.showMenu();
-                            },
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.asset(
-                                ConstAsset.calender,
-                                height: 20,
-                                width: 20,
-                                fit: BoxFit.cover,
-                              ),
+                          onTap: () {
+                            controller.selectDateBottomSheet();
+                          },
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              ConstAsset.calender,
+                              height: 20,
+                              width: 20,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -597,39 +682,27 @@ class CostestimateView extends GetView<CostestimateController> {
                           height: Sizes.crossLength * 0.010,
                         ),
 
-                        CustomPopupMenu(
-                          showArrow: false,
-                          position: PreferredPosition.bottom,
-                          menuBuilder: () => const ChooseTimeView(),
-                          pressType: PressType.singleClick,
-                          verticalMargin: 5,
-                          horizontalMargin: 20,
-                          controller: controller.startTimePicker,
+                        AppTextField(
                           onTap: () {
-                            controller.startTimePicker.showMenu();
+                            controller.selectTimeBottomSheet();
                           },
-                          child: AppTextField(
-                            onTap: () {
-                              controller.startTimePicker.showMenu();
-                            },
-                            isReadOnly: true,
-                            validator: (val) {
-                              if (val!.trim().isEmpty) {
-                                return "Please select time.";
-                              } else {
-                                return null;
-                              }
-                            },
-                            controller: controller.timeController,
-                            hintText: 'Start Time',
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: SvgPicture.asset(
-                                ConstAsset.time,
-                                height: 20,
-                                width: 20,
-                                fit: BoxFit.cover,
-                              ),
+                          isReadOnly: true,
+                          validator: (val) {
+                            if (val!.trim().isEmpty) {
+                              return "Please select time.";
+                            } else {
+                              return null;
+                            }
+                          },
+                          controller: controller.timeController,
+                          hintText: 'Start Time',
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              ConstAsset.time,
+                              height: 20,
+                              width: 20,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -647,8 +720,8 @@ class CostestimateView extends GetView<CostestimateController> {
                         ),
                         AppTextField(
                           onTap: () {
-                            controller.showAdditionalSurgeon(context: context);
                             controller.searchAdditionalDoctorList = null;
+                            controller.showAdditionalSurgeon(context: context);
                           },
                           isReadOnly: true,
                           hintText: 'Select Additional surgeon Doctor',

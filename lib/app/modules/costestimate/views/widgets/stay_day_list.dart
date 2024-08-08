@@ -30,7 +30,8 @@ class StayDayList extends StatelessWidget {
                   controller.stayDayController.text =
                       controller.stayDayList[item];
                   controller.update();
-                  controller.stayDayPopupMenuController.hideMenu();
+                  // controller.stayDayPopupMenuController.hideMenu();
+                  Navigator.pop(context);
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
