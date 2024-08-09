@@ -37,170 +37,44 @@ class StartingHeading extends StatelessWidget {
           SizedBox(
             height: height,
             child: ListView.builder(
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.only(bottom: 16.0),
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: allReportsData.length,
+                itemCount: allReportsData.length + 1,
                 itemBuilder: (item, i) {
                   return Column(
                     children: [
-                      SizedBox(
-                        height: getDynamicHeight(size: 0.055),
-                        child: Center(
-                          child: AppText(
-                            text: allReportsData[i]['TestName'] ?? '',
-                            fontSize: Sizes.px13,
-                            fontColor: ConstColor.buttonColor,
-                            fontWeight: FontWeight.w500,
-                            textAlign: TextAlign.center,
-                            maxLine: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                      Divider(
-                        thickness: 1,
-                        height: getDynamicHeight(size: 0.002),
-                        color: ConstColor.blackColor.withOpacity(0.3),
-                      ),
+                      i == allReportsData.length
+                          ? const SizedBox()
+                          : SizedBox(
+                              height: getDynamicHeight(size: 0.055),
+                              child: Center(
+                                child: AppText(
+                                  text: allReportsData[i]['TestName'] ?? '',
+                                  fontSize: Sizes.px13,
+                                  fontColor: ConstColor.buttonColor,
+                                  fontWeight: FontWeight.w500,
+                                  textAlign: TextAlign.center,
+                                  maxLine: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                      i == allReportsData.length
+                          ? const SizedBox()
+                          : Divider(
+                              thickness: 1,
+                              height: getDynamicHeight(size: 0.002),
+                              color: ConstColor.blackColor.withOpacity(0.3),
+                            ),
+                      i == allReportsData.length
+                          ? Container(
+                              height: 10,
+                            )
+                          : const SizedBox()
                     ],
                   );
                 }),
           )
-
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'RBC count',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'P.C.V',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'Hemoglobin',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'RBC count',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'P.C.V',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'Hemoglobin',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'RBC count',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'P.C.V',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // Divider(
-          //   thickness: 1,
-          //   color: ConstColor.blackColor.withOpacity(0.3),
-          // ),
-          // SizedBox(
-          //   height: getDynamicHeight(size: 0.040),
-          //   child: Center(
-          //     child: AppText(
-          //       text: 'Hemoglobin',
-          //       fontSize: Sizes.px13,
-          //       fontColor: ConstColor.buttonColor,
-          //       fontWeight: FontWeight.w500,
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 5,
-          // )
         ],
       );
     });

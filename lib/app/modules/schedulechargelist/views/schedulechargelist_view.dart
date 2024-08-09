@@ -333,6 +333,7 @@ class SchedulechargelistView extends GetView<SchedulechargelistController> {
                           // ),
                           GestureDetector(
                             onTap: () {
+                              controller.searchOperationNameListData = null;
                               controller.selectOperationName();
                             },
                             child: Container(

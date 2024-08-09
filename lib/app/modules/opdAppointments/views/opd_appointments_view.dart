@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:venus/app/modules/labReports/views/lab_reports_view%20copy.dart';
+import 'package:venus/app/modules/labReports/views/lab_reports_view_copy.dart';
 import 'package:venus/app/modules/opdAppointments/views/widgets/opd_calender.dart';
 import 'package:venus/app/modules/progressSummary/controllers/progress_summary_controller.dart';
 import 'package:venus/app/modules/progressSummary/views/progress_summary_view.dart';
@@ -397,7 +397,10 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                             pageTransitionAnimation:
                                                                 PageTransitionAnimation
                                                                     .cupertino,
-                                                          );
+                                                          ).then((value) {
+                                                            hideBottomBar
+                                                                .value = false;
+                                                          });
                                                         } else if (va == 2) {
                                                           var labreportsController =
                                                               Get.put(
@@ -425,6 +428,8 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                               .commonList = [];
                                                           labreportsController
                                                               .scrollLister();
+                                                          labreportsController
+                                                              .dataContain = [];
                                                           PersistentNavBarNavigator
                                                               .pushNewScreen(
                                                             context,
@@ -441,7 +446,10 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                             pageTransitionAnimation:
                                                                 PageTransitionAnimation
                                                                     .cupertino,
-                                                          );
+                                                          ).then((value) {
+                                                            hideBottomBar
+                                                                .value = false;
+                                                          });
                                                         } else if (va == 3) {
                                                           var progreesController =
                                                               Get.put(
@@ -473,7 +481,10 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                             pageTransitionAnimation:
                                                                 PageTransitionAnimation
                                                                     .cupertino,
-                                                          );
+                                                          ).then((value) {
+                                                            hideBottomBar
+                                                                .value = false;
+                                                          });
                                                         }
                                                       },
                                                       clipBehavior: Clip.none,

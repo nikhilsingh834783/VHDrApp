@@ -13,44 +13,40 @@ class OperationNameListView extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
             color: ConstColor.whiteColor,
-            border: Border.all(width: 0.5, color: ConstColor.boldBlackColor),
             borderRadius: BorderRadius.circular(10)),
         height: getDynamicHeight(size: 0.395),
         child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getDynamicHeight(size: 0.015),
-                vertical: getDynamicHeight(size: 0.020)),
+              horizontal: getDynamicHeight(size: 0.015),
+            ),
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
                     AppText(
                       text: 'Select Surgery',
                       fontSize: Sizes.px16,
                       fontWeight: FontWeight.w600,
                       fontColor: ConstColor.black4B4D4F,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        if (controller.selectedOperationId.isNotEmpty &&
-                            controller.selectedClassId != null) {
-                          controller.getSurgeries(isLoader: true);
-                        }
-                        Get.back();
-                      },
-                      child: AppText(
-                        text: controller.selectedOperationId.isEmpty
-                            ? 'Close'
-                            : 'Done',
-                        fontSize: Sizes.px16,
-                        fontWeight: FontWeight.w600,
-                        fontColor: ConstColor.buttonColor,
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     if (controller.selectedOperationId.isNotEmpty &&
+                    //         controller.selectedClassId != null) {
+                    //       controller.getSurgeries(isLoader: true);
+                    //     }
+                    //     Get.back();
+                    //   },
+                    //   child: AppText(
+                    //     text: controller.selectedOperationId.isEmpty
+                    //         ? 'Close'
+                    //         : 'Done',
+                    //     fontSize: Sizes.px16,
+                    //     fontWeight: FontWeight.w600,
+                    //     fontColor: ConstColor.buttonColor,
+                    //   ),
+                    // ),
                   ],
                 ),
                 const SizedBox(

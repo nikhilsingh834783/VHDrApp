@@ -466,6 +466,8 @@ class _MyDrawerState extends State<MyDrawer> {
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
                           Navigator.pop(context);
+                          calenderType = 2;
+                          previousDateEnable = false;
                           Get.to(const CostestimateView());
                           // Get.to(() => const CostestimateView());
                           // if (!Get.isSnackbarOpen) {

@@ -13,15 +13,14 @@ class SelectStartTime extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
             color: ConstColor.whiteColor,
-            border: Border.all(width: 0.5, color: ConstColor.boldBlackColor),
             borderRadius: BorderRadius.circular(10)),
         height: 260,
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  right: Sizes.crossLength * 0.015,
-                  top: Sizes.crossLength * 0.015),
+                right: Sizes.crossLength * 0.020,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

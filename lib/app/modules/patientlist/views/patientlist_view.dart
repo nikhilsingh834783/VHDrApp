@@ -113,6 +113,14 @@ class PatientlistView extends GetView<PatientlistController> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          controller.callFilterAPi = false;
+                          controller.tempOrgsList = List.unmodifiable(
+                              controller.selectedOrganizationList);
+                          controller.tempFloorsList =
+                              List.unmodifiable((controller.selectedFloorList));
+                          controller.tempWardList =
+                              List.unmodifiable(controller.selectedWardList);
+
                           controller.registerFiltterBottomSheet();
                         },
                         child: Container(
@@ -136,9 +144,8 @@ class PatientlistView extends GetView<PatientlistController> {
                                 controller.selectedOrganizationList
                                             .isNotEmpty ||
                                         controller
-                                                .selectedFloorList.isNotEmpty &&
-                                            controller
-                                                .selectedWardList.isNotEmpty
+                                            .selectedFloorList.isNotEmpty ||
+                                        controller.selectedWardList.isNotEmpty
                                     ? Positioned(
                                         left: 10,
                                         bottom: 10,

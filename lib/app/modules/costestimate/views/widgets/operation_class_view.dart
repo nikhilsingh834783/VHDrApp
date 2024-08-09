@@ -13,13 +13,12 @@ class SelectOperationClassView extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
             color: ConstColor.whiteColor,
-            border: Border.all(width: 0.5, color: ConstColor.boldBlackColor),
             borderRadius: BorderRadius.circular(10)),
         height: getDynamicHeight(size: 0.350),
         child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getDynamicHeight(size: 0.015),
-                vertical: getDynamicHeight(size: 0.020)),
+              horizontal: getDynamicHeight(size: 0.015),
+            ),
             child: ListView.builder(
                 padding: EdgeInsets.zero,
                 itemCount: controller.operationClassListData.length,

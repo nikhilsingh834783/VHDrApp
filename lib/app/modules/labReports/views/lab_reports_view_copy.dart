@@ -72,11 +72,13 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                     ),
                     Expanded(
                       child: Center(
-                        child: AppText(
-                          text: 'No data found',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        child: controller.apiCall
+                            ? const SizedBox()
+                            : AppText(
+                                text: 'No data found',
+                                fontSize: Sizes.px15,
+                                fontWeight: FontWeight.w600,
+                              ),
                       ),
                     )
                   ])
@@ -162,7 +164,9 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                   ),
                                   Expanded(
                                     child: ListView.builder(
-                                      padding: EdgeInsets.zero,
+                                      padding: EdgeInsets.only(
+                                          bottom:
+                                              hideBottomBar.value ? 20 : 70),
                                       itemCount: controller.commonList.length,
                                       controller:
                                           controller.allscrollController,
@@ -303,25 +307,24 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                                                         BoxDecoration(
                                                                       color: ConstColor
                                                                           .whiteColor,
-                                                                      border:
-                                                                          Border(
-                                                                        bottom:
-                                                                            BorderSide(
-                                                                          width:
-                                                                              1,
-                                                                          color: ConstColor
-                                                                              .blackColor
-                                                                              .withOpacity(0.3),
-                                                                        ),
-                                                                        left:
-                                                                            BorderSide(
-                                                                          width:
-                                                                              1,
-                                                                          color: ConstColor
-                                                                              .blackColor
-                                                                              .withOpacity(0.3),
-                                                                        ),
-                                                                      ),
+                                                                      border: const Border(
+                                                                          // bottom:
+                                                                          //     BorderSide(
+                                                                          //   width:
+                                                                          //       1,
+                                                                          //   color: ConstColor
+                                                                          //       .blackColor
+                                                                          //       .withOpacity(0.3),
+                                                                          // ),
+                                                                          // left:
+                                                                          //     BorderSide(
+                                                                          //   width:
+                                                                          //       1,
+                                                                          //   color: ConstColor
+                                                                          //       .blackColor
+                                                                          //       .withOpacity(0.3),
+                                                                          // ),
+                                                                          ),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               12),
@@ -332,23 +335,11 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                                                         IntrinsicHeight(
                                                                       child:
                                                                           Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.min,
                                                                         crossAxisAlignment:
                                                                             CrossAxisAlignment.stretch,
                                                                         children: [
-                                                                          // VerticalDivider(
-                                                                          //   thickness:
-                                                                          //       1,
-                                                                          //   color:
-                                                                          //       ConstColor.blackColor.withOpacity(0.3),
-                                                                          //   width:
-                                                                          //       1,
-                                                                          // ),
-                                                                          Expanded(
-                                                                              flex: 4,
-                                                                              child: StartingHeading(
-                                                                                allReportsData: indexWiseData,
-                                                                                height: getHeight(indexWiseData),
-                                                                              )),
                                                                           VerticalDivider(
                                                                             thickness:
                                                                                 1,
@@ -357,16 +348,34 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                                                             width:
                                                                                 1,
                                                                           ),
+                                                                          Expanded(
+                                                                              flex: 4,
+                                                                              child: StartingHeading(
+                                                                                allReportsData: indexWiseData,
+                                                                                height: getHeight(indexWiseData),
+                                                                              )),
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(bottom: 10),
+                                                                            child:
+                                                                                VerticalDivider(
+                                                                              thickness: 1,
+                                                                              color: ConstColor.blackColor.withOpacity(0.3),
+                                                                              width: 1,
+                                                                            ),
+                                                                          ),
                                                                           SizedBox(
                                                                               width: getDynamicHeight(size: 0.075),
                                                                               child: ReferenceWidget(allReportsData: indexWiseData, height: getHeight(indexWiseData))),
-                                                                          VerticalDivider(
-                                                                            thickness:
-                                                                                1,
-                                                                            color:
-                                                                                ConstColor.blackColor.withOpacity(0.3),
-                                                                            width:
-                                                                                1,
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(bottom: 10),
+                                                                            child:
+                                                                                VerticalDivider(
+                                                                              thickness: 1,
+                                                                              color: ConstColor.blackColor.withOpacity(0.3),
+                                                                              width: 1,
+                                                                            ),
                                                                           ),
                                                                           Expanded(
                                                                             flex:
@@ -459,10 +468,13 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                                                                             )
                                                                                           ],
                                                                                         ),
-                                                                                        VerticalDivider(
-                                                                                          thickness: 1,
-                                                                                          color: ConstColor.blackColor.withOpacity(0.3),
-                                                                                          width: 1,
+                                                                                        Padding(
+                                                                                          padding: const EdgeInsets.only(bottom: 10),
+                                                                                          child: VerticalDivider(
+                                                                                            thickness: 1,
+                                                                                            color: ConstColor.blackColor.withOpacity(0.3),
+                                                                                            width: 1,
+                                                                                          ),
                                                                                         ),
                                                                                       ],
                                                                                     ),
@@ -535,6 +547,6 @@ getHeight(List alldata) {
   // if (alldata.length > 2) {
   //   return ((alldata.length) * (Sizes.crossLength * .0713));
   // } else {
-  return ((alldata.length) * (Sizes.crossLength * .057));
+  return ((alldata.length) * (Sizes.crossLength * .057) + 10);
   // }
 }

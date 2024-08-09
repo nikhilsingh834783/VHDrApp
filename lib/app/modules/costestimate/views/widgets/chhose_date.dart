@@ -15,12 +15,11 @@ class ChooseDateView extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
             color: ConstColor.whiteColor,
-            border: Border.all(width: 0.5, color: ConstColor.boldBlackColor),
             borderRadius: BorderRadius.circular(10)),
         child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getDynamicHeight(size: 0.015),
-                vertical: getDynamicHeight(size: 0.020)),
+              horizontal: getDynamicHeight(size: 0.015),
+            ),
             child: CustomCalendar(
               selectedDates: controller.selectedDate,
               streakDatesList: const [],

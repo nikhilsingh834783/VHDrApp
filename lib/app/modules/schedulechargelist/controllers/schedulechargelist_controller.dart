@@ -7,7 +7,7 @@ import 'package:venus/app/modules/schedulechargelist/model/operation_class_model
 
 import '../../../../main.dart';
 import '../../../app_common_widgets/common_import.dart';
-import '../../../app_common_widgets/multi_dropdown_widget 1.dart';
+import '../../../app_common_widgets/multi_dropdown_widget.dart';
 import '../../../core/services/api_service.dart';
 import '../../bottomBar/controllers/bottom_bar_controller.dart';
 import '../../login/views/login_view.dart';
@@ -247,10 +247,15 @@ class SchedulechargelistController extends GetxController {
   Future<void> selectOperationName() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -266,7 +271,11 @@ class SchedulechargelistController extends GetxController {
             ),
             child: const OperationNameListView()),
       ),
-    );
+    ).whenComplete(() {
+      if (selectedOperationId.isNotEmpty && selectedClassId != null) {
+        getSurgeries(isLoader: true);
+      }
+    });
   }
 
   searchAdditionalSurgeon(String text) {

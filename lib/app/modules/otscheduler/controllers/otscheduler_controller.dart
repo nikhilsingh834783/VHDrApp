@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dio/dio.dart' as dio_package;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -87,11 +89,17 @@ class OtschedulerController extends GetxController {
 
   Future<void> selectOperationName() async {
     showModalBottomSheet(
-      context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
+      context: Get.context!,
+      useRootNavigator: true,
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -273,10 +281,16 @@ class OtschedulerController extends GetxController {
   Future<void> selectDateBottomSheet() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
+      useRootNavigator: true,
       builder: (context) => Container(
           height: MediaQuery.of(context).size.height * 0.55,
           width: Get.width,
@@ -322,10 +336,15 @@ class OtschedulerController extends GetxController {
   Future<void> selectStartTimeBottomSheet() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Container(
           height: MediaQuery.of(context).size.height * 0.50,
           width: Get.width,
@@ -373,10 +392,15 @@ class OtschedulerController extends GetxController {
   Future<void> selectEndTimeBottomSheet() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Container(
           height: MediaQuery.of(context).size.height * 0.50,
           width: Get.width,
@@ -393,24 +417,26 @@ class OtschedulerController extends GetxController {
 
   Future<void> selectOrganizationBottomSheet() async {
     showModalBottomSheet(
-      context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
+      context: Get.context!,
+      useRootNavigator: true,
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
             height: MediaQuery.of(context).size.height * 0.65,
             width: Get.width,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-              ),
-            ),
+            decoration: BoxDecoration(
+                color: ConstColor.whiteColor,
+                borderRadius: BorderRadius.circular(10)),
             child: const OrganizationList()),
       ),
     );

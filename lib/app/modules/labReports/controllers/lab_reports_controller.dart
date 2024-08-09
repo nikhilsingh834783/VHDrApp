@@ -146,9 +146,8 @@ class LabReportsController extends GetxController {
       commonList = responseData['data']['Data'];
       scrollController1.addListener(_syncScroll);
       scrollController2.addListener(_syncScroll2);
-
+      apiCall = false;
       update();
-      print(commonList.length);
     } else if (finalData.statusCode == 401) {
       prefs.clear();
       Get.offAll(const LoginView());
@@ -160,7 +159,7 @@ class LabReportsController extends GetxController {
       apiCall = false;
       Get.rawSnackbar(message: "Something went wrong");
     }
-    //   update();
+    update();
   }
 
   // getLabReporst(

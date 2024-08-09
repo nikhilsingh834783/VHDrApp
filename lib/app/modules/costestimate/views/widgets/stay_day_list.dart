@@ -17,8 +17,8 @@ class StayDayList extends StatelessWidget {
         height: getDynamicHeight(size: 0.245),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: getDynamicHeight(size: 0.015),
-              vertical: getDynamicHeight(size: 0.020)),
+            horizontal: getDynamicHeight(size: 0.015),
+          ),
           child: ListView.builder(
             padding: EdgeInsets.zero,
             itemCount: controller.stayDayList.length,

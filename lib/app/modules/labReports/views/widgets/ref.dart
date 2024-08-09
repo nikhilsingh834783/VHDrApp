@@ -38,50 +38,62 @@ class ReferenceWidget extends StatelessWidget {
             height: height,
             child: ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: allReportsData.length,
+                itemCount: allReportsData.length + 1,
                 shrinkWrap: true,
                 // controller: controller.scrollController1,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (item, i) {
                   return Column(
                     children: [
-                      SizedBox(
-                        height: getDynamicHeight(size: 0.055),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              AppText(
-                                text: allReportsData[i]['NormalRange'] !=
-                                            null &&
-                                        allReportsData[i]['NormalRange'] != ''
-                                    ? allReportsData[i]['NormalRange']
-                                    : '-',
-                                fontSize: Sizes.px13,
-                                fontColor: ConstColor.black6B6B6B,
-                                fontWeight: FontWeight.w500,
-                                textAlign: TextAlign.center,
-                                maxLine: 2,
-                                overflow: TextOverflow.ellipsis,
+                      i == allReportsData.length
+                          ? const SizedBox()
+                          : SizedBox(
+                              height: getDynamicHeight(size: 0.055),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    AppText(
+                                      text: allReportsData[i]['NormalRange'] !=
+                                                  null &&
+                                              allReportsData[i]
+                                                      ['NormalRange'] !=
+                                                  ''
+                                          ? allReportsData[i]['NormalRange']
+                                          : '-',
+                                      fontSize: Sizes.px13,
+                                      fontColor: ConstColor.black6B6B6B,
+                                      fontWeight: FontWeight.w500,
+                                      textAlign: TextAlign.center,
+                                      maxLine: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    AppText(
+                                      text: allReportsData[i]['Unit'] != null &&
+                                              allReportsData[i]['Unit'] != ''
+                                          ? allReportsData[i]['Unit']
+                                          : '-',
+                                      fontSize: Sizes.px9,
+                                      fontColor: ConstColor.black6B6B6B,
+                                      fontWeight: FontWeight.w500,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              AppText(
-                                text: allReportsData[i]['Unit'] != null &&
-                                        allReportsData[i]['Unit'] != ''
-                                    ? allReportsData[i]['Unit']
-                                    : '-',
-                                fontSize: Sizes.px9,
-                                fontColor: ConstColor.black6B6B6B,
-                                fontWeight: FontWeight.w500,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Divider(
-                        thickness: 1,
-                        height: getDynamicHeight(size: 0.002),
-                        color: ConstColor.blackColor.withOpacity(0.3),
-                      ),
+                            ),
+                      i == allReportsData.length
+                          ? const SizedBox()
+                          : Divider(
+                              thickness: 1,
+                              height: getDynamicHeight(size: 0.002),
+                              color: ConstColor.blackColor.withOpacity(0.3),
+                            ),
+                      i == allReportsData.length
+                          ? Container(
+                              color: Colors.white,
+                              height: 10,
+                            )
+                          : const SizedBox()
                     ],
                   );
                 }),

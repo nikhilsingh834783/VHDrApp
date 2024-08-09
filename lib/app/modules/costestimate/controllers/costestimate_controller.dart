@@ -428,10 +428,15 @@ class CostestimateController extends GetxController {
   Future<void> selectOrganizationBottomSheet() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -453,10 +458,15 @@ class CostestimateController extends GetxController {
   Future<void> selectDateBottomSheet() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Container(
           height: MediaQuery.of(context).size.height * 0.55,
           width: Get.width,
@@ -474,10 +484,15 @@ class CostestimateController extends GetxController {
   Future<void> selectTimeBottomSheet() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Container(
           height: MediaQuery.of(context).size.height * 0.55,
           width: Get.width,
@@ -495,10 +510,15 @@ class CostestimateController extends GetxController {
   Future<void> selectOperationName() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -520,10 +540,15 @@ class CostestimateController extends GetxController {
   Future<void> selectRoomBottom() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -545,10 +570,15 @@ class CostestimateController extends GetxController {
   Future<void> selectDaysBottom() async {
     showModalBottomSheet(
       context: Get.context!,
+      elevation: 0,
+      showDragHandle: true,
       isScrollControlled: true,
-      isDismissible: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ConstColor.whiteColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
       builder: (context) => Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),

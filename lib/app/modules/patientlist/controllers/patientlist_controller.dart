@@ -27,11 +27,16 @@ class PatientlistController extends GetxController {
   List<Orgs> orgsList = [];
   List<Floors> floorsList = [];
   List<Wards> wardList = [];
+
+  List<String> tempOrgsList = [];
+  List<String> tempFloorsList = [];
+  List<String> tempWardList = [];
   int? sortBySelected;
   final ScrollController patientScrollController = ScrollController();
   var bottomBarController = Get.put(BottomBarController());
   final TextEditingController searchController = TextEditingController();
   bool showShortButton = true;
+  bool callFilterAPi = false;
   FocusNode focusNode = FocusNode();
 
   @override
@@ -296,6 +301,7 @@ class PatientlistController extends GetxController {
                                   text: 'Apply',
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
+                                    callFilterAPi = true;
                                     if (selectedOrganizationList.isNotEmpty ||
                                         selectedFloorList.isNotEmpty ||
                                         selectedWardList.isNotEmpty) {
@@ -323,6 +329,7 @@ class PatientlistController extends GetxController {
                                         color: ConstColor.black6B6B6B),
                                   ),
                                   onPressed: () {
+                                    callFilterAPi = true;
                                     FocusScope.of(context).unfocus();
                                     selectedOrganizationList = [];
                                     selectedFloorList = [];
@@ -350,7 +357,15 @@ class PatientlistController extends GetxController {
                   ),
                 );
               }),
-            ));
+            )).whenComplete(() {
+      if (!callFilterAPi) {
+        // getFilterData();
+        selectedOrganizationList = List.from(tempOrgsList);
+        selectedFloorList = List.from(tempFloorsList);
+        selectedWardList = List.from(tempWardList);
+        update();
+      }
+    });
   }
 
   Future<void> sortBy() async {

@@ -16,7 +16,7 @@ import 'package:venus/app/modules/radiologyReport/controllers/radiology_report_c
 import 'package:venus/app/modules/radiologyReport/views/radiology_report_view.dart';
 import 'package:venus/main.dart';
 
-import '../../../labReports/views/lab_reports_view copy.dart';
+import '../../../labReports/views/lab_reports_view_copy.dart';
 import '../../controllers/patientlist_controller.dart';
 
 class PatientList extends StatelessWidget {
@@ -219,7 +219,9 @@ class PatientList extends StatelessWidget {
                                 withNavBar: true,
                                 pageTransitionAnimation:
                                     PageTransitionAnimation.cupertino,
-                              );
+                              ).then((value) {
+                                hideBottomBar.value = false;
+                              });
                             } else if (va == 2) {
                               var labreportsController =
                                   Get.put(LabReportsController());
@@ -235,6 +237,7 @@ class PatientList extends StatelessWidget {
                                   ipdNo: patientData.ipdNo ?? '',
                                   uhidNo: patientData.uhid ?? '');
                               labreportsController.commonList = [];
+                              labreportsController.dataContain = [];
                               labreportsController.scrollLister();
                               PersistentNavBarNavigator.pushNewScreen(
                                 context,
@@ -245,7 +248,9 @@ class PatientList extends StatelessWidget {
                                 withNavBar: true,
                                 pageTransitionAnimation:
                                     PageTransitionAnimation.cupertino,
-                              );
+                              ).then((value) {
+                                hideBottomBar.value = false;
+                              });
                             } else if (va == 3) {
                               var progreesController =
                                   Get.put(RadiologyReportController());
@@ -263,13 +268,22 @@ class PatientList extends StatelessWidget {
                                 withNavBar: true,
                                 pageTransitionAnimation:
                                     PageTransitionAnimation.cupertino,
-                              );
+                              ).then((value) {
+                                hideBottomBar.value = false;
+                              });
                             } else {
                               var otschedulerController =
                                   Get.put(OtschedulerController());
                               otschedulerController.getOrganizationList();
                               calenderType = 2;
                               previousDateEnable = false;
+                              otschedulerController.selectedOperationId = [];
+                              otschedulerController.selectedOperationList = [];
+                              otschedulerController.selectedDate = null;
+                              otschedulerController.searchAdditionalDoctorList =
+                                  null;
+                              otschedulerController
+                                  .searchOperationNameListData = null;
                               otschedulerController.getOperationName();
                               otschedulerController.getAdditionalSurgeon();
                               otschedulerController.selectedDate = null;
@@ -283,7 +297,9 @@ class PatientList extends StatelessWidget {
                                           .capitalize ??
                                       '';
                               otschedulerController.update();
-                              Get.to(const OtschedulerView());
+                              Get.to(const OtschedulerView())!.then((value) {
+                                hideBottomBar.value = false;
+                              });
                             }
                           },
                         ),

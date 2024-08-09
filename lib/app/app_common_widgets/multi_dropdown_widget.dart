@@ -263,7 +263,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   final LayerLink _layerLink = LayerLink();
 
   /// Response from the network call.
-  dynamic _reponseBody;
+  dynamic reponseBody;
 
   /// value notifier that is used for controller.
   MultiSelectController<T>? _controller;
@@ -330,8 +330,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handles the focus change to show/hide the dropdown.
   _handleFocusChange() {
-    print("_searchFocusNode?.hasFocus : ${_searchFocusNode?.hasFocus}");
-    print("_focusNode.hasFocus ${_focusNode.hasFocus}");
     // if ((_focusNode.hasFocus && _searchFocusNode!.hasFocus)) {
 
     // }
@@ -359,9 +357,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       try {
         _overlayEntry?.remove();
         isFocusNode = false;
-      } on Exception catch (e) {
-        // TODO
-      }
+      } on Exception catch (e) {}
       // if (isFocusNode) {
       // _overlayEntry?.remove();
       // }
@@ -455,15 +451,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           // canRequestFocus: true,
           skipTraversal: false,
           focusNode: _focusNode,
-          onFocusChange: (value) {
-            // isFocusNode = value;
-            // if (!isFocusNode) {
-            //   _searchFocusNode!.requestFocus();
-            // } else {
-            //   _searchFocusNode = FocusNode();
-            // }
-            print("value : $value");
-          },
+          onFocusChange: (value) {},
           child: InkWell(
             splashColor: null,
             splashFactory: null,
@@ -1014,7 +1002,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             widget.selectedOptionBackgroundColor ?? Colors.transparent,
         // enabled: !_disabledOptions.contains(option),
         onTap: () {
-          print("On dcfasd Item TAp");
           searchController.clear();
           if (widget.selectionType == SelectionType.multi) {
             if (isSelected) {
