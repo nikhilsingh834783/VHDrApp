@@ -76,7 +76,8 @@ class OperationListView extends StatelessWidget {
                               ),
                             )
                           : ListView.builder(
-                              padding: EdgeInsets.zero,
+                              padding: EdgeInsets.only(
+                                  bottom: Sizes.crossLength * 0.020),
                               itemCount: controller
                                   .searchOperationNameListData!.length,
                               itemBuilder: (item, index) {
@@ -197,7 +198,8 @@ class OperationListView extends StatelessWidget {
                               ),
                             )
                           : ListView.builder(
-                              padding: EdgeInsets.zero,
+                              padding: EdgeInsets.only(
+                                  bottom: Sizes.crossLength * 0.020),
                               itemCount:
                                   controller.operationNameListData.length,
                               itemBuilder: (item, index) {

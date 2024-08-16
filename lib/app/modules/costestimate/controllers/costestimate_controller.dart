@@ -27,11 +27,12 @@ class CostestimateController extends GetxController {
   String? selectedHighRisk;
   String? selectedGender;
   List<String> highRiskList = ['Yes', "No"];
-  List<String> genderList = ['Male', "Female"];
+  List<String> genderList = ['Male', "Female", "Other"];
 
   List<String> roomList = ['Deluxe', "Suite", 'Rooms', "NICU", "Twin"];
   List<String> stayDayList = ['1', "2", '3', "4", "5"];
   int selectedTab = 0;
+  var dataFromScreen = Get.arguments;
 
   final patientNameController = TextEditingController();
   final ageController = TextEditingController();
@@ -87,6 +88,7 @@ class CostestimateController extends GetxController {
   String? selectedOperation;
   DateTime? selectedDate;
   String? showSelectedDateTime;
+  String? docId;
   double left = 10;
   double top = 10;
   @override
@@ -113,6 +115,11 @@ class CostestimateController extends GetxController {
     if (filterResponse.statusCode == 200) {
       if (filterResponse.data != null) {
         organizationListData = filterResponse.data!;
+        // if (organizationListData.isNotEmpty) {
+        //   organizationContoller.text =
+        //       organizationListData[0].organization ?? '';
+        //   selectedOrganization = organizationListData[0].orgId.toString();
+        // }
       }
     } else if (filterResponse.statusCode == 401) {
       prefs.clear();
@@ -124,7 +131,6 @@ class CostestimateController extends GetxController {
       Get.rawSnackbar(message: "Something went wrong");
     }
     getAdditionalSurgeon();
-    getOperationName();
     getOperationClass();
   }
 
@@ -154,6 +160,16 @@ class CostestimateController extends GetxController {
     } else {
       Get.rawSnackbar(message: "Something went wrong");
     }
+    if (dataFromScreen != null) {
+      docId = dataFromScreen['drId'] ?? '';
+      for (int i = 0; i < additionalDoctorList.length; i++) {
+        if (additionalDoctorList[i].docId.toString() == docId) {
+          consultantController.text = additionalDoctorList[i].docName ?? '';
+          print(additionalDoctorList[i].docId.toString());
+        }
+      }
+    }
+    getOperationName();
   }
 
   getOperationName() async {
@@ -187,6 +203,28 @@ class CostestimateController extends GetxController {
       Get.rawSnackbar(message: "Something went wrong");
     }
     update();
+
+    if (dataFromScreen != null) {
+      patientNameController.text = dataFromScreen['patientName'] ?? '';
+      specialityController.text = dataFromScreen['speciality'] ?? '';
+      dateController.text = dataFromScreen['operationDate'] ?? '';
+      timeController.text = dataFromScreen['startTime'] ?? '';
+      List dataInList = dataFromScreen['operationIds'] != null
+          ? dataFromScreen['operationIds'].toString().split(',')
+          : [];
+      update();
+      for (int i = 0; i < operationNameListData.length; i++) {
+        for (int j = 0; j < dataInList.length; j++) {
+          if (dataInList[j].toString() ==
+              operationNameListData[i].id.toString()) {
+            selectedOperationId.add(operationNameListData[i].id!);
+            selectedOperationList.add(operationNameListData[i]);
+          }
+        }
+      }
+      print(dataFromScreen);
+      print(dataInList);
+    }
   }
 
   getOperationClass() async {
@@ -319,11 +357,21 @@ class CostestimateController extends GetxController {
       "timeOfSurgery": timeController.text.trim(),
       "additionalSurgeon": additionSurgeonController.text.trim(),
       "highRiskType": highRiskController.text.trim(),
-      "consumables": consumableController.text.trim(),
-      "implants": implantcontroller.text.trim(),
-      "otherExpense": otherExpenseController.text.trim(),
-      "consultantVisitCharge": visitChargeController.text.trim(),
-      "totalEstimate": totalEstimateController.text.trim()
+      "consumables": consumableController.text != ''
+          ? consumableController.text.trim()
+          : 0,
+      "implants": implantcontroller.text.trim() != ''
+          ? implantcontroller.text.trim()
+          : 0,
+      "otherExpense": otherExpenseController.text.trim() != ''
+          ? otherExpenseController.text.trim()
+          : 0,
+      "consultantVisitCharge": visitChargeController.text.trim() != ''
+          ? visitChargeController.text.trim()
+          : 0,
+      "totalEstimate": totalEstimateController.text.trim() != ''
+          ? totalEstimateController.text.trim()
+          : 0
     };
     String apiUrl = ConstApiUrl.getSurgicalEstimateapi;
     dio_package.Response finalData =
@@ -370,12 +418,24 @@ class CostestimateController extends GetxController {
       "timeOfSurgery": timeController.text.trim(),
       "additionalSurgeon": additionSurgeonController.text.trim(),
       "highRiskType": highRiskController.text.trim(),
-      "consumables": consumableController.text.trim(),
-      "implants": implantcontroller.text.trim(),
-      "otherExpense": otherExpenseController.text.trim(),
-      "consultantVisitCharge": visitChargeController.text.trim(),
-      "totalEstimate": totalEstimateController.text.trim()
+      "consumables": consumableController.text != ''
+          ? consumableController.text.trim()
+          : 0,
+      "implants": implantcontroller.text.trim() != ''
+          ? implantcontroller.text.trim()
+          : 0,
+      "otherExpense": otherExpenseController.text.trim() != ''
+          ? otherExpenseController.text.trim()
+          : 0,
+      "consultantVisitCharge": visitChargeController.text.trim() != ''
+          ? visitChargeController.text.trim()
+          : 0,
+      "totalEstimate": totalEstimateController.text.trim() != ''
+          ? totalEstimateController.text.trim()
+          : 0
     };
+    // "consumables":"","implants":"","otherExpense":"","consultantVisitCharge":"","totalEstimate":""}'
+
     String apiUrl = ConstApiUrl.getSurgicalEstimateapiProcedure;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
+// import 'package:venus/app/app_common_widgets/common_text.dart';
 import 'package:venus/app/app_common_widgets/my_drawer.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.dart';
 import 'package:venus/main.dart';
 
+import '../../../app_common_widgets/common_import.dart';
 import '../controllers/notification_controller.dart';
 
 class NotificationView extends GetView<NotificationController> {

@@ -20,7 +20,7 @@ class SelectOperationClassView extends StatelessWidget {
               horizontal: getDynamicHeight(size: 0.015),
             ),
             child: ListView.builder(
-                padding: EdgeInsets.zero,
+                padding: EdgeInsets.only(bottom: Sizes.crossLength * 0.020),
                 itemCount: controller.operationClassListData.length,
                 itemBuilder: (item, index) {
                   return GestureDetector(

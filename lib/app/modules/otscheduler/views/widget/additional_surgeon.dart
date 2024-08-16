@@ -24,7 +24,7 @@ class AdditionalSurgeonListViewOt extends StatelessWidget {
               children: [
                 Center(
                   child: AppText(
-                    text: 'Select Additional Surgeon Doctor',
+                    text: 'Select Surgeon Doctor',
                     fontSize: Sizes.px16,
                     fontWeight: FontWeight.w600,
                     fontColor: ConstColor.black4B4D4F,
@@ -58,7 +58,8 @@ class AdditionalSurgeonListViewOt extends StatelessWidget {
                               ),
                             )
                           : ListView.builder(
-                              padding: EdgeInsets.zero,
+                              padding: EdgeInsets.only(
+                                  bottom: Sizes.crossLength * 0.020),
                               itemCount:
                                   controller.searchAdditionalDoctorList!.length,
                               itemBuilder: (item, index) {
@@ -131,7 +132,8 @@ class AdditionalSurgeonListViewOt extends StatelessWidget {
                                 );
                               })
                       : ListView.builder(
-                          padding: EdgeInsets.zero,
+                          padding: EdgeInsets.only(
+                              bottom: Sizes.crossLength * 0.020),
                           itemCount: controller.additionalDoctorList.length,
                           itemBuilder: (item, index) {
                             return GestureDetector(

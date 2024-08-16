@@ -70,13 +70,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           onTapOutside: (event) {
                             FocusScope.of(context).unfocus();
                           },
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter patient name.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter patient name.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -97,13 +97,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           onTapOutside: (event) {
                             FocusScope.of(context).unfocus();
                           },
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter age.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter age.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -135,13 +135,13 @@ class CostestimateView extends GetView<CostestimateController> {
                             hintText: 'Select Gender',
                             controller: controller.genderController,
                             isReadOnly: true,
-                            validator: (val) {
-                              if (val!.trim().isEmpty) {
-                                return "Please select gender.";
-                              } else {
-                                return null;
-                              }
-                            },
+                            // validator: (val) {
+                            //   if (val!.trim().isEmpty) {
+                            //     return "Please select gender.";
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // },
                             suffixIcon: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: SvgPicture.asset(
@@ -273,13 +273,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           onTapOutside: (event) {
                             FocusScope.of(context).unfocus();
                           },
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter speciliaty.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter speciliaty.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -318,7 +318,7 @@ class CostestimateView extends GetView<CostestimateController> {
                           height: Sizes.crossLength * 0.020,
                         ),
                         AppText(
-                          text: 'Stay Day',
+                          text: 'Stay Days',
                           fontSize: Sizes.px15,
                           fontWeight: FontWeight.w600,
                           fontColor: ConstColor.black4B4D4F,
@@ -359,49 +359,54 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-
-                        GestureDetector(
-                          onTap: () {
-                            controller.searchOperationNameListData = null;
-                            controller.selectOperationName();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(
-                                width: 1,
-                                color: ConstColor.borderColor,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 15, bottom: 15),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Expanded(
-                                    child: controller
-                                            .selectedOperationList.isEmpty
-                                        ? Row(
-                                            children: [
-                                              Expanded(
-                                                child: AppText(
-                                                  text:
-                                                      'Select Surgery/Procedure',
-                                                  fontColor:
-                                                      ConstColor.hintTextColor,
-                                                ),
-                                              ),
-                                              SvgPicture.asset(
-                                                ConstAsset.down,
-                                                height: 20,
-                                                width: 20,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ],
-                                          )
-                                        : Wrap(
+                        controller.selectedOperationList.isEmpty
+                            ? AppTextField(
+                                isReadOnly: true,
+                                onTap: () {
+                                  controller.searchOperationNameListData = null;
+                                  controller.selectOperationName();
+                                },
+                                hintText: 'Select Surgery/Procedure',
+                                controller: controller.procedureController,
+                                validator: (val) {
+                                  if (val!.trim().isEmpty) {
+                                    return "Please select procedure.";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: SvgPicture.asset(
+                                    ConstAsset.down,
+                                  ),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  controller.searchOperationNameListData = null;
+                                  controller.selectOperationName();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      width: 1,
+                                      color: ConstColor.borderColor,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 15,
+                                        bottom: 15),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Expanded(
+                                          child: Wrap(
                                             runSpacing: 5,
                                             spacing: 8,
                                             children: [
@@ -476,12 +481,12 @@ class CostestimateView extends GetView<CostestimateController> {
                                                 )
                                             ],
                                           ),
-                                  )
-                                ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
 
                         // CustomPopupMenu(
                         //     showArrow: false,
@@ -611,27 +616,6 @@ class CostestimateView extends GetView<CostestimateController> {
                         //       ),
                         //     )
 
-                        //  AppTextField(
-                        //   isReadOnly: true,
-                        //   onTap: () {
-                        //     controller.procedurePopMenuController.showMenu();
-                        //   },
-                        //   hintText: 'Select Surgery/Procedure',
-                        //   controller: controller.procedureController,
-                        //   validator: (val) {
-                        //     if (val!.trim().isEmpty) {
-                        //       return "Please select procedure.";
-                        //     } else {
-                        //       return null;
-                        //     }
-                        //   },
-                        //   suffixIcon: Padding(
-                        //     padding: const EdgeInsets.all(14.0),
-                        //     child: SvgPicture.asset(
-                        //       ConstAsset.down,
-                        //     ),
-                        //   ),
-                        // ),
                         // ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -649,13 +633,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           hintText: 'Select Operation Date',
                           controller: controller.dateController,
                           isReadOnly: true,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter operation date.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter operation date.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           onTap: () {
                             controller.selectDateBottomSheet();
                           },
@@ -687,13 +671,13 @@ class CostestimateView extends GetView<CostestimateController> {
                             controller.selectTimeBottomSheet();
                           },
                           isReadOnly: true,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please select time.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please select time.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           controller: controller.timeController,
                           hintText: 'Start Time',
                           suffixIcon: Padding(
@@ -726,13 +710,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           isReadOnly: true,
                           hintText: 'Select Additional surgeon Doctor',
                           controller: controller.additionSurgeonController,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please select additional surgeon doctor.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please select additional surgeon doctor.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           suffixIcon: Padding(
                             padding: const EdgeInsets.all(14.0),
                             child: SvgPicture.asset(
@@ -869,13 +853,13 @@ class CostestimateView extends GetView<CostestimateController> {
                             FocusScope.of(context).unfocus();
                           },
                           keyboardType: TextInputType.number,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter consumable.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter consumable.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           hintText: 'Enter Consumables',
                         ),
                         SizedBox(
@@ -897,13 +881,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           },
                           keyboardType: TextInputType.number,
                           controller: controller.implantcontroller,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter implants.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter implants.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -924,13 +908,13 @@ class CostestimateView extends GetView<CostestimateController> {
                             FocusScope.of(context).unfocus();
                           },
                           controller: controller.otherExpenseController,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter other expense.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter other expense.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -951,13 +935,13 @@ class CostestimateView extends GetView<CostestimateController> {
                           onTapOutside: (event) {
                             FocusScope.of(context).unfocus();
                           },
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter consultant visit charge.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter consultant visit charge.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
@@ -979,13 +963,13 @@ class CostestimateView extends GetView<CostestimateController> {
                             FocusScope.of(context).unfocus();
                           },
                           textInputAction: TextInputAction.done,
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter total estimate.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter total estimate.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.070,

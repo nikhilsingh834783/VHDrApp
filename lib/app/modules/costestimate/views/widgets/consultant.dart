@@ -57,7 +57,8 @@ class ConsultantSurgeonListView extends StatelessWidget {
                               ),
                             )
                           : ListView.builder(
-                              padding: EdgeInsets.zero,
+                              padding: EdgeInsets.only(
+                                  bottom: Sizes.crossLength * 0.020),
                               itemCount:
                                   controller.searchAdditionalDoctorList!.length,
                               itemBuilder: (item, index) {
@@ -122,7 +123,8 @@ class ConsultantSurgeonListView extends StatelessWidget {
                                 );
                               })
                       : ListView.builder(
-                          padding: EdgeInsets.zero,
+                          padding: EdgeInsets.only(
+                              bottom: Sizes.crossLength * 0.020),
                           itemCount: controller.additionalDoctorList.length,
                           itemBuilder: (item, index) {
                             return GestureDetector(

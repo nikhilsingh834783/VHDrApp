@@ -195,13 +195,13 @@ class OtschedulerView extends GetView<OtschedulerController> {
                           onTapOutside: (event) {
                             FocusScope.of(context).unfocus();
                           },
-                          validator: (val) {
-                            if (val!.trim().isEmpty) {
-                              return "Please enter schedule.";
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (val) {
+                          //   if (val!.trim().isEmpty) {
+                          //     return "Please enter schedule.";
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.025,
@@ -368,11 +368,13 @@ class OtschedulerView extends GetView<OtschedulerController> {
                         ),
                         AppTextField(
                           onTap: () {
-                            controller.searchOrganizationListData = null;
-                            controller.selectOrganizationBottomSheet();
+                            // controller.searchOrganizationListData = null;
+                            // controller.selectOrganizationBottomSheet();
                           },
                           hintText: 'Select Organization',
+                          enabled: false,
                           controller: controller.organizationContoller,
+                          fillColor: ConstColor.greyF3F3F3,
                           isReadOnly: true,
                           validator: (val) {
                             if (val!.trim().isEmpty) {

@@ -42,6 +42,12 @@ class ProcedureListData {
   String? surgeryName;
   String? uhid;
   String? ipdNo;
+  String? startTime;
+  String? endTime;
+  String? operationDate;
+  String? operationIds;
+  String? drId;
+  String? speciality;
 
   ProcedureListData(
       {this.patientName,
@@ -50,7 +56,13 @@ class ProcedureListData {
       this.assisSurgnNm,
       this.surgeryName,
       this.uhid,
-      this.ipdNo});
+      this.ipdNo,
+      this.startTime,
+      this.endTime,
+      this.operationDate,
+      this.operationIds,
+      this.drId,
+      this.speciality});
 
   ProcedureListData.fromJson(Map<String, dynamic> json) {
     patientName = json['patientName'];
@@ -60,6 +72,12 @@ class ProcedureListData {
     surgeryName = json['surgeryName'];
     uhid = json['uhid'];
     ipdNo = json['ipdNo'];
+    startTime = json['startTime'];
+    endTime = json['endTime'];
+    operationDate = json['operationDate'];
+    operationIds = json['operationIds'];
+    drId = json['drId'];
+    speciality = json['speciality'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +89,12 @@ class ProcedureListData {
     data['surgeryName'] = surgeryName;
     data['uhid'] = uhid;
     data['ipdNo'] = ipdNo;
+    data['startTime'] = startTime;
+    data['endTime'] = endTime;
+    data['operationDate'] = operationDate;
+    data['operationIds'] = operationIds;
+    data['drId'] = drId;
+    data['speciality'] = speciality;
     return data;
   }
 }

@@ -80,6 +80,11 @@ class OtschedulerController extends GetxController {
           OrganizationListModel.fromJson(finalData.data);
       if (filterResponse.data != null) {
         organizationListData = filterResponse.data!;
+        if (organizationListData.isNotEmpty) {
+          organizationContoller.text =
+              organizationListData[0].organization ?? '';
+          selectedOrganization = organizationListData[0].orgId.toString();
+        }
       }
       update();
     } else {
@@ -188,6 +193,8 @@ class OtschedulerController extends GetxController {
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
+    // print(data);
+    // print(finalData);
     OperationNameModel patientResponse =
         OperationNameModel.fromJson(finalData.data);
     if (patientResponse.statusCode == 200) {

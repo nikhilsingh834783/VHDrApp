@@ -24,10 +24,11 @@ class ReferenceWidget extends StatelessWidget {
             height: 50,
             child: Center(
               child: AppText(
-                text: 'Ref.',
+                text: 'Normal Range',
                 fontSize: Sizes.px13,
                 fontColor: ConstColor.whiteColor,
                 fontWeight: FontWeight.w700,
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -51,6 +52,7 @@ class ReferenceWidget extends StatelessWidget {
                               height: getDynamicHeight(size: 0.055),
                               child: Center(
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     AppText(
                                       text: allReportsData[i]['NormalRange'] !=

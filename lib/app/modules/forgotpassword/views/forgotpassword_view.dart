@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/app_common_widgets/common_elevated_button.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
-import 'package:venus/app/app_common_widgets/common_textform_field.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/constant/asset_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/login/views/login_view.dart';
 
+import '../../../app_common_widgets/common_import.dart';
 import '../controllers/forgotpassword_controller.dart';
 
 class ForgotpasswordView extends GetView<ForgotpasswordController> {

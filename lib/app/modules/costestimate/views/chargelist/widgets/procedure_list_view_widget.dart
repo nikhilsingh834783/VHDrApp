@@ -52,7 +52,7 @@ class ProcedureListView extends StatelessWidget {
                               Expanded(
                                 child: AppText(
                                   text:
-                                      'Surgery/Producer: ${controller.procedureListAllData[index].testName} ',
+                                      'Surgery/Procedure: ${controller.procedureListAllData[index].testName} ',
                                   fontSize: Sizes.px14,
                                   fontWeight: FontWeight.w600,
                                   fontColor: ConstColor.buttonColor,

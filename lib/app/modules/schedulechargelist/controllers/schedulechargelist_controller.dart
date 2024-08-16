@@ -25,7 +25,7 @@ class SchedulechargelistController extends GetxController {
   List<SurgeryListData> surgeryListData = [];
   String? selectedGender;
   List<String> highRiskList = ['Yes', "No"];
-  List<String> genderList = ['Male', "Female"];
+  List<String> genderList = ['Male', "Female", "Other"];
   final ScrollController roomScrollController = ScrollController();
   final ScrollController vistScrollController = ScrollController();
   final ScrollController surgryScrollController = ScrollController();

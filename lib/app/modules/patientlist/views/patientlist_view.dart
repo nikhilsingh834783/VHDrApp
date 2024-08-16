@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
-import 'package:venus/app/app_common_widgets/common_textform_field.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/constant/asset_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/patientlist/views/widgets/listview_widget.dart';
 
 import '../../../../main.dart';
+import '../../../app_common_widgets/common_import.dart';
 import '../controllers/patientlist_controller.dart';
 
 class PatientlistView extends GetView<PatientlistController> {

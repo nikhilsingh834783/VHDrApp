@@ -42,6 +42,7 @@ class StartingHeading extends StatelessWidget {
                 itemCount: allReportsData.length + 1,
                 itemBuilder: (item, i) {
                   return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       i == allReportsData.length
                           ? const SizedBox()

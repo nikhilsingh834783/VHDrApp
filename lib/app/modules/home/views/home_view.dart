@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
 import 'package:venus/app/app_common_widgets/my_drawer.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/constant/asset_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.dart';
 import 'package:venus/app/modules/opdAppointments/controllers/opd_appointments_controller.dart';
 import 'package:venus/app/modules/patientlist/controllers/patientlist_controller.dart';
@@ -14,6 +10,7 @@ import 'package:venus/app/modules/patientlist/views/patientlist_view.dart';
 import 'package:venus/app/modules/schduleSurgeries/controllers/schdule_surgeries_controller.dart';
 
 import '../../../../main.dart';
+import '../../../app_common_widgets/common_import.dart';
 import '../../opdAppointments/views/opd_appointments_view.dart';
 import '../../schduleSurgeries/views/schdule_surgeries_view.dart';
 import '../controllers/home_controller.dart';
@@ -152,7 +149,6 @@ class HomeView extends GetView<HomeController> {
                               BoxShadow(
                                 color: Colors.grey,
                                 blurRadius: 2.0,
-                                // offset: Offset(0, 1)
                               ),
                             ],
                             border: Border.all(
@@ -162,7 +158,6 @@ class HomeView extends GetView<HomeController> {
                             padding: const EdgeInsets.all(20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                   child: Column(

@@ -14,7 +14,7 @@ class GenderListView extends StatelessWidget {
         decoration: BoxDecoration(
             color: ConstColor.whiteColor,
             borderRadius: BorderRadius.circular(10)),
-        height: getDynamicHeight(size: 0.125),
+        height: getDynamicHeight(size: 0.160),
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getDynamicHeight(size: 0.015),

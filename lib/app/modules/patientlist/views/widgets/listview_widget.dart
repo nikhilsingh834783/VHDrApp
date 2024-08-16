@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/constant/asset_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/labReports/controllers/lab_reports_controller.dart';
 import 'package:venus/app/modules/otscheduler/controllers/otscheduler_controller.dart';
 import 'package:venus/app/modules/otscheduler/views/otscheduler_view.dart';
@@ -16,6 +12,7 @@ import 'package:venus/app/modules/radiologyReport/controllers/radiology_report_c
 import 'package:venus/app/modules/radiologyReport/views/radiology_report_view.dart';
 import 'package:venus/main.dart';
 
+import '../../../../app_common_widgets/common_import.dart';
 import '../../../labReports/views/lab_reports_view_copy.dart';
 import '../../controllers/patientlist_controller.dart';
 
@@ -202,6 +199,7 @@ class PatientList extends StatelessWidget {
                             FocusScope.of(textcontext).unfocus();
                             FocusScope.of(context).unfocus();
                             hideBottomBar.value = false;
+
                             controller.update();
                             if (va == 1) {
                               var progreesController =
@@ -210,6 +208,7 @@ class PatientList extends StatelessWidget {
                               progreesController.getProgressSummary(
                                   ipdNo: patientData.ipdNo ?? '',
                                   uhid: patientData.uhid ?? '');
+                              progreesController.selectedIndex = [];
                               PersistentNavBarNavigator.pushNewScreen(
                                 context,
                                 screen: ProgressSummaryView(

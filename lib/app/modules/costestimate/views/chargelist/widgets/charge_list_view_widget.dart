@@ -61,7 +61,7 @@ class ChargeListWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   AppText(
-                                    text: 'Surgery/Producer Charges',
+                                    text: 'Surgery/Procedure Charges',
                                     fontSize: Sizes.px12,
                                     fontWeight: FontWeight.w500,
                                     fontColor: ConstColor.black6B6B6B,
@@ -100,7 +100,7 @@ class ChargeListWidget extends StatelessWidget {
                                   children: [
                                     AppText(
                                       text:
-                                          'Surgery/Producer/Hospitalisation Expense',
+                                          'Surgery/Procedure/Hospitalisation Expense',
                                       fontSize: Sizes.px12,
                                       fontWeight: FontWeight.w500,
                                       fontColor: ConstColor.black6B6B6B,
@@ -124,7 +124,7 @@ class ChargeListWidget extends StatelessWidget {
                                 width: getDynamicHeight(size: 0.010),
                               ),
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   AppText(
                                     text:

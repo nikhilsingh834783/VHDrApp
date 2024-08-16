@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart' as diopackage;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/core/constant/const_api_url.dart';
 
+// import 'package:venus/app/core/constant/const_api_url.dart';
+
+import '../../../app_common_widgets/common_import.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/services/biometric_service.dart';
 import '../../login/model/send_otp_model.dart';

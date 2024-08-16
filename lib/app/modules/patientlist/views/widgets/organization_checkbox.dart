@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:venus/app/modules/patientlist/controllers/patientlist_controller.dart';
 
-import '../../../../app_common_widgets/common_text.dart';
-import '../../../../app_common_widgets/sizer_constant.dart';
-import '../../../../core/them/const_color.dart';
+import '../../../../app_common_widgets/common_import.dart';
 
 organizationCheckBoxes({required PatientlistController controller}) {
   return GridView.builder(

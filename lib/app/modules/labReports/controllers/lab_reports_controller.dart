@@ -47,11 +47,6 @@ class LabReportsController extends GetxController {
         scrollControllerx.jumpTo(scrollController1.offset);
       }
     }
-    // for (int i = 0; i < scrollController3.length; i++) {
-    //   if (scrollController1.offset != scrollController3[i].offset) {
-    //     scrollController3[i].jumpTo(scrollController1.offset);
-    //   }
-    // }
   }
 
   void syncScroll3() {
@@ -79,11 +74,6 @@ class LabReportsController extends GetxController {
         scrollControllerx.jumpTo(scrollController2.offset);
       }
     }
-    // for (int i = 0; i < scrollController3.length; i++) {
-    //   if (scrollController2.offset != scrollController3[i].offset) {
-    //     scrollController3[i].jumpTo(scrollController2.offset);
-    //   }
-    // }
   }
 
   scrollLister() {
@@ -92,15 +82,12 @@ class LabReportsController extends GetxController {
           ScrollDirection.forward) {
         hideBottomBar = false.obs;
         update();
-        // print("=====Up");
         bottomBarController.update();
-        // update(0.0, true);
       } else if (allscrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         hideBottomBar = true.obs;
         update();
         bottomBarController.update();
-        // print("=====Down");
       }
     });
   }
@@ -235,16 +222,11 @@ class LabReportsController extends GetxController {
     List alldates = [];
     for (var response in data) {
       response.forEach((key, value) {
-        // if (alldates.contains(key.toString().split('-')[0])) {
-        //   alldates.add(key.toString().split('-')[0]);
-        // }
-        // print('key is $key');
-        // print('value is $value ');
-
         if (key == "formattest" ||
             key == "TestName" ||
             key == "NormalRange" ||
-            key == "Unit") {
+            key == "Unit" ||
+            key == 'RowNo') {
         } else {
           if (alldates.contains(
               "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}")) {
@@ -263,16 +245,11 @@ class LabReportsController extends GetxController {
     List alldates1 = [];
     for (var response in data) {
       response.forEach((key, value) {
-        // if (alldates.contains(key.toString().split('-')[0])) {
-        //   alldates.add(key.toString().split('-')[0]);
-        // }
-        // print('key is $key');
-        // print('value is $value ');
-
         if (key == "formattest" ||
             key == "TestName" ||
             key == "NormalRange" ||
-            key == "Unit") {
+            key == "Unit" ||
+            key == 'RowNo') {
         } else {
           if (alldates.contains(
               "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}")) {

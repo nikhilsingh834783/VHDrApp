@@ -266,7 +266,37 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                                                                     false;
                                                                 controller
                                                                     .update();
-                                                                Get.to(const CostestimateView())!
+                                                                Get.to(const CostestimateView(),
+                                                                        arguments: {
+                                                                      "patientName": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .patientName,
+                                                                      "speciality": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .speciality,
+                                                                      "drId": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .drId,
+                                                                      "operationDate": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .operationDate,
+                                                                      "startTime": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .startTime,
+                                                                      "endTime": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .endTime,
+                                                                      "operationIds": controller
+                                                                          .procedureListData[
+                                                                              index]
+                                                                          .operationIds
+                                                                    })!
                                                                     .then(
                                                                         (value) {
                                                                   calenderType =

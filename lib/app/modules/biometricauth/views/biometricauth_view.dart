@@ -3,12 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/app_common_widgets/common_elevated_button.dart';
-import 'package:venus/app/app_common_widgets/common_text.dart';
-import 'package:venus/app/app_common_widgets/sizer_constant.dart';
-import 'package:venus/app/core/them/const_color.dart';
 
-import '../../../core/constant/asset_constant.dart';
+import '../../../app_common_widgets/common_import.dart';
 import '../controllers/biometricauth_controller.dart';
 
 class BiometricauthView extends GetView<BiometricauthController> {

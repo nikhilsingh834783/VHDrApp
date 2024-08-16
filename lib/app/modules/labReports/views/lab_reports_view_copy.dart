@@ -172,6 +172,8 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                           controller.allscrollController,
                                       shrinkWrap: true,
                                       itemBuilder: (item, index) {
+                                        // getIndexWiseRow(controller
+                                        //     .commonList[index]['data']);
                                         List indexWiseData = controller
                                             .commonList[index]['data'];
                                         List dateLists = controller.getKey(
@@ -432,23 +434,28 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                                                                                             height: getDynamicHeight(size: 0.055),
                                                                                                             child: Center(
                                                                                                                 child: Column(
+                                                                                                              mainAxisAlignment: MainAxisAlignment.center,
                                                                                                               children: [
                                                                                                                 AppText(
-                                                                                                                  text: indexWiseData[i][dateLists1[index]] != null && indexWiseData[i][dateLists1[index]] != '' ? indexWiseData[i][dateLists1[index]] : '-',
+                                                                                                                  text: indexWiseData[i][dateLists1[index]] != null && indexWiseData[i][dateLists1[index]] != '' ? splitName(indexWiseData[i][dateLists1[index]]) : '-',
                                                                                                                   fontSize: Sizes.px13,
-                                                                                                                  fontColor: ConstColor.black6B6B6B,
+                                                                                                                  fontColor: indexWiseData[i][dateLists1[index]] != null && indexWiseData[i][dateLists1[index]] != ''
+                                                                                                                      ? textColor(indexWiseData[i][dateLists1[index]])
+                                                                                                                          ? ConstColor.redColor
+                                                                                                                          : ConstColor.black6B6B6B
+                                                                                                                      : ConstColor.black6B6B6B,
                                                                                                                   fontWeight: FontWeight.w500,
                                                                                                                   textAlign: TextAlign.center,
                                                                                                                   maxLine: 2,
                                                                                                                   overflow: TextOverflow.ellipsis,
                                                                                                                 ),
-                                                                                                                AppText(
-                                                                                                                  text: indexWiseData[i]['Unit'] ?? '-',
-                                                                                                                  fontSize: Sizes.px9,
-                                                                                                                  fontColor: ConstColor.black6B6B6B,
-                                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                                  textAlign: TextAlign.center,
-                                                                                                                ),
+                                                                                                                // AppText(
+                                                                                                                //   text: indexWiseData[i]['Unit'] ?? '-',
+                                                                                                                //   fontSize: Sizes.px9,
+                                                                                                                //   fontColor: ConstColor.black6B6B6B,
+                                                                                                                //   fontWeight: FontWeight.w500,
+                                                                                                                //   textAlign: TextAlign.center,
+                                                                                                                // ),
                                                                                                               ],
                                                                                                             )
                                                                                                                 // : const SizedBox(),
@@ -549,4 +556,29 @@ getHeight(List alldata) {
   // } else {
   return ((alldata.length) * (Sizes.crossLength * .057) + 10);
   // }
+}
+
+splitName(String text) {
+  if (text.split("|").length > 1) {
+    return text.split("|")[0];
+  } else {
+    return text;
+  }
+}
+
+textColor(String text) {
+  if (text.split("|").length > 1) {
+    if (text.split("|")[1] == 'True') {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+getIndexWiseRow(List dynamicList) {
+  dynamicList.sort((a, b) => a['RowNo'].compareTo(b['RowNo']));
+  print(dynamicList);
 }

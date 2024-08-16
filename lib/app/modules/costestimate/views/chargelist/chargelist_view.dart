@@ -82,7 +82,7 @@ class ChargelistView extends GetView<CostestimateController> {
                             controller.getProcedureList();
                             controller.update();
                           },
-                          text: "Surgery/Producer List",
+                          text: "Surgery/Procedure List",
                           fontSize: Sizes.px14,
                           textColor: controller.selectedTab == 2
                               ? ConstColor.whiteColor
