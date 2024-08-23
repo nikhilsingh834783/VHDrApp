@@ -45,7 +45,7 @@ class RadiologyReportController extends GetxController {
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId, "ipdNo": ipdNo, "uhid": uhidNo};
     apiCall = true;
-    String apiUrl = ConstApiUrl.getRadioLogyReports;
+    String apiUrl = getRadioLogyReports;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);

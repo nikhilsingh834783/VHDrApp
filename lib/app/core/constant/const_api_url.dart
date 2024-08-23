@@ -1,38 +1,39 @@
-class ConstApiUrl {
-  static const drUrl = "http://117.217.126.127/api/Doctor";
-  static const drLoginUrl = 'http://117.217.126.127/api/DrLogin';
+// class ConstApiUrl {
+String initailUrl = 'http://117.217.126.127/api';
 
-  //  ----------------    Prod  urls ---------------
-  static const baseApiUrl = drLoginUrl;
-  static const validateMobile = "$baseApiUrl/ValidateMobileNo";
-  static const loginWithPassword = "$drUrl/authentication";
-  static const newPassword = "$baseApiUrl/GenerateNewPassword";
-  static const sendOtp = "$baseApiUrl/SendMobileOTP";
-  static const getSaveToken = "$baseApiUrl/Save_Get_Token";
-  static const diplayDashBoard = "$drUrl/GetDashboardList";
-  static const patientList = "$drUrl/GetDrPatientList";
-  static const searchPatientList = "$drUrl/SearchPatientList";
-  static const filterPatientData = "$drUrl/GetFilteredPatientData";
-  static const sortPatientData = "$drUrl/SortDrPatientList";
-  static const dashboardFilters = "$drUrl/GetDashboardFilters";
-  static const getProgressSummary = "$drUrl/GetProgressSummary";
-  static const getLabReports = "$drUrl/GetPatientLabReports";
-  static const getRadioLogyReports = "$drUrl/GetDrRadiologyReports";
-  static const getApdAppointments = "$drUrl/GetAppointments";
-  static const getApdAppointmentsDates = "$drUrl/GetApptDateCount";
-  static const getProcedureDates = "$drUrl/GetOTScheduleDateCount";
+String drUrl = "$initailUrl/Doctor";
+String drLoginUrl = '$initailUrl/DrLogin';
 
-  static const schduleSurgeryListApi = "$drUrl/GetOTScheduleList";
-  static const roomsApi = "$drUrl/Rooms";
-  static const doctorVisitApi = "$drUrl/DrVisit";
-  static const surgeryApi = "$drUrl/GetSurgeryRate";
-  static const getOperationClassApi = "$drUrl/GetDrOperationClass";
-  static const getOperationNameApi = "$drUrl/GetDrOperationNames";
+//  ----------------    Prod  urls ---------------
+String baseApiUrl = drLoginUrl;
+String validateMobile = "$baseApiUrl/ValidateMobileNo";
+String loginWithPassword = "$drUrl/authentication";
+String newPassword = "$baseApiUrl/GenerateNewPassword";
+String sendOtpUrl = "$baseApiUrl/SendMobileOTP";
+String getSaveToken = "$baseApiUrl/Save_Get_Token";
+String diplayDashBoard = "$drUrl/GetDashboardList";
+String patientListUrl = "$drUrl/GetDrPatientList";
+String searchPatientList = "$drUrl/SearchPatientList";
+String filterPatientData = "$drUrl/GetFilteredPatientData";
+String sortPatientData = "$drUrl/SortDrPatientList";
+String dashboardFilters = "$drUrl/GetDashboardFilters";
+String getProgressSummaryUrl = "$drUrl/GetProgressSummary";
+String getLabReports = "$drUrl/GetPatientLabReports";
+String getRadioLogyReports = "$drUrl/GetDrRadiologyReports";
+String getApdAppointmentsUrl = "$drUrl/GetAppointments";
+String getApdAppointmentsDatesUrl = "$drUrl/GetApptDateCount";
+String getProcedureDates = "$drUrl/GetOTScheduleDateCount";
 
-  static const getOrganizationList = "$drUrl/GetOrgData";
-  static const saveOtSchdule = "$drUrl/SaveOTSchedule";
-  static const additionalSurgeonApi = "$drUrl/GetAdnlSurgDrData";
-  static const getSurgicalEstimateapi = "$drUrl/GetSurgicalEstimate";
-  static const getSurgicalEstimateapiProcedure =
-      "$drUrl/GetSurgicalEstimate_Indoor";
-}
+String schduleSurgeryListApi = "$drUrl/GetOTScheduleList";
+String roomsApi = "$drUrl/Rooms";
+String doctorVisitApi = "$drUrl/DrVisit";
+String surgeryApi = "$drUrl/GetSurgeryRate";
+String getOperationClassApi = "$drUrl/GetDrOperationClass";
+String getOperationNameApi = "$drUrl/GetDrOperationNames";
+
+String getOrganizationListUrl = "$drUrl/GetOrgData";
+String saveOtSchdule = "$drUrl/SaveOTSchedule";
+String additionalSurgeonApi = "$drUrl/GetAdnlSurgDrData";
+String getSurgicalEstimateapi = "$drUrl/GetSurgicalEstimate";
+String getSurgicalEstimateapiProcedure = "$drUrl/GetSurgicalEstimate_Indoor";
+// }

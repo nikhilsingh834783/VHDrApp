@@ -66,7 +66,7 @@ class PatientlistController extends GetxController {
   getPatientList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
-    String apiUrl = ConstApiUrl.patientList;
+    String apiUrl = patientListUrl;
     dio_package.Response finalData = await APIServices.getMethodWithHeaderDio(
         apiUrl: apiUrl, token: token, isShowLoader: true);
     if (finalData.statusCode == 200) {
@@ -88,7 +88,7 @@ class PatientlistController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.dashboardFilters;
+    String apiUrl = dashboardFilters;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -117,7 +117,7 @@ class PatientlistController extends GetxController {
       "floors": selectedFloorList,
       "wards": selectedWardList
     };
-    String apiUrl = ConstApiUrl.filterPatientData;
+    String apiUrl = filterPatientData;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -159,7 +159,7 @@ class PatientlistController extends GetxController {
                   : "Stay Days - H -> L"
     };
 
-    String apiUrl = ConstApiUrl.sortPatientData;
+    String apiUrl = sortPatientData;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);

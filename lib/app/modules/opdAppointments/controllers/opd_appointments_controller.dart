@@ -37,7 +37,7 @@ class OpdAppointmentsController extends GetxController {
       "loginId": loginId,
     };
 
-    String apiUrl = ConstApiUrl.getApdAppointmentsDates;
+    String apiUrl = getApdAppointmentsDatesUrl;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -94,7 +94,7 @@ class OpdAppointmentsController extends GetxController {
       "selectedDate": DateFormat('dd-MMM-yyyy').format(selectedDate),
       "prefixText": searchPrefix ?? '',
     };
-    String apiUrl = ConstApiUrl.getApdAppointments;
+    String apiUrl = getApdAppointmentsUrl;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);

@@ -116,7 +116,7 @@ class SchedulechargelistController extends GetxController {
       "loginId": loginId,
       "searchText": searchPrefix ?? '',
     };
-    String apiUrl = ConstApiUrl.roomsApi;
+    String apiUrl = roomsApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -150,7 +150,7 @@ class SchedulechargelistController extends GetxController {
       "loginId": loginId,
       "searchText": searchPrefix ?? '',
     };
-    String apiUrl = ConstApiUrl.doctorVisitApi;
+    String apiUrl = doctorVisitApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -185,7 +185,7 @@ class SchedulechargelistController extends GetxController {
       "operationName": selectedOperationId,
       "classId": selectedClassId
     };
-    String apiUrl = ConstApiUrl.surgeryApi;
+    String apiUrl = surgeryApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -217,7 +217,7 @@ class SchedulechargelistController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.getOperationClassApi;
+    String apiUrl = getOperationClassApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
@@ -300,7 +300,7 @@ class SchedulechargelistController extends GetxController {
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId, "operationNames": "", 'docId': ''};
 
-    String apiUrl = ConstApiUrl.getOperationNameApi;
+    String apiUrl = getOperationNameApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: false);

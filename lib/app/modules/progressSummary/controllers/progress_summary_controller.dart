@@ -49,7 +49,7 @@ class ProgressSummaryController extends GetxController {
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId, "ipdNo": ipdNo, "UHID": uhid};
     apiCall = true;
-    String apiUrl = ConstApiUrl.getProgressSummary;
+    String apiUrl = getProgressSummaryUrl;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);

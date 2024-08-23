@@ -37,7 +37,7 @@ class SchduleSurgeriesController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.getProcedureDates;
+    String apiUrl = getProcedureDates;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
@@ -94,7 +94,7 @@ class SchduleSurgeriesController extends GetxController {
       "selectedDate": DateFormat('dd-MMM-yyyy').format(selectedScheduleDate),
       "prefixText": searchPrefix ?? '',
     };
-    String apiUrl = ConstApiUrl.schduleSurgeryListApi;
+    String apiUrl = schduleSurgeryListApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);

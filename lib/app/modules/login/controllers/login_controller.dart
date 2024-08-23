@@ -43,7 +43,7 @@ class LoginController extends GetxController {
   }
 
   validateMobileNo(BuildContext context) async {
-    String apiUrl = ConstApiUrl.validateMobile;
+    String apiUrl = validateMobile;
     Map data = {
       "mobileNo": mobileController.text.trim(),
     };
@@ -136,7 +136,7 @@ class LoginController extends GetxController {
   }
 
   sendOtp(BuildContext context) async {
-    String apiUrl = ConstApiUrl.sendOtp;
+    String apiUrl = sendOtpUrl;
     Map data = {
       "mobileNo": mobileController.text.trim(),
     };
@@ -174,7 +174,7 @@ class LoginController extends GetxController {
     final deviceNames = DeviceMarketingNames();
     String? singleDeviceName;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String apiUrl = ConstApiUrl.loginWithPassword;
+    String apiUrl = loginWithPassword;
     if (Platform.isAndroid) {
       androidInfo = await deviceInfo.androidInfo;
     } else {

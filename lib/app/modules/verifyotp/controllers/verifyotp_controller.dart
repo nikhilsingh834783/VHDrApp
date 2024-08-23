@@ -60,7 +60,7 @@ class VerifyotpController extends GetxController {
     final deviceNames = DeviceMarketingNames();
     String? singleDeviceName;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String apiUrl = ConstApiUrl.loginWithPassword;
+    String apiUrl = loginWithPassword;
     if (Platform.isAndroid) {
       androidInfo = await deviceInfo.androidInfo;
     } else {
@@ -120,7 +120,7 @@ class VerifyotpController extends GetxController {
   }
 
   resendApiCall(BuildContext context) async {
-    String apiUrl = ConstApiUrl.sendOtp;
+    String apiUrl = sendOtpUrl;
     Map data = {
       "mobileNo": mobileNo,
     };

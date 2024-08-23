@@ -71,7 +71,7 @@ class OtschedulerController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.getOrganizationList;
+    String apiUrl = getOrganizationListUrl;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token);
@@ -144,7 +144,7 @@ class OtschedulerController extends GetxController {
       "remark": remarksController.text.trim(),
       "uhid": uhidNumber.text.trim()
     };
-    String apiUrl = ConstApiUrl.saveOtSchdule;
+    String apiUrl = saveOtSchdule;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
@@ -189,7 +189,7 @@ class OtschedulerController extends GetxController {
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId, "operationNames": "", 'docId': docId ?? ''};
 
-    String apiUrl = ConstApiUrl.getOperationNameApi;
+    String apiUrl = getOperationNameApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
@@ -319,7 +319,7 @@ class OtschedulerController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.additionalSurgeonApi;
+    String apiUrl = additionalSurgeonApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token);

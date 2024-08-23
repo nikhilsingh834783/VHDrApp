@@ -26,7 +26,7 @@ class ResetPasswordController extends GetxController {
   }
 
   resetPassworApi() async {
-    String apiUrl = ConstApiUrl.newPassword;
+    String apiUrl = newPassword;
     Map data = {
       "mobileNo": mobileNo,
       "password": newPasswordController.text.trim()

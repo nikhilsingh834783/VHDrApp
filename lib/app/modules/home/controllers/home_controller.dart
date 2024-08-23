@@ -46,7 +46,8 @@ class HomeController extends GetxController {
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId};
-    String apiUrl = ConstApiUrl.diplayDashBoard;
+    String apiUrl = diplayDashBoard;
+    print(apiUrl);
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);

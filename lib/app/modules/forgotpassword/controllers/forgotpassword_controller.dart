@@ -19,7 +19,7 @@ class ForgotpasswordController extends GetxController {
   void increment() => count.value++;
 
   validateMobileNo() async {
-    String apiUrl = ConstApiUrl.validateMobile;
+    String apiUrl = validateMobile;
     Map data = {
       "mobileNo": mobileController.text.trim(),
     };
@@ -43,7 +43,7 @@ class ForgotpasswordController extends GetxController {
   }
 
   sendOtp() async {
-    String apiUrl = ConstApiUrl.sendOtp;
+    String apiUrl = sendOtpUrl;
     Map data = {
       "mobileNo": mobileController.text.trim(),
     };

@@ -106,7 +106,7 @@ class CostestimateController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.getOrganizationList;
+    String apiUrl = getOrganizationListUrl;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token);
@@ -141,7 +141,7 @@ class CostestimateController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.additionalSurgeonApi;
+    String apiUrl = additionalSurgeonApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token);
@@ -178,7 +178,7 @@ class CostestimateController extends GetxController {
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId, "operationNames": "", 'docId': ''};
 
-    String apiUrl = ConstApiUrl.getOperationNameApi;
+    String apiUrl = getOperationNameApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
@@ -234,7 +234,7 @@ class CostestimateController extends GetxController {
     Map data = {
       "loginId": loginId,
     };
-    String apiUrl = ConstApiUrl.getOperationClassApi;
+    String apiUrl = getOperationClassApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
@@ -373,7 +373,7 @@ class CostestimateController extends GetxController {
           ? totalEstimateController.text.trim()
           : 0
     };
-    String apiUrl = ConstApiUrl.getSurgicalEstimateapi;
+    String apiUrl = getSurgicalEstimateapi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
@@ -436,7 +436,7 @@ class CostestimateController extends GetxController {
     };
     // "consumables":"","implants":"","otherExpense":"","consultantVisitCharge":"","totalEstimate":""}'
 
-    String apiUrl = ConstApiUrl.getSurgicalEstimateapiProcedure;
+    String apiUrl = getSurgicalEstimateapiProcedure;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
