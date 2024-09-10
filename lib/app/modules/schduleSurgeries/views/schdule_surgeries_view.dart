@@ -249,7 +249,7 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                                                                   size: 0.035),
                                                           width:
                                                               getDynamicHeight(
-                                                                  size: 0.120),
+                                                                  size: 0.130),
                                                           child: AppButton(
                                                               radius: 50,
                                                               fontSize:
@@ -258,7 +258,7 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                                                                   FontWeight
                                                                       .w500,
                                                               text:
-                                                                  "Cost Estimate",
+                                                                  "Surgical Estimate",
                                                               onPressed: () {
                                                                 calenderType =
                                                                     2;
@@ -502,9 +502,9 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                           alignment: Alignment.bottomCenter,
                           child: SizedBox(
                               height: 45,
-                              width: getDynamicHeight(size: 0.200),
+                              width: getDynamicHeight(size: 0.175),
                               child: AppButton(
-                                text: 'Schedule Surgery',
+                                text: 'OT Schedule',
                                 onPressed: () {
                                   calenderType = 2;
                                   previousDateEnable = false;
@@ -528,7 +528,8 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                                     calenderType = 1;
                                     previousDateEnable = true;
                                     controller.update();
-                                  });
+                                  }).then((value) => controller
+                                          .getOpdSchdulesDates(isLoader: true));
                                 },
                                 bgColor: ConstColor.buttonColor,
                                 radius: 50,

@@ -70,6 +70,14 @@ class ConsultantSurgeonListView extends StatelessWidget {
                                             .searchAdditionalDoctorList![index]
                                             .docName ??
                                         '';
+                                    controller.docId = controller
+                                        .searchAdditionalDoctorList![index]
+                                        .docId
+                                        .toString();
+                                    controller.selectedOperationId.clear();
+                                    controller.selectedOperationList.clear();
+                                    controller.operationNameListData.clear();
+                                    controller.getOperationName1();
                                     // controller.selectedOrganization = controller
                                     //     .searchAdditionalDoctorList![index].orgId
                                     //     .toString();
@@ -134,11 +142,15 @@ class ConsultantSurgeonListView extends StatelessWidget {
                                     controller.additionalDoctorList[index]
                                             .docName ??
                                         '';
-                                // controller.selectedOrganization = controller
-                                //     .additionalDoctorList[index].orgId
-                                //     .toString();
-                                // controller.additionalSurgeonController
-                                //     .hideMenu();
+
+                                controller.docId = controller
+                                    .additionalDoctorList[index].docId
+                                    .toString();
+                                controller.selectedOperationId.clear();
+                                controller.selectedOperationList.clear();
+                                controller.operationNameListData.clear();
+                                controller.getOperationName1();
+
                                 Navigator.pop(context);
                                 controller.update();
                               },

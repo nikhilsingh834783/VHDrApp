@@ -115,11 +115,11 @@ class CostestimateController extends GetxController {
     if (filterResponse.statusCode == 200) {
       if (filterResponse.data != null) {
         organizationListData = filterResponse.data!;
-        // if (organizationListData.isNotEmpty) {
-        //   organizationContoller.text =
-        //       organizationListData[0].organization ?? '';
-        //   selectedOrganization = organizationListData[0].orgId.toString();
-        // }
+        if (organizationListData.isNotEmpty) {
+          organizationContoller.text =
+              organizationListData[0].organization ?? '';
+          selectedOrganization = organizationListData[0].orgId.toString();
+        }
       }
     } else if (filterResponse.statusCode == 401) {
       prefs.clear();
@@ -172,7 +172,7 @@ class CostestimateController extends GetxController {
     getOperationName();
   }
 
-  getOperationName() async {
+  getOperationName({bool isShowLoader = false}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
@@ -181,7 +181,10 @@ class CostestimateController extends GetxController {
     String apiUrl = getOperationNameApi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
-            body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
+            body: data,
+            apiUrl: apiUrl,
+            token: token,
+            isShowLoader: isShowLoader);
     OperationNameModel patientResponse =
         OperationNameModel.fromJson(finalData.data);
     if (patientResponse.statusCode == 200) {
@@ -225,6 +228,41 @@ class CostestimateController extends GetxController {
       print(dataFromScreen);
       print(dataInList);
     }
+  }
+
+  getOperationName1() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token') ?? '';
+    String loginId = prefs.getString('loginId') ?? '';
+    Map data = {"loginId": loginId, "operationNames": "", 'docId': docId ?? ''};
+
+    String apiUrl = getOperationNameApi;
+    dio_package.Response finalData =
+        await APIServices.postMethodWithHeaderDioMapData(
+            body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
+    // print(data);
+    // print(finalData);
+    OperationNameModel patientResponse =
+        OperationNameModel.fromJson(finalData.data);
+    if (patientResponse.statusCode == 200) {
+      if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
+        operationNameListData = patientResponse.data!;
+      } else {
+        operationNameListData = [];
+      }
+      update();
+    } else if (patientResponse.statusCode == 401) {
+      prefs.clear();
+      Get.offAll(const LoginView());
+      // Get.rawSnackbar(message: finalData.data['message']);
+      Get.rawSnackbar(
+          message: 'Your session has expired. Please log in again to continue');
+    } else if (patientResponse.statusCode == 400) {
+      operationNameListData = [];
+    } else {
+      Get.rawSnackbar(message: "Something went wrong");
+    }
+    update();
   }
 
   getOperationClass() async {
@@ -369,9 +407,9 @@ class CostestimateController extends GetxController {
       "consultantVisitCharge": visitChargeController.text.trim() != ''
           ? visitChargeController.text.trim()
           : 0,
-      "totalEstimate": totalEstimateController.text.trim() != ''
-          ? totalEstimateController.text.trim()
-          : 0
+      // "totalEstimate": totalEstimateController.text.trim() != ''
+      //     ? totalEstimateController.text.trim()
+      //     : 0
     };
     String apiUrl = getSurgicalEstimateapi;
     dio_package.Response finalData =
@@ -430,9 +468,9 @@ class CostestimateController extends GetxController {
       "consultantVisitCharge": visitChargeController.text.trim() != ''
           ? visitChargeController.text.trim()
           : 0,
-      "totalEstimate": totalEstimateController.text.trim() != ''
-          ? totalEstimateController.text.trim()
-          : 0
+      // "totalEstimate": totalEstimateController.text.trim() != ''
+      //     ? totalEstimateController.text.trim()
+      //     : 0
     };
     // "consumables":"","implants":"","otherExpense":"","consultantVisitCharge":"","totalEstimate":""}'
 

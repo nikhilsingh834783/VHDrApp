@@ -146,7 +146,8 @@ class PatientList extends StatelessWidget {
                             PopupMenuItem(
                               value: 1,
                               child: AppText(
-                                text: "Progress Summary",
+                                // text: "Progress Summary",
+                                text: "Clinical Summary",
                                 fontSize: Sizes.px14,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -288,6 +289,8 @@ class PatientList extends StatelessWidget {
                               otschedulerController.selectedDate = null;
                               otschedulerController.ipdTextController.text =
                                   patientData.ipdNo ?? '';
+                              otschedulerController.mobileController.text =
+                                  patientData.mobiileNo ?? '';
                               otschedulerController.uhidNumber.text =
                                   patientData.uhid ?? '';
                               otschedulerController.patientName.text =

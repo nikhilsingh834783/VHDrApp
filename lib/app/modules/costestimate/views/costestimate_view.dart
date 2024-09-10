@@ -55,11 +55,21 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.025,
                         ),
-                        AppText(
-                          text: 'Patient Name',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                          fontColor: ConstColor.black4B4D4F,
+                        Row(
+                          children: [
+                            AppText(
+                              text: 'Patient Name ',
+                              fontSize: Sizes.px15,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.black4B4D4F,
+                            ),
+                            AppText(
+                              text: '*',
+                              fontSize: Sizes.px14,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.redColor,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
@@ -196,8 +206,10 @@ class CostestimateView extends GetView<CostestimateController> {
                             controller.selectOrganizationBottomSheet();
                           },
                           hintText: 'Select Organization',
-                          controller: controller.organizationContoller,
+                          enabled: false,
+                          fillColor: ConstColor.greyF3F3F3,
                           isReadOnly: true,
+                          controller: controller.organizationContoller,
                           validator: (val) {
                             if (val!.trim().isEmpty) {
                               return "Please select organization.";
@@ -218,11 +230,21 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
                         ),
-                        AppText(
-                          text: 'Consultant/surgeon Doctor',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                          fontColor: ConstColor.black4B4D4F,
+                        Row(
+                          children: [
+                            AppText(
+                              text: 'Consultant/surgeon Doctor ',
+                              fontSize: Sizes.px15,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.black4B4D4F,
+                            ),
+                            AppText(
+                              text: '*',
+                              fontSize: Sizes.px14,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.redColor,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
@@ -268,6 +290,7 @@ class CostestimateView extends GetView<CostestimateController> {
                           height: Sizes.crossLength * 0.010,
                         ),
                         AppTextField(
+                          isReadOnly: true,
                           hintText: 'Dentist',
                           controller: controller.specialityController,
                           onTapOutside: (event) {
@@ -284,11 +307,21 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
                         ),
-                        AppText(
-                          text: 'Room Type',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                          fontColor: ConstColor.black4B4D4F,
+                        Row(
+                          children: [
+                            AppText(
+                              text: 'Room Type ',
+                              fontSize: Sizes.px15,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.black4B4D4F,
+                            ),
+                            AppText(
+                              text: '*',
+                              fontSize: Sizes.px14,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.redColor,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
@@ -317,11 +350,21 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
                         ),
-                        AppText(
-                          text: 'Stay Days',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                          fontColor: ConstColor.black4B4D4F,
+                        Row(
+                          children: [
+                            AppText(
+                              text: 'Stay Days ',
+                              fontSize: Sizes.px15,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.black4B4D4F,
+                            ),
+                            AppText(
+                              text: '*',
+                              fontSize: Sizes.px14,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.redColor,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
@@ -717,12 +760,22 @@ class CostestimateView extends GetView<CostestimateController> {
                           //     return null;
                           //   }
                           // },
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: SvgPicture.asset(
-                              ConstAsset.down,
-                            ),
-                          ),
+                          suffixIcon: controller.additionSurgeonController.text
+                                  .trim()
+                                  .isNotEmpty
+                              ? GestureDetector(
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    controller.additionSurgeonController
+                                        .clear();
+                                  },
+                                  child: const Icon(Icons.cancel_outlined))
+                              : Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: SvgPicture.asset(
+                                    ConstAsset.down,
+                                  ),
+                                ),
                         ),
                         // CustomPopupMenu(
                         //   showArrow: false,
@@ -767,11 +820,21 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
                         ),
-                        AppText(
-                          text: 'High Risk',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                          fontColor: ConstColor.black4B4D4F,
+                        Row(
+                          children: [
+                            AppText(
+                              text: 'High Risk ',
+                              fontSize: Sizes.px15,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.black4B4D4F,
+                            ),
+                            AppText(
+                              text: '*',
+                              fontSize: Sizes.px14,
+                              fontWeight: FontWeight.w600,
+                              fontColor: ConstColor.redColor,
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
@@ -929,7 +992,7 @@ class CostestimateView extends GetView<CostestimateController> {
                           height: Sizes.crossLength * 0.010,
                         ),
                         AppTextField(
-                          hintText: '20,000',
+                          hintText: '',
                           keyboardType: TextInputType.number,
                           controller: controller.visitChargeController,
                           onTapOutside: (event) {
@@ -946,31 +1009,31 @@ class CostestimateView extends GetView<CostestimateController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.020,
                         ),
-                        AppText(
-                          text: 'Total Estimate',
-                          fontSize: Sizes.px15,
-                          fontWeight: FontWeight.w600,
-                          fontColor: ConstColor.black4B4D4F,
-                        ),
-                        SizedBox(
-                          height: Sizes.crossLength * 0.010,
-                        ),
-                        AppTextField(
-                          hintText: 'Enter Total Estimate',
-                          keyboardType: TextInputType.number,
-                          controller: controller.totalEstimateController,
-                          onTapOutside: (event) {
-                            FocusScope.of(context).unfocus();
-                          },
-                          textInputAction: TextInputAction.done,
-                          // validator: (val) {
-                          //   if (val!.trim().isEmpty) {
-                          //     return "Please enter total estimate.";
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // },
-                        ),
+                        // AppText(
+                        //   text: 'Total Estimate',
+                        //   fontSize: Sizes.px15,
+                        //   fontWeight: FontWeight.w600,
+                        //   fontColor: ConstColor.black4B4D4F,
+                        // ),
+                        // SizedBox(
+                        //   height: Sizes.crossLength * 0.010,
+                        // ),
+                        // AppTextField(
+                        //   hintText: 'Enter Total Estimate',
+                        //   keyboardType: TextInputType.number,
+                        //   controller: controller.totalEstimateController,
+                        //   onTapOutside: (event) {
+                        //     FocusScope.of(context).unfocus();
+                        //   },
+                        //   textInputAction: TextInputAction.done,
+                        //   // validator: (val) {
+                        //   //   if (val!.trim().isEmpty) {
+                        //   //     return "Please enter total estimate.";
+                        //   //   } else {
+                        //   //     return null;
+                        //   //   }
+                        //   // },
+                        // ),
                         SizedBox(
                           height: Sizes.crossLength * 0.070,
                         ),

@@ -316,6 +316,7 @@ class OtschedulerController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
+    String docId = prefs.getString('docId') ?? '';
     Map data = {
       "loginId": loginId,
     };
@@ -328,6 +329,15 @@ class OtschedulerController extends GetxController {
     if (filterResponse.statusCode == 200) {
       if (filterResponse.data != null) {
         additionalDoctorList = filterResponse.data!;
+        for (int i = 0; i < additionalDoctorList.length; i++) {
+          // print(additionalDoctorList[i].docId.toString());
+          if (additionalDoctorList[i].docId.toString() == docId) {
+            schduleByController.text = additionalDoctorList[i].docName ?? '';
+            surgeonNameTextController.text =
+                additionalDoctorList[i].docName ?? '';
+            docId = docId;
+          }
+        }
       }
     } else if (filterResponse.statusCode == 401) {
       prefs.clear();

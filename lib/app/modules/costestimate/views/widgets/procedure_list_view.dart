@@ -184,97 +184,115 @@ class ProcedureListViewOperation extends StatelessWidget {
                                   ),
                                 );
                               })
-                      : ListView.builder(
-                          padding: EdgeInsets.only(
-                              bottom: Sizes.crossLength * 0.020),
-                          itemCount: controller.operationNameListData.length,
-                          itemBuilder: (item, index) {
-                            return GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () {
-                                if (controller.selectedOperationId.contains(
-                                    controller
-                                        .operationNameListData[index].id)) {
-                                  controller.selectedOperationId.remove(
-                                      controller
-                                          .operationNameListData[index].id);
-                                  controller.selectedOperationList.remove(
-                                      controller.operationNameListData[index]);
-                                } else {
-                                  controller.selectedOperationId.add(controller
-                                      .operationNameListData[index].id!);
-                                  controller.selectedOperationList.add(
-                                      controller.operationNameListData[index]);
-                                }
-                                controller.update();
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(
+                      : controller.operationNameListData.isEmpty
+                          ? Center(
+                              child: AppText(
+                                text: "No data found for selected surgeon",
+                                fontSize: Sizes.px16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          : ListView.builder(
+                              padding: EdgeInsets.only(
+                                  bottom: Sizes.crossLength * 0.020),
+                              itemCount:
+                                  controller.operationNameListData.length,
+                              itemBuilder: (item, index) {
+                                return GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    if (controller.selectedOperationId.contains(
+                                        controller
+                                            .operationNameListData[index].id)) {
+                                      controller.selectedOperationId.remove(
+                                          controller
+                                              .operationNameListData[index].id);
+                                      controller.selectedOperationList.remove(
+                                          controller
+                                              .operationNameListData[index]);
+                                    } else {
+                                      controller.selectedOperationId.add(
+                                          controller
+                                              .operationNameListData[index]
+                                              .id!);
+                                      controller.selectedOperationList.add(
+                                          controller
+                                              .operationNameListData[index]);
+                                    }
+                                    controller.update();
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: AppText(
-                                            text: controller
-                                                    .operationNameListData[
-                                                        index]
-                                                    .operationName ??
-                                                ''),
-                                      ),
                                       const SizedBox(
-                                        width: 10,
+                                        height: 15,
                                       ),
-                                      controller.selectedOperationId.contains(
-                                              controller
-                                                  .operationNameListData[index]
-                                                  .id)
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                                controller.selectedOperationId
-                                                    .remove(controller
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: AppText(
+                                                text: controller
                                                         .operationNameListData[
                                                             index]
-                                                        .id);
-                                                controller.selectedOperationList
-                                                    .remove(controller
+                                                        .operationName ??
+                                                    ''),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          controller.selectedOperationId
+                                                  .contains(controller
+                                                      .operationNameListData[
+                                                          index]
+                                                      .id)
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    controller
+                                                        .selectedOperationId
+                                                        .remove(controller
                                                             .operationNameListData[
-                                                        index]);
-                                                controller.update();
-                                              },
-                                              child: const Icon(
-                                                Icons.cancel_outlined,
-                                                color: ConstColor.buttonColor,
-                                              ))
-                                          : const SizedBox()
+                                                                index]
+                                                            .id);
+                                                    controller
+                                                        .selectedOperationList
+                                                        .remove(controller
+                                                                .operationNameListData[
+                                                            index]);
+                                                    controller.update();
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.cancel_outlined,
+                                                    color:
+                                                        ConstColor.buttonColor,
+                                                  ))
+                                              : const SizedBox()
+                                        ],
+                                      ),
+                                      index ==
+                                              controller.operationNameListData
+                                                      .length -
+                                                  1
+                                          ? const SizedBox()
+                                          : const SizedBox(
+                                              height: 15,
+                                            ),
+                                      index ==
+                                              controller.operationNameListData
+                                                      .length -
+                                                  1
+                                          ? const SizedBox()
+                                          : const Divider(
+                                              thickness: 1,
+                                              height: 1,
+                                              color: ConstColor.greyACACAC,
+                                            )
                                     ],
                                   ),
-                                  index ==
-                                          controller.operationNameListData
-                                                  .length -
-                                              1
-                                      ? const SizedBox()
-                                      : const SizedBox(
-                                          height: 15,
-                                        ),
-                                  index ==
-                                          controller.operationNameListData
-                                                  .length -
-                                              1
-                                      ? const SizedBox()
-                                      : const Divider(
-                                          thickness: 1,
-                                          height: 1,
-                                          color: ConstColor.greyACACAC,
-                                        )
-                                ],
-                              ),
-                            );
-                          }),
+                                );
+                              }),
                 ),
               ],
             )),

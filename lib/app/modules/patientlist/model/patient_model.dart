@@ -104,6 +104,7 @@ class PatientListModel {
   String? doa;
   String? admType;
   String? totalDays;
+  String? mobiileNo;
   String? referredDr;
 
   PatientListModel(
@@ -118,6 +119,7 @@ class PatientListModel {
       this.doa,
       this.admType,
       this.totalDays,
+      this.mobiileNo,
       this.referredDr});
 
   PatientListModel.fromJson(Map<String, dynamic> json) {
@@ -132,6 +134,7 @@ class PatientListModel {
     doa = json['doa'];
     admType = json['admType'];
     totalDays = json['totalDays'];
+    mobiileNo = json['mobileNo'];
     referredDr = json['referredDr'];
   }
 
@@ -148,6 +151,7 @@ class PatientListModel {
     data['doa'] = doa;
     data['admType'] = admType;
     data['totalDays'] = totalDays;
+    data['mobileNo'] = mobiileNo;
     data['referredDr'] = referredDr;
     return data;
   }

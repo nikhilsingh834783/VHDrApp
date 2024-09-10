@@ -3,12 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:venus/app/modules/labReports/views/widgets/ref.dart';
 import 'package:venus/main.dart';
 
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/lab_reports_controller.dart';
-import 'widgets/start_heading.dart';
 
 class LabReportsView extends GetView<LabReportsController> {
   String patientName;
@@ -204,16 +202,16 @@ class LabReportsView extends GetView<LabReportsController> {
                                                       CrossAxisAlignment
                                                           .stretch,
                                                   children: [
-                                                    Expanded(
-                                                        flex: 4,
-                                                        child: StartingHeading(
-                                                          allReportsData: controller
-                                                                  .allReportsList[
-                                                                      index]
-                                                                  .data ??
-                                                              [],
-                                                          height: 500,
-                                                        )),
+                                                    // Expanded(
+                                                    //     flex: 4,
+                                                    //     child: StartingHeading(
+                                                    //       allReportsData: controller
+                                                    //               .allReportsList[
+                                                    //                   index]
+                                                    //               .data ??
+                                                    //           [],
+                                                    //       height: 500,
+                                                    //     )),
                                                     VerticalDivider(
                                                       thickness: 1,
                                                       color: ConstColor
@@ -221,17 +219,17 @@ class LabReportsView extends GetView<LabReportsController> {
                                                           .withOpacity(0.3),
                                                       width: 1,
                                                     ),
-                                                    SizedBox(
-                                                        width: getDynamicHeight(
-                                                            size: 0.075),
-                                                        child: ReferenceWidget(
-                                                          allReportsData: controller
-                                                                  .allReportsList[
-                                                                      index]
-                                                                  .data ??
-                                                              [],
-                                                          height: 500,
-                                                        )),
+                                                    // SizedBox(
+                                                    //     width: getDynamicHeight(
+                                                    //         size: 0.075),
+                                                    //     child: ReferenceWidget(
+                                                    //       allReportsData: controller
+                                                    //               .allReportsList[
+                                                    //                   index]
+                                                    //               .data ??
+                                                    //           [],
+                                                    //       height: 500,
+                                                    //     )),
                                                     VerticalDivider(
                                                       thickness: 1,
                                                       color: ConstColor

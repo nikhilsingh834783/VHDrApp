@@ -103,6 +103,7 @@ class VerifyotpController extends GetxController {
         prefs.setString('token', loginResponse.data?.token ?? '');
         prefs.setString(
             'loginId', loginResponse.data?.loginId.toString() ?? '');
+        prefs.setString('docId', loginResponse.data?.doctorId.toString() ?? '');
         prefs.setString('username', loginResponse.data?.doctorName ?? '');
         prefs.setBool('biometric', BiometricAuth.isBiomerticOn ?? false);
 

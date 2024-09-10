@@ -21,7 +21,8 @@ class ProgressSummaryView extends GetView<ProgressSummaryController> {
         return Scaffold(
           appBar: AppBar(
             title: AppText(
-              text: 'Progress Summary',
+              // text: 'Progress Summary',
+              text: 'Clinical Summary',
               fontSize: Sizes.px22,
               fontColor: ConstColor.headingTexColor,
               fontWeight: FontWeight.w800,
@@ -160,7 +161,7 @@ class ProgressSummaryView extends GetView<ProgressSummaryController> {
                                                     text: i == 0
                                                         ? 'Diagnosis'
                                                         : i == 1
-                                                            ? 'Clinical Summary'
+                                                            ? 'Progress Summary'
                                                             : i == 2
                                                                 ? 'Medical History'
                                                                 : 'Treatment Given',

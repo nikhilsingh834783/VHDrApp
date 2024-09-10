@@ -270,6 +270,34 @@ class ChargeListWidget extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: AppText(
+                                  text: 'Consultant Visit Charge',
+                                  fontSize: Sizes.px12,
+                                  fontWeight: FontWeight.w500,
+                                  fontColor: ConstColor.black6B6B6B,
+                                  maxLine: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              AppText(
+                                text:
+                                    '₹.  ${controller.visitChargeController.text}',
+                                fontSize: Sizes.px12,
+                                fontWeight: FontWeight.w500,
+                                fontColor: ConstColor.black6B6B6B,
+                                maxLine: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: getDynamicHeight(size: 0.010),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: AppText(
                                   text: 'Other Expense',
                                   fontSize: Sizes.px12,
                                   fontWeight: FontWeight.w500,

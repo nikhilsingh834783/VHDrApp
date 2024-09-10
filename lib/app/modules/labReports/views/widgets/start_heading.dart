@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:venus/app/modules/labReports/views/widgets/ref.dart';
 
 import '../../../../app_common_widgets/common_import.dart';
 import '../../controllers/lab_reports_controller.dart';
@@ -7,8 +8,12 @@ import '../../controllers/lab_reports_controller.dart';
 class StartingHeading extends StatelessWidget {
   final List allReportsData;
   final double height;
+  final List dateLsiting;
   const StartingHeading(
-      {super.key, required this.allReportsData, required this.height});
+      {super.key,
+      required this.allReportsData,
+      required this.height,
+      required this.dateLsiting});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class StartingHeading extends StatelessWidget {
             decoration: const BoxDecoration(
               color: ConstColor.buttonColor,
             ),
-            height: 50,
+            height: 90,
             child: Center(
               child: AppText(
                 text: 'Test Name',
@@ -47,7 +52,18 @@ class StartingHeading extends StatelessWidget {
                       i == allReportsData.length
                           ? const SizedBox()
                           : SizedBox(
-                              height: getDynamicHeight(size: 0.055),
+                              height: getHeightOfWidget(
+                                  allReportsData[i]['NormalRange'] != null &&
+                                          allReportsData[i]['NormalRange'] != ''
+                                      ? allReportsData[i]['NormalRange']
+                                      : '-',
+                                  allReportsData[i]['Unit'] != null &&
+                                          allReportsData[i]['Unit'] != ''
+                                      ? allReportsData[i]['Unit']
+                                      : '-',
+                                  allReportsData,
+                                  dateLsiting,
+                                  i),
                               child: Center(
                                 child: AppText(
                                   text: allReportsData[i]['TestName'] ?? '',
@@ -55,8 +71,8 @@ class StartingHeading extends StatelessWidget {
                                   fontColor: ConstColor.buttonColor,
                                   fontWeight: FontWeight.w500,
                                   textAlign: TextAlign.center,
-                                  maxLine: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                  // maxLine: 2,
+                                  // overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
@@ -79,5 +95,23 @@ class StartingHeading extends StatelessWidget {
         ],
       );
     });
+  }
+}
+
+getHeightOfWidget1(
+    String text1, String text2, List alldata, List datesListing, int index) {
+  if ((text1.length + text2.length) > 14) {
+    return getDynamicHeight(size: 0.125);
+  } else {
+    // for (int i = 0; i < alldata.length; i++) {
+    //   if (index == i) {
+    //     for (int j = 0; j < datesListing.length; j++) {
+    //       if (alldata[i][datesListing[j]].toString().length > 14) {
+    //         return getDynamicHeight(size: 0.115);
+    //       }
+    //     }
+    //   }
+    // }
+    return getDynamicHeight(size: 0.055);
   }
 }
