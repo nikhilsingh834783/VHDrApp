@@ -13,6 +13,7 @@ class ConstColor {
   static const whiteColor = Color(0xffFFFFFF);
   static const whiteF2F2F2 = Color(0xffF2F2F2);
   static const blackColor = Color(0xff000000);
+  static const graphColor = Color(0xffFB8801);
   static const blackColor00313C = Color(0xff00313C);
   static const blackTextColor = Color(0xff4B4D4F);
   static const black6B6B6B = Color(0xff6B6B6B);

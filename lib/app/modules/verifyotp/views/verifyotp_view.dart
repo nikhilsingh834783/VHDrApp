@@ -9,7 +9,6 @@ import 'package:venus/app/app_common_widgets/common_text.dart';
 import 'package:venus/app/app_common_widgets/sizer_constant.dart';
 import 'package:venus/app/core/constant/asset_constant.dart';
 import 'package:venus/app/core/them/const_color.dart';
-
 import '../controllers/verifyotp_controller.dart';
 
 class VerifyotpView extends GetView<VerifyotpController> {
@@ -22,9 +21,9 @@ class VerifyotpView extends GetView<VerifyotpController> {
         backgroundColor: ConstColor.whiteColor,
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(
-                left: Sizes.crossLength * 0.020,
-                right: Sizes.crossLength * 0.020),
+            padding: EdgeInsets.symmetric(
+                horizontal: Sizes.crossLength * 0.020),
+                //right: Sizes.crossLength * 0.020),
             child: Form(
               key: controller.loginFormKey,
               child: Column(
@@ -196,8 +195,12 @@ class VerifyotpView extends GetView<VerifyotpController> {
                                 onTap: () async {
                                   controller.otpController.clear();
                                   controller.update();
+                                  // controller.otpResError = null;
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                    controller.resendApiCall(context);
+                                    controller.update();
+                                  });
                                   // controller.loginFormKey.currentState!.reset();
-                                  controller.resendApiCall(context);
                                   // controller.loginFormKey.currentState!.reset();
                                 },
                                 child: Container(

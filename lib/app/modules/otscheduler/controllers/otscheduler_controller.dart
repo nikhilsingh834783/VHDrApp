@@ -88,7 +88,7 @@ class OtschedulerController extends GetxController {
       }
       update();
     } else {
-      Get.rawSnackbar(message: "Something went wrong");
+       Get.rawSnackbar(message: "Something went wrong");
     }
   }
 

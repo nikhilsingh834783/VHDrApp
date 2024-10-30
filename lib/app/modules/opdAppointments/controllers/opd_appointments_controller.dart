@@ -60,7 +60,7 @@ class OpdAppointmentsController extends GetxController {
     } else if (patientResponse.statusCode == 400) {
       appointMentsDate = [];
     } else {
-      Get.rawSnackbar(message: "Something went wrong");
+     Get.rawSnackbar(message: "Something went wrong");
     }
     update();
   }

@@ -32,8 +32,20 @@ String getOperationClassApi = "$drUrl/GetDrOperationClass";
 String getOperationNameApi = "$drUrl/GetDrOperationNames";
 
 String getOrganizationListUrl = "$drUrl/GetOrgData";
+String getDoctorPaymentListApi = "$drUrl/GetDrPaymentList";
 String saveOtSchdule = "$drUrl/SaveOTSchedule";
 String additionalSurgeonApi = "$drUrl/GetAdnlSurgDrData";
 String getSurgicalEstimateapi = "$drUrl/GetSurgicalEstimate";
 String getSurgicalEstimateapiProcedure = "$drUrl/GetSurgicalEstimate_Indoor";
+String getContactsApi = "$drUrl/GetEmergencyContacts";
+String getInsuranceCompanies = "$drUrl/GetInsuranceCompanies";
+String getHospitalDoctorsApi = "$drUrl/GetHospitalDrs";
+String getProfile = "$drUrl/GetDrProfile";
+String saveDrProfile = "$drUrl/SaveDrProfile";
+String getDrSpecialities = "$drUrl/GetDrSpecialities";
+String getDrDegrees = "$drUrl/GetDrDegree";
+
+/// Added divyanshi
+String uploadDrPhoto = "$drUrl/UploadDrPhoto";
+String getDrPhoto = "$drUrl/GetDrPhoto";
 // }

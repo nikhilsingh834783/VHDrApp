@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:venus/app/modules/schedulechargelist/views/widgets/doctor_visit_list.dart';
 import 'package:venus/app/modules/schedulechargelist/views/widgets/operation_class.dart';
 import 'package:venus/app/modules/schedulechargelist/views/widgets/surgery_list.dart';
-
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/schedulechargelist_controller.dart';
 import 'widgets/rooms_list_view.dart';
@@ -35,12 +34,8 @@ class SchedulechargelistView extends GetView<SchedulechargelistController> {
                 onPressed: () => Navigator.pop(context)),
           ),
           backgroundColor: ConstColor.whiteColor,
-          // drawer: const MyDrawer(),
           body: Padding(
-            padding: EdgeInsets.only(
-              left: Sizes.crossLength * 0.020,
-              right: Sizes.crossLength * 0.020,
-            ),
+              padding: EdgeInsets.symmetric(horizontal: Sizes.crossLength*0.020),
             child: Column(
               children: [
                 SizedBox(

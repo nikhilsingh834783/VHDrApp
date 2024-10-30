@@ -50,6 +50,7 @@ class OtschedulerView extends GetView<OtschedulerController> {
                   child: Form(
                     key: controller.otSchduleForKey,
                     child: Padding(
+
                       padding: EdgeInsets.only(
                         left: Sizes.crossLength * 0.020,
                         right: Sizes.crossLength * 0.020,
@@ -463,8 +464,12 @@ class OtschedulerView extends GetView<OtschedulerController> {
                                 ),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 15, bottom: 15),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: Sizes.crossLength * 0.010,
+                                  vertical: Sizes.crossLength * 0.015,
+                                ),
+                                // padding: const EdgeInsets.only(
+                                //     left: 10, right: 10, top: 15, bottom: 15),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

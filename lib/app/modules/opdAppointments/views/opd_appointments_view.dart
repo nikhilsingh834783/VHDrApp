@@ -43,10 +43,13 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
           backgroundColor: Colors.white,
           // drawer: const MyDrawer(),
           body: Padding(
-            padding: EdgeInsets.only(
-              left: Sizes.crossLength * 0.020,
-              right: Sizes.crossLength * 0.020,
+            padding: EdgeInsets.symmetric(
+              horizontal: Sizes.crossLength*0.020
             ),
+            // padding: EdgeInsets.only(
+            //   left: Sizes.crossLength * 0.020,
+            //   right: Sizes.crossLength * 0.020,
+            // ),
             child: Column(
               children: [
                 SizedBox(
@@ -129,6 +132,7 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                     ),
                     CustomPopupMenu(
                         showArrow: false,
+
                         position: PreferredPosition.bottom,
                         menuBuilder: () => const OpdCalender(),
                         pressType: PressType.singleClick,
@@ -267,10 +271,13 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                             height: Sizes.crossLength * 0.010,
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(
-                                              left: Sizes.crossLength * 0.020,
-                                              right: Sizes.crossLength * 0.020,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: Sizes.crossLength*0.020
                                             ),
+                                            // padding: EdgeInsets.only(
+                                            //   left: Sizes.crossLength * 0.020,
+                                            //   right: Sizes.crossLength * 0.020,
+                                            // ),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -377,6 +384,9 @@ class OpdAppointmentsView extends GetView<OpdAppointmentsController> {
                                                                   ProgressSummaryController());
                                                           progreesController
                                                               .scrollListner();
+                                                          progreesController
+                                                                  .progressListing =
+                                                              null;
                                                           progreesController
                                                               .getProgressSummary(
                                                                   ipdNo: '',

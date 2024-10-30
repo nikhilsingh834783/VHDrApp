@@ -31,6 +31,7 @@ class CustomCalendar extends StatelessWidget {
                   fontSize: Sizes.px18, // 20.spMin,
                   fontWeight: FontWeight.w700,
                   color: ConstColor.buttonColor,
+
                   fontFamily: CommonFontStyle.plusJakartaSans))),
       selectedDatesProperties: DatesProperties(
         datesDecoration: DatesDecoration(
@@ -107,6 +108,7 @@ class CustomCalendar extends StatelessWidget {
               size: 20, color: ConstColor.buttonColor),
         ),
       ),
+
       isCalendarLock: isCalendarLock, // controller.isCalendarLock,
       datesForStreaks: streakDatesList,
       dateSelectionMode: DatePickerSelectionMode.singleOrMultiple,

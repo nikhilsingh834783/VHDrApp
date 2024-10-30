@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../../../app_common_widgets/common_import.dart';
 import '../controllers/biometricauth_controller.dart';
 

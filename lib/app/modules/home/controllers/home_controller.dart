@@ -7,7 +7,7 @@ import 'package:venus/app/core/constant/const_api_url.dart';
 import 'package:venus/app/core/services/api_service.dart';
 import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.dart';
 import 'package:venus/app/modules/home/model/dashboard_model.dart';
-
+import 'package:venus/app/modules/profile/controllers/profile_controller.dart';
 import '../../../../main.dart';
 import '../../login/views/login_view.dart';
 
@@ -17,6 +17,7 @@ class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
   var bottomBarController = Get.put(BottomBarController());
   DashBoardCountModel? dataForDashBoard;
+  var profileController = Get.put(ProfileController());
   // List<DashBoardCountModel> dashboardList = [];
 
   void increment() => count.value++;
@@ -39,6 +40,10 @@ class HomeController extends GetxController {
         // print("=====Down");
       }
     });
+    profileController.getDrDegree();
+    profileController.getDrSpeciality();
+    profileController.getProfileClass();
+    profileController.getProfileImage();
   }
 
   getDashboardData() async {
@@ -47,7 +52,7 @@ class HomeController extends GetxController {
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {"loginId": loginId};
     String apiUrl = diplayDashBoard;
-    print(apiUrl);
+    debugPrint(apiUrl);
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);

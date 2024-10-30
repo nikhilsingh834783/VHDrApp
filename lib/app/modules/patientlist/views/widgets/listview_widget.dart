@@ -206,6 +206,7 @@ class PatientList extends StatelessWidget {
                               var progreesController =
                                   Get.put(ProgressSummaryController());
                               progreesController.scrollListner();
+                              progreesController.progressListing = null;
                               progreesController.getProgressSummary(
                                   ipdNo: patientData.ipdNo ?? '',
                                   uhid: patientData.uhid ?? '');

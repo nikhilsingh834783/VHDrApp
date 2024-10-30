@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1019943452034",
+    "project_id": "vhdrapp",
+    "storage_bucket": "vhdrapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019943452034:android:ba23cc22a121decea4e39b",
+        "android_client_info": {
+          "package_name": "com.dev.venus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8iYzHJ7QVR60VzkrAObZ-tA9eY5wkbDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

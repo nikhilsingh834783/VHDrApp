@@ -106,17 +106,19 @@ class VerifyotpController extends GetxController {
         prefs.setString('docId', loginResponse.data?.doctorId.toString() ?? '');
         prefs.setString('username', loginResponse.data?.doctorName ?? '');
         prefs.setBool('biometric', BiometricAuth.isBiomerticOn ?? false);
-
+        Get.rawSnackbar(message: "Login successfully");
         Get.offAll(const BottomBarView());
       } else {
-        Get.rawSnackbar(message: finalData.data["message"]);
+        //Get.rawSnackbar(message: finalData.data["message"]);
+        Get.rawSnackbar(message: "In the else of login view");
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data["message"]);
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      Get.rawSnackbar(message: finalData.data["message"]);
+      // Get.rawSnackbar(message: finalData.data["message"]);
+      Get.rawSnackbar(message: "In the else of login view");
     }
   }
 
@@ -146,7 +148,8 @@ class VerifyotpController extends GetxController {
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      Get.rawSnackbar(message: finalData.data["message"]);
+      //Get.rawSnackbar(message: finalData.data["message"]);
+      Get.rawSnackbar(message: "In the else of resend api");
     }
   }
 
@@ -154,6 +157,7 @@ class VerifyotpController extends GetxController {
     if (otp == otpController.text.trim()) {
       if (fromLogin) {
         saveToken();
+
       } else {
         timer?.cancel();
         secondsRemaining = 150.obs;

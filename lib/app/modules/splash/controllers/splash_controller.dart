@@ -14,8 +14,8 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // gotToNextPage();
-    fetchData();
+    gotToNextPage();
+    // fetchData();
   }
 
   Future<void> fetchData() async {

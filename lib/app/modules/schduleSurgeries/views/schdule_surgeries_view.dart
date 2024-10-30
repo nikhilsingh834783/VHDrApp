@@ -39,10 +39,11 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
           backgroundColor: Colors.white,
           // drawer: const MyDrawer(),
           body: Padding(
-            padding: EdgeInsets.only(
-              left: Sizes.crossLength * 0.020,
-              right: Sizes.crossLength * 0.020,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: Sizes.crossLength*0.020),
+            // padding: EdgeInsets.only(
+            //   left: Sizes.crossLength * 0.020,
+            //   right: Sizes.crossLength * 0.020,
+            // ),
             child: Stack(
               alignment: Alignment.bottomCenter,
               fit: StackFit.passthrough,

@@ -46,4 +46,6 @@ class ConstAsset {
   static String groupPersons = "assets/images/svg/group_persons.svg";
   static String threePersons = "assets/images/svg/three_persons.svg";
   static String otCharges = "assets/images/svg/ot_charges.svg";
+  static String flotingGraph = "assets/images/png/flotinggraph.png";
+  static String dropdown = "assets/images/png/dropdown.png";
 }

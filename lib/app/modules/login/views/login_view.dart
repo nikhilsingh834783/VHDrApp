@@ -18,9 +18,12 @@ class LoginView extends GetView<LoginController> {
         backgroundColor: ConstColor.whiteColor,
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(
-                left: Sizes.crossLength * 0.020,
-                right: Sizes.crossLength * 0.020),
+            padding: EdgeInsets.symmetric(
+              horizontal: Sizes.crossLength * 0.020,
+            ),
+            // padding: EdgeInsets.only(
+            //     left: Sizes.crossLength * 0.020,
+            //     right: Sizes.crossLength * 0.020),
             child: Form(
               key: controller.loginFormKey,
               child: Column(

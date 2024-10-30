@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_marketing_names/device_marketing_names.dart';
 import 'package:dio/dio.dart' as diopackage;
@@ -18,7 +17,6 @@ import 'package:venus/app/core/services/local_pref.dart';
 import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/views/bottom_bar_view.dart';
 import 'package:venus/app/modules/login/model/login_model.dart';
-
 import '../../../app_common_widgets/custom_pop_menu.dart';
 import '../../verifyotp/views/verifyotp_view.dart';
 import '../model/send_otp_model.dart';
@@ -59,7 +57,8 @@ class LoginController extends GetxController {
           sendOtp(context);
         }
       } else {
-        Get.rawSnackbar(message: finalData.data[0]["message"]);
+        // Get.rawSnackbar(message: finalData.data[0]["message"]);
+        Get.rawSnackbar(message: "In the else of validate mobile no");
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data[0]["message"]);
@@ -67,7 +66,9 @@ class LoginController extends GetxController {
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      Get.rawSnackbar(message: finalData.data[0]["message"]);
+      print(finalData.data);
+      Get.rawSnackbar(message: "Int the last else of validate mobile no");
+      //Get.rawSnackbar(message: finalData.data[0]["message"]);
     }
   }
 
@@ -155,7 +156,8 @@ class LoginController extends GetxController {
             .then((value) => FocusManager.instance.primaryFocus?.unfocus());
         Get.rawSnackbar(message: loginResponse.data?.otpNo);
       } else {
-        Get.rawSnackbar(message: loginResponse.message);
+        Get.rawSnackbar(message: "In the else of otp ");
+        //Get.rawSnackbar(message: loginResponse.message);
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data["message"]);
@@ -163,7 +165,8 @@ class LoginController extends GetxController {
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      Get.rawSnackbar(message: finalData.data["message"]);
+      Get.rawSnackbar(message: "In last else of send otp");
+      //Get.rawSnackbar(message: finalData.data["message"]);
     }
   }
 
@@ -209,7 +212,8 @@ class LoginController extends GetxController {
         prefs.setBool('biometric', BiometricAuth.isBiomerticOn ?? false);
         Get.offAll(const BottomBarView());
       } else {
-        Get.rawSnackbar(message: finalData.data["message"]);
+        Get.rawSnackbar(message: "In the else of login controller");
+        // Get.rawSnackbar(message: finalData.data["message"]);
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data["message"]);
@@ -219,8 +223,10 @@ class LoginController extends GetxController {
       if (!Get.isSnackbarOpen) {
         Get.rawSnackbar(message: "Internal server error");
       }
-    } else {
-      Get.rawSnackbar(message: finalData.data["message"]);
-    }
+   }
+    else {
+      Get.rawSnackbar(message: "In the last else of login controller");
+      // Get.rawSnackbar(message: finalData.data["message"]);
+   }
   }
 }

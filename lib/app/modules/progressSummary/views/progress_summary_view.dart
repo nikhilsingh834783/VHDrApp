@@ -40,10 +40,13 @@ class ProgressSummaryView extends GetView<ProgressSummaryController> {
           backgroundColor: Colors.white,
           // drawer: const MyDrawer(),
           body: Padding(
-            padding: EdgeInsets.only(
-              left: Sizes.crossLength * 0.020,
-              right: Sizes.crossLength * 0.020,
-            ),
+              padding: EdgeInsets.symmetric(
+                horizontal: Sizes.crossLength*0.020,
+              ),
+            // padding: EdgeInsets.only(
+            //   left: Sizes.crossLength * 0.020,
+            //   right: Sizes.crossLength * 0.020,
+            // ),
             child: Column(
               children: [
                 SizedBox(
@@ -94,7 +97,8 @@ class ProgressSummaryView extends GetView<ProgressSummaryController> {
                 controller.apiCall
                     ? const SizedBox()
                     : Expanded(
-                        child: controller.progressListing != null
+                        child: controller.progressListing != null &&
+                                controller.progressListing!.toJson().isNotEmpty
                             ? ListView.builder(
                                 controller: controller.progressScrollController,
                                 padding: EdgeInsets.only(

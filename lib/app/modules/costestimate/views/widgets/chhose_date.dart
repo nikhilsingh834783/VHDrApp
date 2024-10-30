@@ -17,24 +17,25 @@ class ChooseDateView extends StatelessWidget {
             color: ConstColor.whiteColor,
             borderRadius: BorderRadius.circular(10)),
         child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getDynamicHeight(size: 0.015),
-            ),
-            child: CustomCalendar(
-              selectedDates: controller.selectedDate,
-              streakDatesList: const [],
-              unAvailableDatesList: controller.selectedDate != null
-                  ? [controller.selectedDate!]
-                  : [],
-              onSelectedDates: (va) {
-                controller.selectedDate = va[0];
-                controller.dateController.text =
-                    DateFormat('dd-MMM-yyyy').format(controller.selectedDate!);
-                // controller.selectDateController.hideMenu();
-                Navigator.pop(context);
-                controller.update();
-              },
-            )),
+          padding: EdgeInsets.symmetric(
+            horizontal: getDynamicHeight(size: 0.015),
+          ),
+          child: CustomCalendar(
+            selectedDates: controller.selectedDate,
+            streakDatesList: const [],
+            unAvailableDatesList: controller.selectedDate != null
+                ? [controller.selectedDate!]
+                : [],
+            onSelectedDates: (va) {
+              controller.selectedDate = va[0];
+              controller.dateController.text =
+                  DateFormat('dd-MMM-yyyy').format(controller.selectedDate!);
+              // controller.selectDateController.hideMenu();
+              Navigator.pop(context);
+              controller.update();
+            },
+          ),
+        ),
       );
     });
   }

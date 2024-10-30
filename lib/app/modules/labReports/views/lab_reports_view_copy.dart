@@ -105,10 +105,14 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                left: Sizes.crossLength * 0.020,
-                                right: Sizes.crossLength * 0.020,
-                              ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: Sizes.crossLength * 0.020,
+
+                                ),
+                              // padding: EdgeInsets.only(
+                              //   left: Sizes.crossLength * 0.020,
+                              //   right: Sizes.crossLength * 0.020,
+                              // ),
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -176,9 +180,9 @@ class LabReportsViewCopy extends GetView<LabReportsController> {
                                         //     .commonList[index]['data']);
                                         List indexWiseData = controller
                                             .commonList[index]['data'];
-                                        List dateLists = controller.getKey(
-                                            controller.commonList[index]
-                                                ['data']);
+                                        // List dateLists = controller.getKey(
+                                        //     controller.commonList[index]
+                                        //         ['data']);
                                         List dateLists1 = controller.getKey1(
                                             controller.commonList[index]
                                                 ['data']);

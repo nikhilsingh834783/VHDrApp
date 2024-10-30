@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as diopackage;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +26,8 @@ class APIServices {
             ),
           )
           .timeout(const Duration(seconds: 45));
+
+      debugPrint("Token === $token");
       if (isShowLoader) {
         EasyLoading.dismiss();
       }

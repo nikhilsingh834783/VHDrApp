@@ -66,7 +66,7 @@ class RadiologyReportController extends GetxController {
       apiCall = false;
     } else {
       apiCall = false;
-      Get.rawSnackbar(message: "Something went wrong");
+       Get.rawSnackbar(message: "Something went wrong");
     }
     update();
   }

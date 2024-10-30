@@ -205,40 +205,40 @@ class LabReportsController extends GetxController {
   //   //   update();
   // }
 
-  dateWiseReport(List<ReportsAllData> allDates) {
-    List allDatesListq = [];
-    for (int i = 0; i < allDates.length; i++) {
-      if (allDatesListq.contains(
-          "${allDates[i].date.toString().split('-')[0]}-${allDates[i].date.toString().split('-')[1]}")) {
-      } else {
-        allDatesListq.add(
-            "${allDates[i].date.toString().split('-')[0]}-${allDates[i].date.toString().split('-')[1]}");
-      }
-    }
-    return allDatesListq;
-  }
+  // dateWiseReport(List<ReportsAllData> allDates) {
+  //   List allDatesListq = [];
+  //   for (int i = 0; i < allDates.length; i++) {
+  //     if (allDatesListq.contains(
+  //         "${allDates[i].date.toString().split('-')[0]}-${allDates[i].date.toString().split('-')[1]}")) {
+  //     } else {
+  //       allDatesListq.add(
+  //           "${allDates[i].date.toString().split('-')[0]}-${allDates[i].date.toString().split('-')[1]}");
+  //     }
+  //   }
+  //   return allDatesListq;
+  // }
 
-  getKey(List data) {
-    List alldates = [];
-    for (var response in data) {
-      response.forEach((key, value) {
-        if (key == "formattest" ||
-            key == "TestName" ||
-            key == "NormalRange" ||
-            key == "Unit" ||
-            key == 'RowNo') {
-        } else {
-          if (alldates.contains(
-              "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}")) {
-          } else {
-            alldates.add(
-                "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}");
-          }
-        }
-      });
-    }
-    return alldates;
-  }
+  // getKey(List data) {
+  //   List alldates = [];
+  //   for (var response in data) {
+  //     response.forEach((key, value) {
+  //       if (key == "formattest" ||
+  //           key == "TestName" ||
+  //           key == "NormalRange" ||
+  //           key == "Unit" ||
+  //           key == 'RowNo') {
+  //       } else {
+  //         if (alldates.contains(
+  //             "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}")) {
+  //         } else {
+  //           alldates.add(
+  //               "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}");
+  //         }
+  //       }
+  //     });
+  //   }
+  //   return alldates;
+  // }
 
   getKey1(List data) {
     List alldates = [];
@@ -252,10 +252,11 @@ class LabReportsController extends GetxController {
             key == 'RowNo') {
         } else {
           if (alldates.contains(
-              "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}")) {
+              "${key.toString().split(' ')[0]}-${key.toString().split(' ')[1]}")) {
           } else {
+            Get.log("key.toString() ${key.toString()}");
             alldates.add(
-                "${key.toString().split('-')[0]}-${key.toString().split('-')[1]}");
+                "${key.toString().split(' ')[0]}-${key.toString().split(' ')[1]}");
             alldates1.add(key.toString());
           }
         }
