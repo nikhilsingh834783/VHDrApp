@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_marketing_names/device_marketing_names.dart';
 import 'package:dio/dio.dart' as diopackage;
@@ -17,6 +18,8 @@ import 'package:venus/app/core/services/local_pref.dart';
 import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/views/bottom_bar_view.dart';
 import 'package:venus/app/modules/login/model/login_model.dart';
+
+import '../../../../main.dart';
 import '../../../app_common_widgets/custom_pop_menu.dart';
 import '../../verifyotp/views/verifyotp_view.dart';
 import '../model/send_otp_model.dart';
@@ -195,7 +198,8 @@ class LoginController extends GetxController {
       "osType": Platform.isAndroid
           ? androidInfo?.version.release.toString()
           : iosInfo!.systemVersion.toString(),
-      "deviceToken": "string"
+      "deviceToken": "string",
+      "firebaseId": fcmToken
     };
     diopackage.Response finalData =
         await APIServices.postWithDioForlogin(apiUrl, data);
@@ -223,10 +227,9 @@ class LoginController extends GetxController {
       if (!Get.isSnackbarOpen) {
         Get.rawSnackbar(message: "Internal server error");
       }
-   }
-    else {
+    } else {
       Get.rawSnackbar(message: "In the last else of login controller");
       // Get.rawSnackbar(message: finalData.data["message"]);
-   }
+    }
   }
 }

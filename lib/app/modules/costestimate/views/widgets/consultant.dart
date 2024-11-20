@@ -70,6 +70,10 @@ class ConsultantSurgeonListView extends StatelessWidget {
                                             .searchAdditionalDoctorList![index]
                                             .docName ??
                                         '';
+                                    controller.consultantId = controller
+                                        .searchAdditionalDoctorList![index]
+                                        .docId
+                                        .toString();
                                     controller.docId = controller
                                         .searchAdditionalDoctorList![index]
                                         .docId
@@ -78,12 +82,6 @@ class ConsultantSurgeonListView extends StatelessWidget {
                                     controller.selectedOperationList.clear();
                                     controller.operationNameListData.clear();
                                     controller.getOperationName1();
-                                    // controller.selectedOrganization = controller
-                                    //     .searchAdditionalDoctorList![index].orgId
-                                    //     .toString();
-                                    // controller.additionalSurgeonController
-                                    //     .hideMenu();
-                                    // Get.back();
                                     Navigator.pop(context);
                                     controller.update();
                                   },
@@ -142,7 +140,9 @@ class ConsultantSurgeonListView extends StatelessWidget {
                                     controller.additionalDoctorList[index]
                                             .docName ??
                                         '';
-
+                                controller.consultantId = controller
+                                    .additionalDoctorList[index].docId
+                                    .toString();
                                 controller.docId = controller
                                     .additionalDoctorList[index].docId
                                     .toString();

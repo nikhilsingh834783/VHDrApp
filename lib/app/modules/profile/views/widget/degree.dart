@@ -1,9 +1,10 @@
 /// View by Madhavi
+library;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:venus/app/modules/profile/controllers/profile_controller.dart';
+
 import '../../../../app_common_widgets/common_text.dart';
 import '../../../../app_common_widgets/sizer_constant.dart';
 import '../../../../core/them/const_color.dart';
@@ -17,6 +18,7 @@ class DegreeList extends StatelessWidget {
       return Container(
         decoration: const BoxDecoration(
           color: ConstColor.whiteColor,
+
           /// Below two statements comment by Divyanshi
           // border: Border.all(width: 0.5, color: ConstColor.boldBlackColor),
           // borderRadius: BorderRadius.circular(10),

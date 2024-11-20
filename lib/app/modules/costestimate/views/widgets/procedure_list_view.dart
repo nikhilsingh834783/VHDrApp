@@ -24,28 +24,12 @@ class ProcedureListViewOperation extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // const SizedBox(
-                    //   width: 10,
-                    // ),
                     AppText(
                       text: 'Select Surgery',
                       fontSize: Sizes.px16,
                       fontWeight: FontWeight.w600,
                       fontColor: ConstColor.black4B4D4F,
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     Get.back();
-                    //   },
-                    //   child: AppText(
-                    //     text: controller.selectedOperationId.isEmpty
-                    //         ? 'Close'
-                    //         : 'Done',
-                    //     fontSize: Sizes.px16,
-                    //     fontWeight: FontWeight.w600,
-                    //     fontColor: ConstColor.buttonColor,
-                    //   ),
-                    // ),
                   ],
                 ),
                 const SizedBox(

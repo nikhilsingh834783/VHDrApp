@@ -75,16 +75,18 @@ class AdditionalSurgeonListViewOt extends StatelessWidget {
                                         .searchAdditionalDoctorList![index]
                                         .docId
                                         .toString();
+                                    controller.surgeonId = controller
+                                                .searchAdditionalDoctorList !=
+                                            null
+                                        ? controller
+                                            .searchAdditionalDoctorList![index]
+                                            .docId
+                                            .toString()
+                                        : '';
                                     controller.selectedOperationId.clear();
                                     controller.selectedOperationList.clear();
                                     controller.operationNameListData.clear();
                                     controller.getOperationName();
-                                    // controller.selectedOrganization = controller
-                                    //     .searchAdditionalDoctorList![index].orgId
-                                    //     .toString();
-                                    // controller.additionalSurgeonController
-                                    //     .hideMenu();
-                                    // Get.back();
                                     Navigator.pop(context);
                                     controller.update();
                                   },
@@ -146,15 +148,13 @@ class AdditionalSurgeonListViewOt extends StatelessWidget {
                                 controller.docId = controller
                                     .additionalDoctorList[index].docId
                                     .toString();
+                                controller.surgeonId = controller
+                                    .additionalDoctorList[index].docId
+                                    .toString();
                                 controller.selectedOperationId.clear();
                                 controller.selectedOperationList.clear();
                                 controller.operationNameListData.clear();
                                 controller.getOperationName();
-                                // controller.selectedOrganization = controller
-                                //     .additionalDoctorList[index].orgId
-                                //     .toString();
-                                // controller.additionalSurgeonController
-                                //     .hideMenu();
                                 Navigator.pop(context);
                                 controller.update();
                               },

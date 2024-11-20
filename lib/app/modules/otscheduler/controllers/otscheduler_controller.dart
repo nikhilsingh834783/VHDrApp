@@ -63,6 +63,7 @@ class OtschedulerController extends GetxController {
   List<OrganizationListData> organizationListData = [];
   List<AdditionalDoctorList> additionalDoctorList = [];
   List<AdditionalDoctorList>? searchAdditionalDoctorList;
+  String surgeonId = "0";
 
   getOrganizationList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -88,7 +89,7 @@ class OtschedulerController extends GetxController {
       }
       update();
     } else {
-       Get.rawSnackbar(message: "Something went wrong");
+      Get.rawSnackbar(message: "Something went wrong");
     }
   }
 
@@ -132,7 +133,7 @@ class OtschedulerController extends GetxController {
       "ipdNo": ipdTextController.text.trim(),
       "patientName": patientName.text.trim(),
       "mobileNo": mobileController.text.trim(),
-      "surgeonName": surgeonNameTextController.text.trim(),
+      "surgeonName": surgeonId,
       "scheduleBy": schduleByController.text.trim(),
       "dtOfOperation": dateOfOperation.text.trim(),
       "startTime": startTimeController.text.trim(),
@@ -335,6 +336,9 @@ class OtschedulerController extends GetxController {
             schduleByController.text = additionalDoctorList[i].docName ?? '';
             surgeonNameTextController.text =
                 additionalDoctorList[i].docName ?? '';
+            surgeonId = additionalDoctorList[i].docId != null
+                ? additionalDoctorList[i].docId.toString()
+                : '';
             docId = docId;
           }
         }
@@ -419,16 +423,17 @@ class OtschedulerController extends GetxController {
         ),
       ),
       builder: (context) => Container(
-          height: MediaQuery.of(context).size.height * 0.50,
-          width: Get.width,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0),
-              topRight: Radius.circular(25.0),
-            ),
+        height: MediaQuery.of(context).size.height * 0.50,
+        width: Get.width,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25.0),
+            topRight: Radius.circular(25.0),
           ),
-          child: const SelectEndTime()),
+        ),
+        child: const SelectEndTime(),
+      ),
     );
   }
 

@@ -50,21 +50,12 @@ class CashlessListView extends StatelessWidget {
                               Expanded(
                                 child: AppText(
                                   text:
-                                      'TPAN Name: ${controller.cashLessList[index].name}',
+                                      'TPA Name: ${controller.cashLessList[index].name}',
                                   fontSize: Sizes.px14,
                                   fontColor: ConstColor.black4B4D4F,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              // SizedBox(
-                              //   width: Sizes.crossLength * 0.015,
-                              // ),
-                              // AppText(
-                              //   text: '@ankit',
-                              //   fontSize: Sizes.px12,
-                              //   fontColor: ConstColor.black4B4D4F,
-                              //   fontWeight: FontWeight.w500,
-                              // ),
                             ],
                           ),
                           SizedBox(height: Sizes.crossLength * 0.0045),

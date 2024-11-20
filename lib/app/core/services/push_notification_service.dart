@@ -1,9 +1,13 @@
+// ignore_for_file: empty_catches
+
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+
 import '../../../main.dart';
 import '../../modules/bottomBar/controllers/bottom_bar_controller.dart';
 import '../them/const_color.dart';
@@ -64,8 +68,7 @@ class NotificationService {
 
     isFlutterLocalNotificationsInitialized = true;
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
@@ -127,7 +130,6 @@ class NotificationService {
   // }
 
   void _handleNavigationOnNotificationClick() async {
-
     //   if (Platform.isIOS) {
     //     setCurrentScreenName(screenName: ConstString.notificatiOpen);
     //   }

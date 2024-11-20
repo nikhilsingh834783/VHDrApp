@@ -41,9 +41,8 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
           backgroundColor: Colors.white,
           // drawer: const MyDrawer(),
           body: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Sizes.crossLength*0.020
-              ),
+            padding:
+                EdgeInsets.symmetric(horizontal: Sizes.crossLength * 0.020),
             // padding: EdgeInsets.only(
             //   left: Sizes.crossLength * 0.020,
             //   right: Sizes.crossLength * 0.020,
@@ -119,11 +118,11 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                                     child: Container(
                                       clipBehavior: Clip.hardEdge,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: ConstColor.buttonColor)),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: ConstColor.buttonColor),
+                                      ),
                                       child: Column(
                                         children: [
                                           Container(
@@ -168,7 +167,6 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                                                   height: getDynamicHeight(
                                                       size: 0.010),
                                                 ),
-
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -185,14 +183,16 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                                                     ),
                                                     GestureDetector(
                                                         onTap: () {
-                                                          Get.to(() =>
-                                                              RadiologyPdfView(
-                                                                url: controller
-                                                                        .allRadiologyList[
-                                                                            i]
-                                                                        .reportURL ??
-                                                                    '',
-                                                              ));
+                                                          Get.to(
+                                                            () =>
+                                                                RadiologyPdfView(
+                                                              url: controller
+                                                                      .allRadiologyList[
+                                                                          i]
+                                                                      .reportURL ??
+                                                                  '',
+                                                            ),
+                                                          );
                                                         },
                                                         child: SvgPicture.asset(
                                                             ConstAsset.eye))
@@ -202,18 +202,6 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                                                   height: getDynamicHeight(
                                                       size: 0.010),
                                                 ),
-                                                // i ==
-                                                //         controller
-                                                //                 .allRadiologyList
-                                                //                 .length -
-                                                //             1
-                                                //     ? const SizedBox()
-                                                //     : Divider(
-                                                //         thickness: 1,
-                                                //         color: ConstColor
-                                                //             .blackColor
-                                                //             .withOpacity(0.10),
-                                                //       )
                                               ],
                                             ),
                                           ),
@@ -221,68 +209,12 @@ class RadiologyReportView extends GetView<RadiologyReportController> {
                                             height:
                                                 getDynamicHeight(size: 0.010),
                                           ),
-                                          // ListView.builder(
-                                          //     shrinkWrap: true,
-                                          //     physics:
-                                          //         const NeverScrollableScrollPhysics(),
-                                          //     itemCount: 5,
-                                          //     padding: EdgeInsets.symmetric(
-                                          //         vertical:
-                                          //             getDynamicHeight(size: 0.010)),
-                                          //     itemBuilder: (context, itemIndex) {
-                                          //       return Padding(
-                                          //         padding: EdgeInsets.symmetric(
-                                          //           horizontal:
-                                          //               getDynamicHeight(size: 0.015),
-                                          //         ),
-                                          //         child: Column(
-                                          //           children: [
-                                          //             SizedBox(
-                                          //               height:
-                                          //                   getDynamicHeight(size: 0.010),
-                                          //             ),
-                                          //             Row(
-                                          //               mainAxisAlignment:
-                                          //                   MainAxisAlignment
-                                          //                       .spaceBetween,
-                                          //               children: [
-                                          //                 AppText(
-                                          //                   text:
-                                          //                       'Test Name: High sensitive troponin',
-                                          //                   fontSize: Sizes.px14,
-                                          //                   fontColor:
-                                          //                       ConstColor.black4B4D4F,
-                                          //                   fontWeight: FontWeight.w600,
-                                          //                 ),
-                                          //                 GestureDetector(
-                                          //                     onTap: () {
-                                          //                       Get.to(() =>
-                                          //                           const RadiologyPdfView());
-                                          //                     },
-                                          //                     child: SvgPicture.asset(
-                                          //                         ConstAsset.eye))
-                                          //               ],
-                                          //             ),
-                                          //             SizedBox(
-                                          //               height:
-                                          //                   getDynamicHeight(size: 0.010),
-                                          //             ),
-                                          //             itemIndex == 4
-                                          //                 ? const SizedBox()
-                                          //                 : Divider(
-                                          //                     thickness: 1,
-                                          //                     color: ConstColor.blackColor
-                                          //                         .withOpacity(0.10),
-                                          //                   )
-                                          //           ],
-                                          //         ),
-                                          //       );
-                                          //     })
                                         ],
                                       ),
                                     ),
                                   );
-                                }),
+                                },
+                              ),
                       ),
                 SizedBox(
                   height: Sizes.crossLength * 0.025,

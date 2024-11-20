@@ -12,6 +12,7 @@ import 'package:venus/app/core/them/const_color.dart';
 import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.dart';
 import 'package:venus/app/modules/login/views/login_view.dart';
 import 'package:venus/main.dart';
+
 import '../core/services/biometric_service.dart';
 import '../modules/consultantPay/controllers/consultant_pay_controller.dart';
 import '../modules/consultantPay/views/consultant_pay_view.dart';
@@ -147,7 +148,6 @@ class _MyDrawerState extends State<MyDrawer> {
                 children: [
                   TextButton(
                     onPressed: () async {
-
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       await prefs.clear();
@@ -160,9 +160,12 @@ class _MyDrawerState extends State<MyDrawer> {
                       // setState(() {});
                       bottomBarController.update();
                       Get.rawSnackbar(message: 'Logout Successfully');
-                     await Get.offAll(const LoginView(),
-                          duration: const Duration(milliseconds: 700))?.then((value) =>     Get.rawSnackbar(message: 'Logout Successfully'),);
-
+                      await Get.offAll(const LoginView(),
+                              duration: const Duration(milliseconds: 700))
+                          ?.then(
+                        (value) =>
+                            Get.rawSnackbar(message: 'Logout Successfully'),
+                      );
                     },
                     child: AppText(
                       text: buttonText.toUpperCase(),
@@ -221,123 +224,6 @@ class _MyDrawerState extends State<MyDrawer> {
                     SizedBox(
                       height: topPadding + 30,
                     ),
-                    // GestureDetector(
-                    //   behavior: HitTestBehavior.opaque,
-                    //   onTap: () {
-                    //     Navigator.pop(context);
-                    //     Get.put(ProfileController());
-                    //     var homeController = Get.put(HomeController());
-                    //     PersistentNavBarNavigator.pushNewScreen(
-                    //       context,
-                    //       screen: ProfileView(),
-                    //       withNavBar: false,
-                    //       pageTransitionAnimation:
-                    //           PageTransitionAnimation.cupertino,
-                    //     ).then((value) {
-                    //       homeController.getDashboardData();
-                    //     });
-                    //   },
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         border: Border.all(
-                    //             width: 1, color: ConstColor.hintTextColor),
-                    //         borderRadius:
-                    //             const BorderRadius.all(Radius.circular(10))),
-                    //     child: Padding(
-                    //       padding: EdgeInsets.only(
-                    //           left: Sizes.crossLength * 0.012,
-                    //           right: Sizes.crossLength * 0.012,
-                    //           top: Sizes.crossLength * 0.015,
-                    //           bottom: Sizes.crossLength * 0.015),
-                    //       child: Row(
-                    //         children: [
-                    //           Container(
-                    //             decoration: BoxDecoration(
-                    //                 border: Border.all(
-                    //                     width: 1,
-                    //                     color: ConstColor.hintTextColor),
-                    //                 borderRadius: const BorderRadius.all(
-                    //                     Radius.circular(10))),
-                    //             child: Center(
-                    //               child: Padding(
-                    //                 padding: EdgeInsets.only(
-                    //                     left: Sizes.crossLength * 0.015,
-                    //                     right: Sizes.crossLength * 0.015,
-                    //                     top: Sizes.crossLength * 0.030,
-                    //                     bottom: Sizes.crossLength * 0.030),
-                    //                 child: Image.asset(
-                    //                   ConstAsset.profileImage,
-                    //                   scale: 2,
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           SizedBox(
-                    //             width: Sizes.crossLength * 0.012,
-                    //           ),
-                    //           Expanded(
-                    //             child: Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 AppText(
-                    //                   text: userName,
-                    //                   fontSize: Sizes.px16,
-                    //                   fontWeight: FontWeight.w700,
-                    //                   fontColor: ConstColor.blackColor00313C,
-                    //                 ),
-                    //                 SizedBox(
-                    //                   height: Sizes.crossLength * 0.002,
-                    //                 ),
-                    //                 AppTextField(
-                    //                   enabled: false,
-                    //                   controller: controller.emailController,
-                    //                   hintText: 'Enter Email Address',
-                    //                   onTapOutside: (event) {
-                    //                     FocusScope.of(context).unfocus();
-                    //                   },
-                    //                   validator: (val) {
-                    //                     if (val!.trim().isEmpty) {
-                    //                       return "Please enter Email Address.";
-                    //                     } else {
-                    //                       return null;
-                    //                     }
-                    //                   },
-                    //                 ),
-                    //                 AppText(
-                    //                   text: email,
-                    //                   fontSize: Sizes.px13,
-                    //                   fontWeight: FontWeight.w500,
-                    //                   fontColor: ConstColor.blackColor00313C,
-                    //                 ),
-                    //                 SizedBox(
-                    //                   height: Sizes.crossLength * 0.010,
-                    //                 ),
-                    //                 SizedBox(
-                    //                   height: 30,
-                    //                   child: OutlinedButton(
-                    //                       style: OutlinedButton.styleFrom(
-                    //                         // padding: const EdgeInsets.only(top: 1),
-                    //                         backgroundColor: ConstColor
-                    //                             .outlineButtonBacground,
-                    //                         side: const BorderSide(
-                    //                             width: 1.0,
-                    //                             color:
-                    //                                 ConstColor.headingTexColor),
-                    //                       ),
-                    //                       onPressed: () {
-                    //                         Get.to(() => EditProfileView());
-                    //                       },
-                    //                       child: AppText(text: 'Edit Profile')),
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ),
-                    //           SvgPicture.asset(ConstAsset.sideArrow)
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
@@ -368,13 +254,6 @@ class _MyDrawerState extends State<MyDrawer> {
                             horizontal: Sizes.crossLength * 0.012,
                             vertical: Sizes.crossLength * 0.015,
                           ),
-                          // padding: EdgeInsets.only(
-                          //   left: Sizes.crossLength * 0.012,
-                          //   right: Sizes.crossLength * 0.012,
-                          //   top: Sizes.crossLength * 0.015,
-                          //   bottom: Sizes.crossLength * 0.015,
-                          // ),
-
                           child: Row(
                             children: [
                               Container(
@@ -385,35 +264,29 @@ class _MyDrawerState extends State<MyDrawer> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(10)),
                                 ),
-                                child:controller.imageBytes != null?
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.memory(controller.imageBytes!,
-                                    fit: BoxFit.fill,
-                                    height: Sizes.crossLength*0.060,
-                                    width: Sizes.crossLength*0.06,
-                                  ),
-                                ) : Center(
-                                  child: Padding(
-
-                                    // padding: EdgeInsets.only(
-                                    //   left: Sizes.crossLength * 0.015,
-                                    //   right: Sizes.crossLength * 0.015,
-                                    //   top: Sizes.crossLength * 0.030,
-                                    //   bottom: Sizes.crossLength * 0.030,
-                                    // ),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: Sizes.crossLength*0.015,
-                                      vertical: Sizes.crossLength * 0.030,
-                                    ),
-
-                                    child:
-                                    Image.asset(
-                                      ConstAsset.profileImage,
-                                      scale: 2,
-                                    ),
-                                  ),
-                                ),
+                                child: controller.imageBytes != null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.memory(
+                                          controller.imageBytes!,
+                                          fit: BoxFit.fill,
+                                          height: Sizes.crossLength * 0.060,
+                                          width: Sizes.crossLength * 0.06,
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                Sizes.crossLength * 0.015,
+                                            vertical: Sizes.crossLength * 0.030,
+                                          ),
+                                          child: Image.asset(
+                                            ConstAsset.profileImage,
+                                            scale: 2,
+                                          ),
+                                        ),
+                                      ),
                               ),
                               SizedBox(width: Sizes.crossLength * 0.012),
                               Expanded(
@@ -428,7 +301,6 @@ class _MyDrawerState extends State<MyDrawer> {
                                     ),
                                     SizedBox(height: Sizes.crossLength * 0.002),
                                     AppText(
-
                                       text: controller
                                               .emailController.text.isNotEmpty
                                           ? controller.emailController.text
@@ -451,7 +323,8 @@ class _MyDrawerState extends State<MyDrawer> {
                                         ),
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          Get.to(() => EditProfileView());
+                                          controller.profileImage = null;
+                                          Get.to(() => const EditProfileView());
                                         },
                                         child: AppText(text: 'Edit Profile'),
                                       ),
@@ -484,8 +357,6 @@ class _MyDrawerState extends State<MyDrawer> {
                             var patientController =
                                 Get.put(PatientlistController());
                             var homeController = Get.put(HomeController());
-                            // var bottomBarCntrl = Get.put(BottomBarController());
-
                             patientController.searchController.clear();
                             patientController.filterPatientList = [];
                             patientController.selectedOrganizationList = [];
@@ -526,8 +397,9 @@ class _MyDrawerState extends State<MyDrawer> {
                             var bottomBarCntrl = Get.put(BottomBarController());
                             bottomBarCntrl.persistentController!.jumpToTab(1);
                             bottomBarCntrl.update();
-                            Future.delayed(const Duration(milliseconds: 300))
-                                .then((value) {});
+                            Future.delayed(
+                              const Duration(milliseconds: 300),
+                            ).then((value) {});
 
                             Navigator.pop(context);
                             var schduleController =
@@ -628,9 +500,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             bottomBarCntrl.update();
                             Future.delayed(const Duration(milliseconds: 300))
                                 .then((value) {});
-
                             hideBottomBar.value = false;
-
                             Navigator.pop(context);
                             var schduleCharges =
                                 Get.put(SchedulechargelistController());
@@ -687,10 +557,6 @@ class _MyDrawerState extends State<MyDrawer> {
                             calenderType = 2;
                             previousDateEnable = false;
                             Get.to(const CostestimateView());
-                            // Get.to(() => const CostestimateView());
-                            // if (!Get.isSnackbarOpen) {
-                            //   Get.rawSnackbar(message: "Coming Soon");
-                            // }
                           },
                           child: Row(
                             children: [
@@ -719,8 +585,6 @@ class _MyDrawerState extends State<MyDrawer> {
                             bottomBarCntrl.update();
                             Future.delayed(const Duration(milliseconds: 300))
                                 .then((value) {});
-
-                            //Get.to(const ConsultantPayView());
                             Navigator.pop(context);
                             var homeController = Get.put(HomeController());
                             var consultantController =
@@ -737,9 +601,6 @@ class _MyDrawerState extends State<MyDrawer> {
                                   PageTransitionAnimation.cupertino,
                             ).then(
                                 (value) => homeController.getDashboardData());
-                            // if (!Get.isSnackbarOpen) {
-                            //   Get.rawSnackbar(message: "Coming Soon");
-                            // }
                           },
                           child: Row(
                             children: [
@@ -761,27 +622,6 @@ class _MyDrawerState extends State<MyDrawer> {
                           height: Sizes.crossLength * 0.025,
                         ),
                         GestureDetector(
-                          // onTap: () {
-                          //   var bottomBarCntrl = Get.put(BottomBarController());
-                          //   bottomBarCntrl.persistentController!.jumpToTab(1);
-                          //   bottomBarCntrl.update();
-                          // Future.delayed(const Duration(milliseconds: 300))
-                          //     .then((value) {});
-                          //   Navigator.pop(context);
-                          //   var homeController = Get.put(HomeController());
-                          //   var InsuranceCompany =
-                          //       Get.put(InsuranceCompaniesController());
-                          //   InsuranceCompany.getInsuranceCompany();
-                          //   PersistentNavBarNavigator.pushNewScreen(
-                          //     homeController.scaffoldKey.currentContext!,
-                          //     screen: const InsuranceCompaniesView(),
-                          //     withNavBar: true,
-                          //     pageTransitionAnimation:
-                          //         PageTransitionAnimation.cupertino,
-                          //   ).then(
-                          //       (value) => homeController.getDashboardData());
-                          // },
-
                           onTap: () {
                             var bottomBarCntrl = Get.put(BottomBarController());
                             bottomBarCntrl.persistentController!.jumpToTab(1);
@@ -790,10 +630,13 @@ class _MyDrawerState extends State<MyDrawer> {
                                 .then((value) {});
                             Navigator.pop(context);
                             var homeController = Get.put(HomeController());
-                            var InsuranceCompany =
+                            var insuranceCompany =
                                 Get.put(InsuranceCompaniesController());
-                            InsuranceCompany.selectedTab = 0;
-                            InsuranceCompany.getInsuranceCompany(
+                            insuranceCompany.cashlessApiCall = false;
+                            insuranceCompany.corporateApiCall = false;
+                            insuranceCompany.selectedTab = 0;
+                            insuranceCompany.searchController.clear();
+                            insuranceCompany.getInsuranceCompany(
                                 selectedTab: 'Cashless');
                             PersistentNavBarNavigator.pushNewScreen(
                               homeController.scaffoldKey.currentContext!,
@@ -837,16 +680,8 @@ class _MyDrawerState extends State<MyDrawer> {
                             var homeController = Get.put(HomeController());
                             var hospitalDoctor =
                                 Get.put(HospitalDoctorsController());
+                            hospitalDoctor.searchController.clear();
                             hospitalDoctor.getHospitalDoctors();
-                            //Get.to(const HospitalDoctorsView());
-                            //bottomBarController.navigateToHome();
-                            // var bottomBarController =
-                            //     Get.put(BottomBarController());
-                            // void navigateToHome() {
-                            //   persistentController!.jumpToTab(1);
-                            //   //update();
-                            // }
-                            // Get.find<BottomBarController>().navigateToHome();
                             PersistentNavBarNavigator.pushNewScreen(
                               homeController.scaffoldKey.currentContext!,
                               screen: const HospitalDoctorsView(),

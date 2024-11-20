@@ -1,3 +1,5 @@
+// ignore_for_file: unused_catch_clause, empty_catches
+
 import 'dart:convert';
 import 'dart:math';
 

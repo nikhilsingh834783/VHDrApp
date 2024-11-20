@@ -740,19 +740,22 @@
 // }
 
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart' as dio_package;
 import 'package:dio/dio.dart';
-import 'package:mime/mime.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:venus/app/modules/profile/model/drSpecialities_model.dart';
 import 'package:venus/app/modules/profile/views/edit_profile_view.dart';
+
 import '../../../app_common_widgets/common_elevated_button.dart';
 import '../../../app_common_widgets/common_text.dart';
 import '../../../app_common_widgets/custom_pop_menu.dart';
@@ -762,10 +765,8 @@ import '../../../core/services/api_service.dart';
 import '../../../core/services/biometric_service.dart';
 import '../../../core/them/const_color.dart';
 import '../../login/views/login_view.dart';
-import 'dart:ui' as ui;
 import '../model/drDegree.dart';
 import '../model/profile_model.dart';
-import 'package:dio/dio.dart' as dio_package;
 import '../model/save_model.dart';
 import '../views/widget/custom_calendar.dart';
 import '../views/widget/degree.dart';
@@ -796,11 +797,7 @@ class ProfileController extends GetxController {
   String? selectedImagePath;
   var isBiometricOn = false.obs;
   Uint8List? imageBytes;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  XFile? profileImage;
 
   Future<void> selectImage(BuildContext context) async {
     if (_isImagePickerActive) {
@@ -847,8 +844,10 @@ class ProfileController extends GetxController {
                               size: Sizes.crossLength * 0.040,
                               color: ConstColor.black6B6B6B,
                             ),
-                            onPressed: () => getImageFromGalleryAndCamera(
-                                isOpenCamera: true),
+                            onPressed: () {
+                              Get.back();
+                              getImageFromGalleryAndCamera(isOpenCamera: true);
+                            },
                             // Navigator.pop(context, ImageSource.camera),
                           ),
                           SizedBox(height: Sizes.crossLength * 0.001),
@@ -873,8 +872,10 @@ class ProfileController extends GetxController {
                               size: Sizes.crossLength * 0.040,
                               color: ConstColor.black6B6B6B,
                             ),
-                            onPressed: () => getImageFromGalleryAndCamera(
-                                isOpenCamera: false),
+                            onPressed: () {
+                              Get.back();
+                              getImageFromGalleryAndCamera(isOpenCamera: false);
+                            },
                             // Navigator.pop(context, ImageSource.gallery),
                           ),
                           AppText(
@@ -984,7 +985,6 @@ class ProfileController extends GetxController {
       }
     } else {
       if (Platform.isAndroid) {
-
         if (isOpenCamera == false) {
           await requestPermission(typeCamera: false);
           // return await _pickImage(ImageSource.gallery);
@@ -1046,52 +1046,58 @@ class ProfileController extends GetxController {
   // }
 
   Future<void> requestPermission({bool typeCamera = true}) async {
-    Permission? permission;
+    // Determine the required permission based on typeCamera and platform
+    final permission = await _determinePermission(typeCamera);
 
-    if (typeCamera) {
-      permission = Permission.camera;
-    } else {
-      if (Platform.isAndroid) {
-        var androidInfo = await DeviceInfoPlugin().androidInfo;
-        // Android versions < 12 (API level 31) use storage permission
-        if (androidInfo.version.sdkInt < 31) {
-          permission = Permission.storage;
-        } else {
-          permission = Permission
-              .photos;
-        }
-      } else if (Platform.isIOS) {
-        permission =
-            Permission.photos;
-      }
-    }
+    if (permission == null) return;
 
-    // Check if the permission is denied
-    if (await permission!.isDenied) {
+    // Check the current permission status
+    final status = await permission.status;
+
+    if (status.isGranted) {
+      // Permission already granted
+      await _handleGrantedPermission(typeCamera);
+    } else if (status.isDenied) {
+      // Request permission and handle the result
       final result = await permission.request();
-
       if (result.isGranted) {
-        // If permission is granted, open camera or gallery
-        if (typeCamera) {
-          await openCamera();
-        } else {
-          await openGallery();
-        }
+        await _handleGrantedPermission(typeCamera);
       } else if (result.isPermanentlyDenied) {
-        // If permission is permanently denied, show dialog to open settings
-        showPermissionDeniedDialog();
+        _showPermissionDeniedDialog();
       }
-    } else if (await permission.isGranted) {
-      // If permission is already granted, directly open camera or gallery
-      if (typeCamera) {
-        await openCamera();
-      } else {
-        await openGallery();
-      }
-    } else if (await permission.isPermanentlyDenied) {
-      // If permission is permanently denied, show dialog to open settings
-      showPermissionDeniedDialog();
+    } else if (status.isPermanentlyDenied) {
+      // Show dialog for permanently denied permissions
+      _showPermissionDeniedDialog();
     }
+  }
+
+  Future<Permission?> _determinePermission(bool typeCamera) async {
+    if (typeCamera) {
+      return Permission.camera;
+    }
+
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      return androidInfo.version.sdkInt < 31
+          ? Permission.storage
+          : Permission.photos;
+    } else if (Platform.isIOS) {
+      return Permission.photos;
+    }
+
+    return null; // Unsupported platform or invalid state
+  }
+
+  Future<void> _handleGrantedPermission(bool typeCamera) async {
+    if (typeCamera) {
+      await openCamera();
+    } else {
+      await openGallery();
+    }
+  }
+
+  void _showPermissionDeniedDialog() {
+    showPermissionDeniedDialog();
   }
 
   Future<void> openGallery() async {
@@ -1099,12 +1105,15 @@ class ProfileController extends GetxController {
 
     try {
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
       if (image != null) {
-        uploadProfilePicture(filename: image.name, imagePAth: image.path).then(
-              (value) {
-            getProfileImage();
-          },
-        );
+        // uploadProfilePicture(filename: image.name, imagePAth: image.path).then(
+        //   (value) {
+        //     getProfileImage();
+        //   },
+        // );
+        profileImage = image;
+        update();
       } else {
         // Get.rawSnackbar(message: 'No image selected.');
       }
@@ -1120,11 +1129,13 @@ class ProfileController extends GetxController {
     try {
       final XFile? image = await picker.pickImage(source: ImageSource.camera);
       if (image != null) {
-        uploadProfilePicture(filename: image.name, imagePAth: image.path).then(
-              (value) {
-            getProfileImage();
-          },
-        );
+        // uploadProfilePicture(filename: image.name, imagePAth: image.path).then(
+        //   (value) {
+        //     getProfileImage();
+        //   },
+        // );
+        profileImage = image;
+        update();
       } else {
         // Get.rawSnackbar(message: 'No image selected.');
       }
@@ -1181,7 +1192,7 @@ class ProfileController extends GetxController {
             ),
             content: AppText(
               text:
-              "Biometric is not set up. Would you like to set it up for biometric login?",
+                  "Biometric is not set up. Would you like to set it up for biometric login?",
               fontSize: Sizes.px14,
               textAlign: TextAlign.center,
               fontColor: ConstColor.blackTextColor,
@@ -1226,6 +1237,15 @@ class ProfileController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String loginId = prefs.getString('loginId') ?? '';
     String token = prefs.getString('token') ?? '';
+    if (profileImage != null) {
+      await uploadProfilePicture(
+              filename: profileImage!.name, imagePAth: profileImage!.path)
+          .then(
+        (value) {
+          getProfileImage();
+        },
+      );
+    }
     Map data = {
       /// Payload is been changed by divyanshi
       // "loginId": loginId,
@@ -1255,8 +1275,8 @@ class ProfileController extends GetxController {
     apiCall = true;
     String apiUrl = saveDrProfile;
     dio_package.Response finalData =
-    await APIServices.postMethodWithHeaderDioMapData(
-        body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
+        await APIServices.postMethodWithHeaderDioMapData(
+            body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
     SaveModel patientResponse = SaveModel.fromJson(finalData.data);
     if (patientResponse.statusCode == 200) {
       Get.rawSnackbar(message: 'Profile Update Successfully ');
@@ -1288,7 +1308,7 @@ class ProfileController extends GetxController {
       useRootNavigator: true,
       builder: (context) => Padding(
         padding:
-        EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
             height: MediaQuery.of(context).size.height * 0.65,
             width: Get.width,
@@ -1331,7 +1351,6 @@ class ProfileController extends GetxController {
           nameController.text = profileClassListData![0].name ?? '';
           mobileController.text = profileClassListData![0].mobile ?? '';
           emailController.text = profileClassListData![0].email ?? '';
-          debugPrint("Email Controller === ${emailController.text}");
           doctorSpecialityController.text =
               profileClassListData![0].speciality ?? '';
           degreeController.text = profileClassListData![0].degree ?? '';
@@ -1349,7 +1368,7 @@ class ProfileController extends GetxController {
         Get.offAll(const LoginView());
         Get.rawSnackbar(
             message:
-            'Your session has expired. Please log in again to continue');
+                'Your session has expired. Please log in again to continue');
       } else if (profileResponse.statusCode == 400) {
         profileClassListData = [];
       } else {
@@ -1374,6 +1393,7 @@ class ProfileController extends GetxController {
     debugPrint("Login Id=== $loginId");
     apiCall = true;
     String apiUrl = uploadDrPhoto;
+    EasyLoading.show(maskType: EasyLoadingMaskType.clear);
 
     dio.FormData formData = dio.FormData.fromMap({
       'file': await dio.MultipartFile.fromFile(imagePAth.trimRight(),
@@ -1389,28 +1409,29 @@ class ProfileController extends GetxController {
       final dioPackage = Dio();
       dio.Response response = await dioPackage
           .request(
-        apiUrl,
-        data: formData,
-        options: dio.Options(
-          method: "POST",
-          validateStatus: (_) => true,
-          headers: {
-            'Authorization': token.isNotEmpty ? 'Bearer $token' : '',
-            'Content-Type': 'multipart/form-data',
-          },
-        ),
-      )
+            apiUrl,
+            data: formData,
+            options: dio.Options(
+              method: "POST",
+              validateStatus: (_) => true,
+              headers: {
+                'Authorization': token.isNotEmpty ? 'Bearer $token' : '',
+                'Content-Type': 'multipart/form-data',
+              },
+            ),
+          )
           .timeout(const Duration(seconds: 45));
 
       if (kDebugMode) {
         print("api response == $response");
       }
+      EasyLoading.dismiss();
       if (response.statusCode == 200) {
         if (response.data != null) {
-          Get.rawSnackbar(
-            snackPosition: SnackPosition.BOTTOM,
-            message: "Photo Uploaded SuccessFully",
-          );
+          // Get.rawSnackbar(
+          //   snackPosition: SnackPosition.BOTTOM,
+          //   message: "Photo Uploaded SuccessFully",
+          // );
         }
       } else if (response.statusCode == 400) {
         Get.rawSnackbar(
@@ -1450,50 +1471,42 @@ class ProfileController extends GetxController {
       "loginId": loginId,
     };
 
-    try 
-    {
-   apiCall = true;
-    String apiUrl = getDrPhoto;
-    final dioPackage = Dio();
-    dio.Response response = await dioPackage
-        .request(
-      apiUrl,
-      data: data,
-      options: dio.Options(
-        method: "GET",
-        validateStatus: (_) => true,
-        responseType: dio.ResponseType.bytes,
-        headers: {
-          'Authorization': token.isNotEmpty ? 'Bearer $token' : '',
-          'Content-Type': 'application/json',
-        },
-      ),
-    )
-        .timeout(const Duration(seconds: 45));
-
-    // debugPrint("finalData==== $response");
-
-    if (response.statusCode == 200) {
-      imageBytes = response.data;
-      debugPrint("imageBytes === $imageBytes");
-    }
-    else if (response.statusCode == 401) {
-      prefs.clear();
-      Get.offAll(const LoginView());
-      // Get.rawSnackbar(message: finalData.data['message']);
-      Get.rawSnackbar(
-          message: 'Your session has expired. Please log in again to continue');
-    } else if (response.statusCode == 400) {
-      Get.rawSnackbar(message: "Something Went Wrong");
-    }
-    else if (response.statusCode == 500) {
-      Get.rawSnackbar(message: "Internal Server Error");
-    }
-    else {
-      Get.rawSnackbar(message: response.statusMessage);
-    }
-     }
-     on DioException catch (e) {
+    try {
+      apiCall = true;
+      String apiUrl = getDrPhoto;
+      final dioPackage = Dio();
+      dio.Response response = await dioPackage
+          .request(
+            apiUrl,
+            data: data,
+            options: dio.Options(
+              method: "GET",
+              validateStatus: (_) => true,
+              responseType: dio.ResponseType.bytes,
+              headers: {
+                'Authorization': token.isNotEmpty ? 'Bearer $token' : '',
+                'Content-Type': 'application/json',
+              },
+            ),
+          )
+          .timeout(const Duration(seconds: 45));
+      if (response.statusCode == 200) {
+        imageBytes = response.data;
+      } else if (response.statusCode == 401) {
+        prefs.clear();
+        Get.offAll(const LoginView());
+        // Get.rawSnackbar(message: finalData.data['message']);
+        Get.rawSnackbar(
+            message:
+                'Your session has expired. Please log in again to continue');
+      } else if (response.statusCode == 400) {
+        Get.rawSnackbar(message: "Something Went Wrong");
+      } else if (response.statusCode == 500) {
+        Get.rawSnackbar(message: "Internal Server Error");
+      } else {
+        Get.rawSnackbar(message: response.statusMessage);
+      }
+    } on DioException catch (e) {
       // Handle any exceptions that occur during the API call
       debugPrint("Exception occurred during API call: $e");
     }
@@ -1510,10 +1523,10 @@ class ProfileController extends GetxController {
     apiCall = true;
     String apiUrl = getDrSpecialities;
     dio_package.Response finalData =
-    await APIServices.postMethodWithHeaderDioMapData(
-        body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
+        await APIServices.postMethodWithHeaderDioMapData(
+            body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
     DrSpecialitiesModel patientResponse =
-    DrSpecialitiesModel.fromJson(finalData.data);
+        DrSpecialitiesModel.fromJson(finalData.data);
     if (patientResponse.statusCode == 200) {
       if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
         drSpecialitiesData = patientResponse.data!;
@@ -1545,8 +1558,8 @@ class ProfileController extends GetxController {
     apiCall = true;
     String apiUrl = getDrDegrees;
     dio_package.Response finalData =
-    await APIServices.postMethodWithHeaderDioMapData(
-        body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
+        await APIServices.postMethodWithHeaderDioMapData(
+            body: data, apiUrl: apiUrl, token: token, isShowLoader: false);
     DrDegreeModel patientResponse = DrDegreeModel.fromJson(finalData.data);
     if (patientResponse.statusCode == 200) {
       if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
@@ -1577,8 +1590,8 @@ class ProfileController extends GetxController {
     apiCall = true;
     String apiUrl = getHospitalDoctorsApi;
     dio_package.Response finalData =
-    await APIServices.postMethodWithHeaderDioMapData(
-        body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
+        await APIServices.postMethodWithHeaderDioMapData(
+            body: data, apiUrl: apiUrl, token: token, isShowLoader: isLoader);
     DrDegreeModel filterResponse = DrDegreeModel.fromJson(finalData.data);
     if (filterResponse.statusCode == 200) {
       if (filterResponse.data != null) {
@@ -1635,12 +1648,12 @@ class ProfileController extends GetxController {
       backgroundColor: ConstColor.whiteColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          // top: Radius.circular(8),
-        ),
+            // top: Radius.circular(8),
+            ),
       ),
       builder: (context) => Padding(
         padding:
-        EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
             height: MediaQuery.of(context).size.height * 0.45,
             width: Get.width,
@@ -1670,7 +1683,7 @@ class ProfileController extends GetxController {
       ),
       builder: (context) => Padding(
         padding:
-        EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
             height: MediaQuery.of(context).size.height * 0.45,
             width: Get.width,

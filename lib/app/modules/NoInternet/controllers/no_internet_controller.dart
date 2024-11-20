@@ -172,7 +172,6 @@ class NoInternetController extends GetxController {
       }
     } catch (e) {
       EasyLoading.dismiss();
-      print('Active URL failed: $e');
     }
   }
 

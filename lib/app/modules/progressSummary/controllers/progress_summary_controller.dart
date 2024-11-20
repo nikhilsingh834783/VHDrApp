@@ -75,10 +75,4 @@ class ProgressSummaryController extends GetxController {
     }
     update();
   }
-
-  @override
-  void onClose() {
-    print("${onClose}");
-    super.onClose();
-  }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart' as dio_package;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
@@ -24,6 +22,8 @@ class InsuranceCompaniesController extends GetxController {
   bool showShortButton = true;
   List<CashlessListData> cashLessList = [];
   List<CorporateListData> corporateList = [];
+  bool corporateApiCall = false;
+  bool cashlessApiCall = false;
 
   @override
   void onInit() {
@@ -58,59 +58,115 @@ class InsuranceCompaniesController extends GetxController {
     });
   }
 
-  getInsuranceCompany(
-      {String? selectedTab, String? prefixText, bool isloader = true}) async {
+  Future<void> getInsuranceCompany({
+    String? selectedTab,
+    String? prefixText,
+    bool isLoader = true,
+  }) async {
+    // Initialize necessary variables
     calenderType = 2;
     previousDateEnable = false;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token') ?? '';
-    String loginId = prefs.getString('loginId') ?? '';
-    Map data = {
+
+    // Retrieve token and loginId from SharedPreferences
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String token = prefs.getString('token') ?? '';
+    final String loginId = prefs.getString('loginId') ?? '';
+
+    // Prepare API request data
+    final Map<String, dynamic> requestData = {
       "loginId": loginId,
       "flag": selectedTab,
-      "searchText": prefixText
+      "searchText": prefixText,
     };
-    print(jsonEncode(data));
+
+    // Set API URL and show loader if needed
     apiCall = true;
     String apiUrl = getInsuranceCompanies;
-    dio_package.Response finalData =
-        await APIServices.postMethodWithHeaderDioMapData(
-            body: data, apiUrl: apiUrl, token: token, isShowLoader: isloader);
-    cashLessList = [];
-    corporateList = [];
-    if (selectedTab == 'Cashless') {
-      CashlessResponse filterResponse =
-          CashlessResponse.fromJson(finalData.data);
-      print(finalData.data);
+
+    try {
+      // Make API call
+      final dio_package.Response response =
+          await APIServices.postMethodWithHeaderDioMapData(
+        body: requestData,
+        apiUrl: apiUrl,
+        token: token,
+        isShowLoader: isLoader,
+      );
+
+      // Parse response and update the list
+      final CashlessResponse filterResponse =
+          CashlessResponse.fromJson(response.data);
       if (filterResponse.statusCode == 200) {
-        if (filterResponse.data != null) {
-          cashLessList = filterResponse.data!;
-        }
+        cashLessList = filterResponse.data ?? [];
       } else if (filterResponse.statusCode == 401) {
-        prefs.clear();
-        Get.offAll(const LoginView());
-        // Get.rawSnackbar(message: finalData.data['message']);
-        Get.rawSnackbar(
-            message:
-                'Your session has expired. Please log in again to continue');
+        // Handle unauthorized error
+        await _handleSessionExpiry(prefs);
       }
-    } else {
-      CorporateResponse filterResponse =
-          CorporateResponse.fromJson(finalData.data);
-      print(finalData.data);
-      if (filterResponse.statusCode == 200) {
-        if (filterResponse.data != null) {
-          corporateList = filterResponse.data!;
-        }
-      } else if (filterResponse.statusCode == 401) {
-        prefs.clear();
-        Get.offAll(const LoginView());
-        // Get.rawSnackbar(message: finalData.data['message']);
-        Get.rawSnackbar(
-            message:
-                'Your session has expired. Please log in again to continue');
-      }
+    } catch (e) {
+      // Log or handle error
+      // print("Error in getInsuranceCompany: $e");
+    } finally {
+      update();
     }
-    update();
+  }
+
+  Future<void> _handleSessionExpiry(SharedPreferences prefs) async {
+    await prefs.clear();
+    Get.offAll(const LoginView());
+    Get.rawSnackbar(
+      message: 'Your session has expired. Please log in again to continue',
+    );
+  }
+
+  Future<void> getCorporateInsuranceCompany({
+    String? selectedTab,
+    String? prefixText,
+    bool isLoader = true,
+  }) async {
+    // Initialize necessary variables
+    calenderType = 2;
+    previousDateEnable = false;
+
+    // Retrieve token and loginId from SharedPreferences
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String token = prefs.getString('token') ?? '';
+    final String loginId = prefs.getString('loginId') ?? '';
+
+    // Prepare API request data
+    final Map<String, dynamic> requestData = {
+      "loginId": loginId,
+      "flag": selectedTab,
+      "searchText": prefixText,
+    };
+
+    // Set API URL and enable loader if needed
+    apiCall = true;
+    String apiUrl = getInsuranceCompanies;
+
+    try {
+      // Make API call
+      final dio_package.Response response =
+          await APIServices.postMethodWithHeaderDioMapData(
+        body: requestData,
+        apiUrl: apiUrl,
+        token: token,
+        isShowLoader: isLoader,
+      );
+
+      // Parse response and update the list
+      final CorporateResponse filterResponse =
+          CorporateResponse.fromJson(response.data);
+      if (filterResponse.statusCode == 200) {
+        corporateList = filterResponse.data ?? [];
+      } else if (filterResponse.statusCode == 401) {
+        // Handle unauthorized error
+        await _handleSessionExpiry(prefs);
+      }
+    } catch (e) {
+      // Log or handle error
+      print("Error in getCorporateInsuranceCompany: $e");
+    } finally {
+      update();
+    }
   }
 }

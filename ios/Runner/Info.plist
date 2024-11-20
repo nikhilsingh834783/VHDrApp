@@ -38,6 +38,8 @@
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
     <string>We need access to the camera to take photos.</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>We need access to the photo library to upload photos.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>

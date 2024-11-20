@@ -74,8 +74,6 @@ class OrganizationList extends StatelessWidget {
                                         .searchOrganizationListData![index]
                                         .orgId
                                         .toString();
-                                    // controller.organizationNameController
-                                    //     .hideMenu();
                                     controller.searchOrganizationListData =
                                         null;
                                     Navigator.pop(context);

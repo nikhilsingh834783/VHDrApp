@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:venus/app/modules/profile/controllers/profile_controller.dart';
 import 'package:venus/app/modules/profile/views/edit_profile_view.dart';
+
 import '../../../app_common_widgets/common_elevated_button.dart';
 import '../../../app_common_widgets/common_text.dart';
 import '../../../app_common_widgets/common_textform_field.dart';
@@ -38,15 +39,12 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
           backgroundColor: Colors.white,
-          // resizeToAvoidBottomInset: false,
-          // drawer: const MyDrawer(),
           body: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.bottomCenter,
             children: [
               SingleChildScrollView(
                 child: Form(
-                  // key: controller.profileForKey,
                   child: Padding(
                     padding: EdgeInsets.only(
                       left: Sizes.crossLength * 0.020,
@@ -62,7 +60,7 @@ class ProfileView extends GetView<ProfileController> {
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              controller.selectImage(context);
+                              // controller.selectImage(context);
                             },
                             child: Stack(
                               clipBehavior: Clip.none,
@@ -78,18 +76,15 @@ class ProfileView extends GetView<ProfileController> {
                                       Radius.circular(20),
                                     ),
                                   ),
+
                                   /// Image Changed By Divyanshi
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: controller.imageBytes != null
-                                        ? Image.memory(controller.imageBytes!,
-                                      fit: BoxFit.cover,)
-                                    // Image.file(
-                                    //         File(controller.selectedImagePath!),
-                                    //         fit: BoxFit.cover,
-                                    //         width: double.infinity,
-                                    //         height: double.infinity,
-                                    //       )
+                                        ? Image.memory(
+                                            controller.imageBytes!,
+                                            fit: BoxFit.cover,
+                                          )
                                         : Image.asset(
                                             ConstAsset.profileImage,
                                             width: Sizes.crossLength * 0.072,
@@ -148,7 +143,7 @@ class ProfileView extends GetView<ProfileController> {
                                       fontWeight: FontWeight.w600,
                                       fontColor: ConstColor.black4B4D4F,
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Obx(
                                       () => FlutterSwitch(
                                         width: Sizes.crossLength * 0.060,
@@ -250,7 +245,6 @@ class ProfileView extends GetView<ProfileController> {
                         SizedBox(
                           height: Sizes.crossLength * 0.010,
                         ),
-
                         AppTextField(
                           controller: controller.emailController,
                           hintText: 'Enter Email Address',
@@ -493,7 +487,8 @@ class ProfileView extends GetView<ProfileController> {
                         child: AppButton(
                           radius: 50,
                           onPressed: () {
-                            Get.to(() => EditProfileView());
+                            controller.profileImage = null;
+                            Get.to(() => const EditProfileView());
                           },
                           text: "Edit Profile",
                         ),

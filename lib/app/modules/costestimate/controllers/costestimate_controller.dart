@@ -33,6 +33,7 @@ class CostestimateController extends GetxController {
   List<String> stayDayList = ['1', "2", '3', "4", "5"];
   int selectedTab = 0;
   var dataFromScreen = Get.arguments;
+  bool fromSurgeryScreen = false;
 
   final patientNameController = TextEditingController();
   final ageController = TextEditingController();
@@ -91,6 +92,7 @@ class CostestimateController extends GetxController {
   String? docId;
   double left = 10;
   double top = 10;
+  String? consultantId;
   @override
   void onInit() {
     super.onInit();
@@ -101,6 +103,11 @@ class CostestimateController extends GetxController {
     calenderType = 2;
     previousDateEnable = false;
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (dataFromScreen != null) {
+      if (dataFromScreen['fromSurgeryScren'] != null) {
+        fromSurgeryScreen = dataFromScreen['fromSurgeryScren'];
+      }
+    }
     String token = prefs.getString('token') ?? '';
     String loginId = prefs.getString('loginId') ?? '';
     Map data = {
@@ -165,7 +172,7 @@ class CostestimateController extends GetxController {
       for (int i = 0; i < additionalDoctorList.length; i++) {
         if (additionalDoctorList[i].docId.toString() == docId) {
           consultantController.text = additionalDoctorList[i].docName ?? '';
-          print(additionalDoctorList[i].docId.toString());
+          consultantId = additionalDoctorList[i].docId.toString();
         }
       }
     }
@@ -225,8 +232,6 @@ class CostestimateController extends GetxController {
           }
         }
       }
-      print(dataFromScreen);
-      print(dataInList);
     }
   }
 
@@ -386,7 +391,8 @@ class CostestimateController extends GetxController {
       "age": ageController.text.trim(),
       "gender": genderController.text.trim(),
       "orgName": organizationContoller.text.trim(),
-      "consultant": consultantController.text.trim(), //649
+      "consultant": consultantId, //649
+      // "consultant": consultantController.text.trim(), //649
       "speciality": specialityController.text.trim(),
       "roomType": roomTypeController.text.trim(),
       "stayDays": stayDayController.text.trim(),
@@ -407,10 +413,8 @@ class CostestimateController extends GetxController {
       "consultantVisitCharge": visitChargeController.text.trim() != ''
           ? visitChargeController.text.trim()
           : 0,
-      // "totalEstimate": totalEstimateController.text.trim() != ''
-      //     ? totalEstimateController.text.trim()
-      //     : 0
     };
+    chargeListData = [];
     String apiUrl = getSurgicalEstimateapi;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
@@ -419,8 +423,6 @@ class CostestimateController extends GetxController {
     if (patientResponse.statusCode == 200) {
       if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
         chargeListData = patientResponse.data!;
-      } else {
-        chargeListData = [];
       }
       update();
     } else if (patientResponse.statusCode == 401) {
@@ -447,7 +449,8 @@ class CostestimateController extends GetxController {
       "age": ageController.text.trim(),
       "gender": genderController.text.trim(),
       "orgName": organizationContoller.text.trim(),
-      "consultant": consultantController.text.trim(), //649
+      // "consultant": consultantController.text.trim(), //649
+      "consultant": consultantId,
       "speciality": specialityController.text.trim(),
       "roomType": roomTypeController.text.trim(),
       "stayDays": stayDayController.text.trim(),
@@ -473,7 +476,7 @@ class CostestimateController extends GetxController {
       //     : 0
     };
     // "consumables":"","implants":"","otherExpense":"","consultantVisitCharge":"","totalEstimate":""}'
-
+    procedureListAllData = [];
     String apiUrl = getSurgicalEstimateapiProcedure;
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
@@ -482,8 +485,6 @@ class CostestimateController extends GetxController {
     if (patientResponse.statusCode == 200) {
       if (patientResponse.data != null && patientResponse.data!.isNotEmpty) {
         procedureListAllData = patientResponse.data!;
-      } else {
-        procedureListAllData = [];
       }
       update();
     } else if (patientResponse.statusCode == 401) {
@@ -494,7 +495,7 @@ class CostestimateController extends GetxController {
     } else if (patientResponse.statusCode == 400) {
       procedureListAllData = [];
     } else {
-     Get.rawSnackbar(message: "Something went wrong");
+      Get.rawSnackbar(message: "Something went wrong");
     }
     update();
   }

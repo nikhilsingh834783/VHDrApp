@@ -16,5 +16,3 @@ class LocalPref {
     }
   }
 }
-
-// LoginResponse userData = LoginResponse();

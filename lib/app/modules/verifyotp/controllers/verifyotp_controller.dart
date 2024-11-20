@@ -14,6 +14,7 @@ import 'package:venus/app/core/services/local_pref.dart';
 import 'package:venus/app/modules/bottomBar/views/bottom_bar_view.dart';
 import 'package:venus/app/modules/login/model/login_model.dart';
 import 'package:venus/app/modules/resetPassword/views/reset_password_view.dart';
+import 'package:venus/main.dart';
 
 import '../../login/model/send_otp_model.dart';
 
@@ -78,7 +79,8 @@ class VerifyotpController extends GetxController {
       "osType": Platform.isAndroid
           ? androidInfo?.version.release.toString()
           : iosInfo!.systemVersion.toString(),
-      "deviceToken": "string"
+      "deviceToken": "string",
+      "firebaseId": fcmToken
     };
     diopackage.Response finalData =
         await APIServices.postWithDioForlogin(apiUrl, data);
@@ -157,7 +159,6 @@ class VerifyotpController extends GetxController {
     if (otp == otpController.text.trim()) {
       if (fromLogin) {
         saveToken();
-
       } else {
         timer?.cancel();
         secondsRemaining = 150.obs;

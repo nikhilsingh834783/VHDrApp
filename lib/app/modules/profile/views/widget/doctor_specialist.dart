@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:venus/app/modules/profile/controllers/profile_controller.dart';
+
 import '../../../../app_common_widgets/common_text.dart';
 import '../../../../app_common_widgets/sizer_constant.dart';
 import '../../../../core/them/const_color.dart';
