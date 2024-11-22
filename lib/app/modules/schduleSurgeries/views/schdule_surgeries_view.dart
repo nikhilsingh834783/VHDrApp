@@ -549,13 +549,17 @@ class SchduleSurgeriesView extends GetView<SchduleSurgeriesController> {
                                     otschedulerController.getOperationName();
                                     otschedulerController
                                         .getAdditionalSurgeon();
-                                    Get.to(() => const OtschedulerView())!.then(
-                                        (value) {
+                                    Get.to(() => const OtschedulerView())!
+                                        .then((value) {
                                       calenderType = 1;
                                       previousDateEnable = true;
                                       controller.update();
-                                    }).then((value) => controller
-                                        .getOpdSchdulesDates(isLoader: true));
+                                    }).then((value) {
+                                      controller.getOpdSchdulesDates(
+                                          isLoader: true);
+                                      controller.getSchduleListApi(
+                                          isLoader: true);
+                                    });
                                   },
                                   bgColor: ConstColor.buttonColor,
                                   radius: 50,
