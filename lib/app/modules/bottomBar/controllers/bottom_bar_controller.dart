@@ -15,6 +15,7 @@ import '../views/bottom_bar_view.dart';
 
 class BottomBarController extends GetxController {
   final count = 0.obs;
+  int navigationCount = 1;
   PersistentTabController? persistentController =
       PersistentTabController(initialIndex: 1);
 
@@ -245,7 +246,30 @@ class BottomBarController extends GetxController {
     ];
   }
 
-  void onItemTapped(int index) {
+  void onItemTapped(int index, BuildContext context) {
+    // print(navigationCount);
+    // print(Routes.HOME);
+    // Navigator.of(context).popUntil((route) => route.isFirst);
+    // PersistentNavBarNavigator.popUntilFirstScreenOnSelectedTabScreen(
+    //   context,
+    //   routeName: Routes
+    //       .HOME, //If you haven't defined a routeName for the first screen of the selected tab then don't use the optional property `routeName`. Otherwise it may not work as intended
+    // );
+    if (navigationCount != 1 && index == 1) {
+      navigationCount = index;
+
+      print(tabChanged);
+      if (tabChanged) {
+        tabChanged = false;
+        update();
+        Get.offAll(const BottomBarView());
+      }
+    } else {
+      navigationCount = index;
+      update();
+    }
+    // print(index);
+    // PersistentNavBarNavigator.popUntilFirstScreenOnSelectedTabScreen(context);
     update();
   }
 }

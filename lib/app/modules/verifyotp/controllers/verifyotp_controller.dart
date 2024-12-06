@@ -111,16 +111,14 @@ class VerifyotpController extends GetxController {
         Get.rawSnackbar(message: "Login successfully");
         Get.offAll(const BottomBarView());
       } else {
-        //Get.rawSnackbar(message: finalData.data["message"]);
-        Get.rawSnackbar(message: "In the else of login view");
+        Get.rawSnackbar(message: finalData.data["message"]);
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data["message"]);
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      // Get.rawSnackbar(message: finalData.data["message"]);
-      Get.rawSnackbar(message: "In the else of login view");
+      Get.rawSnackbar(message: finalData.data["message"]);
     }
   }
 
@@ -150,8 +148,7 @@ class VerifyotpController extends GetxController {
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      //Get.rawSnackbar(message: finalData.data["message"]);
-      Get.rawSnackbar(message: "In the else of resend api");
+      Get.rawSnackbar(message: finalData.data["message"]);
     }
   }
 

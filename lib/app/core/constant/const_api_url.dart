@@ -41,6 +41,7 @@ String getContactsApi = "$drUrl/GetEmergencyContacts";
 String getInsuranceCompanies = "$drUrl/GetInsuranceCompanies";
 String getHospitalDoctorsApi = "$drUrl/GetHospitalDrs";
 String getProfile = "$drUrl/GetDrProfile";
+String getNotificationListApi = "$drUrl/GetDrNotifications";
 String saveDrProfile = "$drUrl/SaveDrProfile";
 String getDrSpecialities = "$drUrl/GetDrSpecialities";
 String getDrDegrees = "$drUrl/GetDrDegree";

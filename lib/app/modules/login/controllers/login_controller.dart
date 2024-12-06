@@ -56,12 +56,10 @@ class LoginController extends GetxController {
         if (withPaasword) {
           loginApiCall(context);
         } else {
-          // Get.to(const VerifyotpView());
           sendOtp(context);
         }
       } else {
-        // Get.rawSnackbar(message: finalData.data[0]["message"]);
-        Get.rawSnackbar(message: "In the else of validate mobile no");
+        Get.rawSnackbar(message: finalData.data[0]["message"]);
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data[0]["message"]);
@@ -69,9 +67,7 @@ class LoginController extends GetxController {
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      print(finalData.data);
-      Get.rawSnackbar(message: "Int the last else of validate mobile no");
-      //Get.rawSnackbar(message: finalData.data[0]["message"]);
+      Get.rawSnackbar(message: finalData.data[0]["message"]);
     }
   }
 
@@ -159,8 +155,7 @@ class LoginController extends GetxController {
             .then((value) => FocusManager.instance.primaryFocus?.unfocus());
         Get.rawSnackbar(message: loginResponse.data?.otpNo);
       } else {
-        Get.rawSnackbar(message: "In the else of otp ");
-        //Get.rawSnackbar(message: loginResponse.message);
+        Get.rawSnackbar(message: loginResponse.message);
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data["message"]);
@@ -168,8 +163,7 @@ class LoginController extends GetxController {
     } else if (finalData.statusCode == 500) {
       Get.rawSnackbar(message: "Internal server error");
     } else {
-      Get.rawSnackbar(message: "In last else of send otp");
-      //Get.rawSnackbar(message: finalData.data["message"]);
+      Get.rawSnackbar(message: finalData.data["message"]);
     }
   }
 
@@ -216,8 +210,7 @@ class LoginController extends GetxController {
         prefs.setBool('biometric', BiometricAuth.isBiomerticOn ?? false);
         Get.offAll(const BottomBarView());
       } else {
-        Get.rawSnackbar(message: "In the else of login controller");
-        // Get.rawSnackbar(message: finalData.data["message"]);
+        Get.rawSnackbar(message: finalData.data["message"]);
       }
     } else if (finalData.statusCode == 400) {
       Get.rawSnackbar(message: finalData.data["message"]);
@@ -228,8 +221,7 @@ class LoginController extends GetxController {
         Get.rawSnackbar(message: "Internal server error");
       }
     } else {
-      Get.rawSnackbar(message: "In the last else of login controller");
-      // Get.rawSnackbar(message: finalData.data["message"]);
+      Get.rawSnackbar(message: finalData.data["message"]);
     }
   }
 }

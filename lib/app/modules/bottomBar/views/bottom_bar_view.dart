@@ -127,7 +127,8 @@ class BottomBarView extends GetView<BottomBarController> {
               navBarHeight: hideBottomBar.value ? 0 : Sizes.crossLength * 0.082,
               decoration: NavBarDecoration(
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
                 colorBehindNavBar: Colors.transparent,
                 boxShadow: [
                   BoxShadow(
@@ -143,16 +144,18 @@ class BottomBarView extends GetView<BottomBarController> {
                   duration: Duration(milliseconds: 200),
                 ),
               ),
-            
+
               screens: controller.buildScreens(),
+              // hideOnScrollSettings:
+              //     const HideOnScrollSettings(hideNavBarOnScroll: true),
               items: controller.items(),
               navBarStyle: NavBarStyle.style8,
-
+              stateManagement: false,
               //stateManagement: true,
               resizeToAvoidBottomInset: true,
               bottomScreenMargin: Sizes.crossLength * 0.020,
               onItemSelected: (index) {
-                controller.onItemTapped(index);
+                controller.onItemTapped(index, context);
               },
               // popBehaviorOnSelectedNavBarItemPress: PopBehavior.once,
               // selectedTabScreenContext: (contxt) {

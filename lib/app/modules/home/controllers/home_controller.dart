@@ -8,6 +8,7 @@ import 'package:venus/app/core/services/api_service.dart';
 import 'package:venus/app/modules/bottomBar/controllers/bottom_bar_controller.dart';
 import 'package:venus/app/modules/home/model/dashboard_model.dart';
 import 'package:venus/app/modules/profile/controllers/profile_controller.dart';
+
 import '../../../../main.dart';
 import '../../login/views/login_view.dart';
 
@@ -56,16 +57,19 @@ class HomeController extends GetxController {
     dio_package.Response finalData =
         await APIServices.postMethodWithHeaderDioMapData(
             body: data, apiUrl: apiUrl, token: token, isShowLoader: true);
-    dataForDashBoard = DashBoardCountModel.fromJson(finalData.data);
-    if (dataForDashBoard!.statusCode == 200) {
-      update();
-    } else if (dataForDashBoard!.statusCode == 401) {
-      prefs.clear();
-      Get.offAll(const LoginView());
-      Get.rawSnackbar(
-          message: 'Your session has expired. Please log in again to continue');
-    } else {
-      Get.rawSnackbar(message: "Something went wrong");
+    if (finalData.statusCode == 200) {
+      dataForDashBoard = DashBoardCountModel.fromJson(finalData.data);
+      if (dataForDashBoard!.statusCode == 200) {
+        update();
+      } else if (dataForDashBoard!.statusCode == 401) {
+        prefs.clear();
+        Get.offAll(const LoginView());
+        Get.rawSnackbar(
+            message:
+                'Your session has expired. Please log in again to continue');
+      } else {
+        Get.rawSnackbar(message: "Something went wrong");
+      }
     }
   }
 }

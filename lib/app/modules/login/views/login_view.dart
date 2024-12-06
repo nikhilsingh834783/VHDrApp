@@ -178,36 +178,6 @@ class LoginView extends GetView<LoginController> {
                           ],
                         )
                       : const SizedBox(),
-                  // CustomPopupMenu(
-                  //   showArrow: false,
-                  //   position: PreferredPosition.bottom,
-                  //   menuBuilder: () => const ShowCaalenderWidget(),
-                  //   pressType: PressType.singleClick,
-                  //   verticalMargin: 5,
-                  //   horizontalMargin: 20,
-                  //   controller: controller.organizationPopupMenuController,
-                  //   onTap: () {
-                  //     controller.organizationPopupMenuController.showMenu();
-                  //   },
-                  //   child: SizedBox(
-                  //       width: Sizes.crossLength * 0.20,
-                  //       child: AppButton(
-                  //         radius: 50,
-                  //         text: controller.withPaasword
-                  //             ? 'Log In'
-                  //             : "Generate OTP",
-                  //         onPressed: () {
-                  //           controller.organizationPopupMenuController
-                  //               .showMenu();
-                  //           // FocusScope.of(context).unfocus();
-                  //           // // Get.to(() => const BottomBarView());
-                  //           // if (controller.loginFormKey.currentState!
-                  //           //     .validate()) {
-                  //           //   controller.validateMobileNo(context);
-                  //           // }
-                  //         },
-                  //       )),
-                  // ),
                   SizedBox(
                       width: Sizes.crossLength * 0.20,
                       child: AppButton(

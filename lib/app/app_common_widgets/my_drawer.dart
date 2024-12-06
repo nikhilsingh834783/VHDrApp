@@ -230,6 +230,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         Navigator.pop(context);
                         Get.put(ProfileController());
                         var homeController = Get.put(HomeController());
+                        // tabChanged = true;
                         PersistentNavBarNavigator.pushNewScreen(
                           context,
                           screen: ProfileView(
@@ -240,6 +241,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               PageTransitionAnimation.cupertino,
                         ).then((value) {
                           homeController.getDashboardData();
+                          // tabChanged = false;
                         });
                       },
                       child: Container(
@@ -367,6 +369,8 @@ class _MyDrawerState extends State<MyDrawer> {
                             patientController.getFilterData(isLoader: true);
                             patientController.getDashboardFilters(
                                 isLoader: false);
+                            tabChanged = true;
+                            setState(() {});
                             PersistentNavBarNavigator.pushNewScreen(
                               homeController.scaffoldKey.currentContext!,
                               screen: const PatientlistView(),
@@ -375,6 +379,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                   PageTransitionAnimation.cupertino,
                             ).then(
                                 (value) => homeController.getDashboardData());
+                            // tabChanged = false;
                           },
                           child: Row(
                             children: [
@@ -400,7 +405,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             Future.delayed(
                               const Duration(milliseconds: 300),
                             ).then((value) {});
-
+                            tabChanged = true;
                             Navigator.pop(context);
                             var schduleController =
                                 Get.put(SchduleSurgeriesController());
@@ -452,6 +457,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                 .then((value) {});
 
                             Navigator.pop(context);
+                            tabChanged = true;
                             var appointmentcontroller =
                                 Get.put(OpdAppointmentsController());
                             var homeController = Get.put(HomeController());
@@ -511,6 +517,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             schduleCharges.selectedOperationId = [];
                             schduleCharges.roomsData = [];
                             hideBottomBar.value = false;
+                            tabChanged = true;
                             schduleCharges.doctorsListData = [];
                             schduleCharges.operationClassListData = [];
                             schduleCharges.surgeryListData = [];
@@ -550,6 +557,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             var bottomBarCntrl = Get.put(BottomBarController());
                             bottomBarCntrl.persistentController!.jumpToTab(1);
                             bottomBarCntrl.update();
+                            tabChanged = true;
                             Future.delayed(const Duration(milliseconds: 300))
                                 .then((value) {});
 
@@ -592,6 +600,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             consultantController.paymentStatus = [];
                             consultantController.selectedItem = '2024'.obs;
                             consultantController.getConsultantPay();
+                            tabChanged = true;
                             consultantController.scrollController();
                             PersistentNavBarNavigator.pushNewScreen(
                               homeController.scaffoldKey.currentContext!,
@@ -638,6 +647,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             insuranceCompany.searchController.clear();
                             insuranceCompany.getInsuranceCompany(
                                 selectedTab: 'Cashless');
+                            tabChanged = true;
                             PersistentNavBarNavigator.pushNewScreen(
                               homeController.scaffoldKey.currentContext!,
                               screen: const InsuranceCompaniesView(),
@@ -675,7 +685,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             bottomBarCntrl.update();
                             Future.delayed(const Duration(milliseconds: 300))
                                 .then((value) {});
-
+                            tabChanged = true;
                             Navigator.pop(context);
                             var homeController = Get.put(HomeController());
                             var hospitalDoctor =

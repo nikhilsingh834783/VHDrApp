@@ -184,7 +184,7 @@ class InsuranceCompaniesView extends GetView<InsuranceCompaniesController> {
                           alignment: Alignment.bottomCenter,
                           child: SizedBox(
                             height: 45,
-                            width: 200,
+                            width: Sizes.crossLength * 0.230,
                             child: OutlinedButton.icon(
                               icon: SvgPicture.asset(
                                 "assets/images/svg/call.svg",

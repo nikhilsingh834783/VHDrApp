@@ -25,6 +25,7 @@ List<AppointMentLsitData> appointMentsDate = [];
 List<AppointMentLsitData> procedureDates = [];
 int calenderType = 0;
 bool previousDateEnable = false;
+bool tabChanged = false;
 String? fcmToken;
 
 NotificationService firebaseService = NotificationService();
